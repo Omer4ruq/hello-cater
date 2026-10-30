@@ -2,11 +2,11 @@
 
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowRight } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input, Select } from '@/components/ui/input';
-import { Field, FieldControl, FieldLabel } from '@/components/ui/field';
+import { Select } from '@/components/ui/select';
 import { track } from '@/lib/analytics';
+import { brand } from '@/config/brand';
 
 const SEGMENT_ORDER = ['corporate', 'wedding', 'private', 'social', 'government'] as const;
 const SEGMENT_LABELS: Record<string, string> = {
@@ -33,6 +33,10 @@ export function QuickRequestFormClient({
   const [cityId, setCityId] = React.useState(() => cities.find((c) => c.isLaunched)?.id ?? '');
   const [error, setError] = React.useState<string | null>(null);
 
+  // Without catalogue data (e.g. before the database is configured) the
+  // bar still works: occasion and city are picked in the wizard instead.
+  const hasCatalogue = eventTypes.length > 0;
+
   const today = React.useMemo(() => new Date().toISOString().slice(0, 10), []);
 
   const grouped = React.useMemo(() => {
@@ -45,7 +49,7 @@ export function QuickRequestFormClient({
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    if (!eventTypeId) {
+    if (hasCatalogue && !eventTypeId) {
       setError('Choose the type of event to continue.');
       return;
     }
@@ -53,81 +57,124 @@ export function QuickRequestFormClient({
     setPending(true);
     track('request_started', { source: 'home_hero', eventTypeId });
 
-    const params = new URLSearchParams({ eventType: eventTypeId });
+    const params = new URLSearchParams();
+    if (eventTypeId) params.set('eventType', eventTypeId);
     if (eventDate) params.set('date', eventDate);
     if (guestCount) params.set('guests', guestCount);
     if (cityId) params.set('city', cityId);
     router.push(`/plan?${params.toString()}`);
   }
 
-  // With no catalogue data (e.g. before the database is configured) the
-  // form still offers a working route into the wizard.
-  if (eventTypes.length === 0) {
-    return (
-      <Button asChild block size="lg">
-        <a href="/plan">
-          Start your request <ArrowRight aria-hidden />
-        </a>
-      </Button>
-    );
-  }
+  const errorId = React.useId();
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-      <Field error={error}>
-        <FieldLabel>What are you planning?</FieldLabel>
-        <FieldControl>
-          <Select value={eventTypeId} onChange={(e) => setEventTypeId(e.target.value)} required>
-            <option value="">Choose an event type</option>
-            {grouped.map((group) => (
-              <optgroup key={group.segment} label={SEGMENT_LABELS[group.segment] ?? group.segment}>
-                {group.items.map((item) => (
-                  <option key={item.id} value={item.id}>{item.name}</option>
-                ))}
-              </optgroup>
-            ))}
-          </Select>
-        </FieldControl>
-      </Field>
-
-      <div className="grid grid-cols-2 gap-3">
-        <Field>
-          <FieldLabel optional>Event date</FieldLabel>
-          <FieldControl>
-            <Input type="date" min={today} value={eventDate} onChange={(e) => setEventDate(e.target.value)} />
-          </FieldControl>
-        </Field>
-        <Field>
-          <FieldLabel optional>Guests</FieldLabel>
-          <FieldControl>
-            <Input
-              type="number" min={1} max={100000} inputMode="numeric" placeholder="e.g. 250"
-              value={guestCount} onChange={(e) => setGuestCount(e.target.value)}
-            />
-          </FieldControl>
-        </Field>
+    <form onSubmit={handleSubmit} noValidate className="w-full">
+      <div
+        className={
+          'flex flex-col rounded-3xl border border-ink-300 bg-white p-1.5 shadow-sm transition-colors duration-200 ' +
+          'md:flex-row md:items-center md:rounded-full md:p-0 has-[:focus]:bg-ink-100'
+        }
+      >
+        <BarSegment label="Occasion" className="md:flex-[1.5] md:pl-8">
+          {hasCatalogue ? (
+            <Select
+              variant="bare"
+              aria-label="Occasion"
+              value={eventTypeId}
+              onChange={(e) => { setEventTypeId(e.target.value); setError(null); }}
+              required
+              aria-invalid={error ? true : undefined}
+              aria-describedby={error ? errorId : undefined}
+            >
+              <option value="">What are you planning?</option>
+              {grouped.map((group) => (
+                <optgroup key={group.segment} label={SEGMENT_LABELS[group.segment] ?? group.segment}>
+                  {group.items.map((item) => (
+                    <option key={item.id} value={item.id}>{item.name}</option>
+                  ))}
+                </optgroup>
+              ))}
+            </Select>
+          ) : (
+            <span className="truncate text-sm text-ink-500">Choose on the next step</span>
+          )}
+        </BarSegment>
+        <BarDivider />
+        <BarSegment label="Date">
+          <input
+            type="date" min={today} value={eventDate}
+            onChange={(e) => setEventDate(e.target.value)}
+            className={barControl + (eventDate ? '' : ' text-ink-500')}
+          />
+        </BarSegment>
+        <BarDivider />
+        <BarSegment label="Guests">
+          <input
+            type="number" min={1} max={100000} inputMode="numeric" placeholder="How many?"
+            value={guestCount} onChange={(e) => setGuestCount(e.target.value)}
+            className={barControl}
+          />
+        </BarSegment>
+        <BarDivider />
+        <BarSegment label="City">
+          {cities.length === 0 ? (
+            <span className="truncate text-sm text-ink-900">{brand.launchCity}</span>
+          ) : (
+            <Select variant="bare" aria-label="City" value={cityId} onChange={(e) => setCityId(e.target.value)}>
+              {cities.map((city) => (
+                <option key={city.id} value={city.id} disabled={!city.isLaunched}>
+                  {city.name}{city.isLaunched ? '' : ' (coming soon)'}
+                </option>
+              ))}
+            </Select>
+          )}
+        </BarSegment>
+        <Button type="submit" size="lg" loading={pending} className="mt-1.5 rounded-full md:my-2 md:ml-1 md:mr-2 md:mt-2">
+          <Search aria-hidden /> Get proposals
+        </Button>
       </div>
 
-      <Field>
-        <FieldLabel>City</FieldLabel>
-        <FieldControl>
-          <Select value={cityId} onChange={(e) => setCityId(e.target.value)}>
-            {cities.map((city) => (
-              <option key={city.id} value={city.id} disabled={!city.isLaunched}>
-                {city.name}{city.isLaunched ? '' : ' (coming soon)'}
-              </option>
-            ))}
-          </Select>
-        </FieldControl>
-      </Field>
-
-      <Button type="submit" block size="lg" loading={pending}>
-        Continue <ArrowRight aria-hidden />
-      </Button>
-
-      <p className="text-center text-xs text-ink-500">
-        Free and non-binding. No payment details required.
+      <p id={errorId} role="alert" className="mt-3 min-h-5 text-center text-sm font-medium text-danger-700">
+        {error}
       </p>
     </form>
+  );
+}
+
+const barControl =
+  'w-full min-w-0 cursor-pointer truncate border-0 bg-transparent p-0 text-sm text-ink-900 ' +
+  'placeholder:text-ink-500 focus:outline-none [&::-webkit-calendar-picker-indicator]:opacity-50 ' +
+  '[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none';
+
+/** One field of the pill bar; lifts out as a white pill while focused. */
+function BarSegment({
+  label, className, children,
+}: {
+  label: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <label
+      className={
+        'flex min-w-0 flex-1 cursor-pointer flex-col justify-center rounded-full px-6 py-3 ' +
+        'transition-[background-color,box-shadow] duration-200 ease-out ' +
+        'hover:bg-ink-100 focus-within:bg-white focus-within:shadow-lg focus-within:hover:bg-white ' +
+        'md:min-h-16 ' + (className ?? '')
+      }
+    >
+      <span className="text-xs font-bold text-ink-900">{label}</span>
+      {children}
+    </label>
+  );
+}
+
+function BarDivider() {
+  // Fades out beside the focused segment, so the lifted pill reads as one shape.
+  return (
+    <span
+      aria-hidden
+      className="hidden h-8 w-px shrink-0 bg-ink-300 transition-opacity duration-200 md:block [label:focus-within+&]:opacity-0 [&:has(+label:focus-within)]:opacity-0"
+    />
   );
 }

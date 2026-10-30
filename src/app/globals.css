@@ -3,63 +3,64 @@
 /* =====================================================================
    Evently BD — design tokens
 
-   A warm, editorial system built for food and events: paper-toned
-   surfaces, a deep evergreen brand, saffron and terracotta accents.
-   Deliberately not the blue/purple gradient look of a generic SaaS kit.
+   Quiet, photo-led and precise: white surfaces, neutral greys, one
+   deep berry accent used sparingly, a single friendly sans (Figtree),
+   generous radii and soft neutral shadows. Photography carries the
+   colour; the interface stays out of its way.
    ===================================================================== */
 
 @theme {
-  /* ---- Brand ---- */
-  --color-brand-50:  #eef6f2;
-  --color-brand-100: #d5e9e0;
-  --color-brand-200: #abd3c2;
-  --color-brand-300: #78b6a0;
-  --color-brand-400: #48937c;
-  --color-brand-500: #2a7561;
-  --color-brand-600: #185c4b;
-  --color-brand-700: #0e4f3c;
-  --color-brand-800: #0b3e30;
-  --color-brand-900: #082d23;
-  --color-brand-950: #041a14;
+  /* ---- Brand: deep berry, reserved for primary actions and marks ---- */
+  --color-brand-50:  #fbf1f4;
+  --color-brand-100: #f6dee6;
+  --color-brand-200: #edbccd;
+  --color-brand-300: #e08faa;
+  --color-brand-400: #cf5f84;
+  --color-brand-500: #b83a63;
+  --color-brand-600: #a8264f;
+  --color-brand-700: #9b1c45;
+  --color-brand-800: #7d1638;
+  --color-brand-900: #5f112b;
+  --color-brand-950: #3b0a1a;
 
-  /* ---- Saffron: highlights, badges, the "verified" mark ---- */
-  --color-saffron-50:  #fdf7ec;
-  --color-saffron-100: #faecd0;
-  --color-saffron-200: #f4d69d;
-  --color-saffron-300: #ecbc66;
-  --color-saffron-400: #e0a33e;
-  --color-saffron-500: #cf8a26;
-  --color-saffron-600: #b06d1d;
-  --color-saffron-700: #8c521c;
-  --color-saffron-800: #73421d;
-  --color-saffron-900: #61381b;
+  /* ---- Saffron: muted gold for ratings and small highlights ---- */
+  --color-saffron-50:  #fbf7ee;
+  --color-saffron-100: #f5ebd3;
+  --color-saffron-200: #ead5a6;
+  --color-saffron-300: #dcbb74;
+  --color-saffron-400: #c9a04f;
+  --color-saffron-500: #b08637;
+  --color-saffron-600: #8f6a2a;
+  --color-saffron-700: #6f5223;
+  --color-saffron-800: #574120;
+  --color-saffron-900: #45341c;
 
-  /* ---- Terracotta: secondary accent, destructive-adjacent warmth ---- */
-  --color-clay-50:  #fcf4f1;
-  --color-clay-100: #f8e5dd;
-  --color-clay-200: #f1cdbf;
-  --color-clay-300: #e5ab96;
-  --color-clay-400: #d4816a;
-  --color-clay-500: #b75b3e;
-  --color-clay-600: #a04a31;
-  --color-clay-700: #853c2a;
-  --color-clay-800: #6d3427;
-  --color-clay-900: #5c2f24;
+  /* ---- Clay: muted rose, secondary accent ---- */
+  --color-clay-50:  #fbf3f3;
+  --color-clay-100: #f5e2e1;
+  --color-clay-200: #ebc4c2;
+  --color-clay-300: #dc9d99;
+  --color-clay-400: #c7746f;
+  --color-clay-500: #ad5550;
+  --color-clay-600: #924340;
+  --color-clay-700: #773634;
+  --color-clay-800: #602d2c;
+  --color-clay-900: #4f2626;
 
-  /* ---- Warm neutrals: paper, not cold grey ---- */
-  --color-ink-50:  #f7f6f3;
-  --color-ink-100: #eeece7;
-  --color-ink-200: #dcd8d0;
-  --color-ink-300: #c2bcb0;
-  --color-ink-400: #a19a8b;
-  --color-ink-500: #857e70;
-  --color-ink-600: #6b655a;
-  --color-ink-700: #56514a;
-  --color-ink-800: #3b3833;
-  --color-ink-900: #23211e;
-  --color-ink-950: #14110e;
+  /* ---- Neutrals: true greys ---- */
+  --color-ink-50:  #f7f7f7;
+  --color-ink-100: #f0f0f0;
+  --color-ink-200: #ebebeb;
+  --color-ink-300: #dddddd;
+  --color-ink-400: #929292;
+  --color-ink-500: #6a6a6a;
+  --color-ink-600: #5e5e5e;
+  --color-ink-700: #484848;
+  --color-ink-800: #333333;
+  --color-ink-900: #222222;
+  --color-ink-950: #161616;
 
-  --color-paper: #fbf9f5;
+  --color-paper: #ffffff;
   --color-paper-raised: #ffffff;
 
   /* ---- Status ---- */
@@ -76,25 +77,25 @@
   --color-info-500:    #2f6f96;
   --color-info-700:    #1d4f6d;
 
-  /* ---- Type ---- */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
-  --font-bangla: var(--font-bangla), var(--font-inter), sans-serif;
+  /* ---- Type: one family; the display role is weight, not a serif ---- */
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-bangla: var(--font-bangla), var(--font-figtree), sans-serif;
 
   /* ---- Radii ---- */
   --radius-xs: 0.25rem;
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.625rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
 
-  /* ---- Elevation: low-contrast, warm-tinted ---- */
-  --shadow-xs: 0 1px 2px 0 rgb(35 33 30 / 0.05);
-  --shadow-sm: 0 1px 3px 0 rgb(35 33 30 / 0.07), 0 1px 2px -1px rgb(35 33 30 / 0.05);
-  --shadow-md: 0 4px 12px -2px rgb(35 33 30 / 0.08), 0 2px 4px -2px rgb(35 33 30 / 0.05);
-  --shadow-lg: 0 12px 28px -6px rgb(35 33 30 / 0.10), 0 4px 10px -4px rgb(35 33 30 / 0.05);
-  --shadow-xl: 0 24px 48px -12px rgb(35 33 30 / 0.14);
+  /* ---- Elevation: soft, neutral ---- */
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.06);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.08), 0 2px 6px 0 rgb(0 0 0 / 0.04);
+  --shadow-md: 0 6px 16px 0 rgb(0 0 0 / 0.10);
+  --shadow-lg: 0 6px 20px 0 rgb(0 0 0 / 0.18);
+  --shadow-xl: 0 16px 40px -8px rgb(0 0 0 / 0.22);
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -112,7 +113,7 @@
     --text: var(--color-ink-950);
     --text-muted: var(--color-ink-600);
     --text-subtle: var(--color-ink-500);
-    --focus: var(--color-brand-600);
+    --focus: var(--color-ink-900);
   }
 
   * {
@@ -121,6 +122,7 @@
 
   html {
     -webkit-text-size-adjust: 100%;
+    interpolate-size: allow-keywords;
     /* Deliberately NOT `scroll-behavior: smooth` on the root element.
        It hijacks every scroll the user agent performs — keyboard paging,
        find-in-page, focus restoration and programmatic scrollIntoView —
@@ -133,15 +135,14 @@
     background-color: var(--surface);
     color: var(--text);
     font-family: var(--font-sans);
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-    -webkit-font-smoothing: antialiased;
+        -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 500;
-    letter-spacing: -0.02em;
+    font-weight: 700;
+    letter-spacing: -0.025em;
     text-wrap: balance;
   }
 
@@ -155,7 +156,7 @@
   }
 
   ::selection {
-    background-color: var(--color-saffron-200);
+    background-color: var(--color-brand-100);
     color: var(--color-ink-950);
   }
 
@@ -182,10 +183,8 @@
   .text-display-sm { font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.15; }
 
   .eyebrow {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
     color: var(--color-brand-700);
   }
 
@@ -207,6 +206,93 @@
   .hide-scrollbar { scrollbar-width: none; }
 }
 
+
+/* =====================================================================
+   Motion system
+
+   Every animation communicates a state change: something opened,
+   arrived or moved. Enter is slower and eased out; exit is quick and
+   eased in, so the old state never competes with the new one. Only
+   opacity and transforms are animated.
+   ===================================================================== */
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes fade-out { to { opacity: 0; } }
+@keyframes pop-in { from { opacity: 0; transform: translateY(-4px) scale(0.97); } }
+@keyframes pop-out { to { opacity: 0; transform: translateY(-2px) scale(0.98); } }
+@keyframes dialog-in { from { opacity: 0; transform: translateY(8px) scale(0.96); } }
+@keyframes dialog-out { to { opacity: 0; transform: scale(0.97); } }
+@keyframes slide-in-right { from { transform: translateX(100%); } }
+@keyframes slide-out-right { to { transform: translateX(100%); } }
+@keyframes slide-in-left { from { transform: translateX(-100%); } }
+@keyframes slide-out-left { to { transform: translateX(-100%); } }
+@keyframes rise-in { from { opacity: 0; transform: translateY(10px); } }
+@keyframes reveal-up { from { opacity: 0; transform: translateY(28px); } }
+
+/* Radix overlays animate on both open and close: Radix keeps the node
+   mounted until the closing animation ends. */
+.motion-overlay[data-state='open'] { animation: fade-in 220ms ease-out; }
+.motion-overlay[data-state='closed'] { animation: fade-out 160ms ease-in; }
+.motion-dialog[data-state='open'] { animation: dialog-in 280ms var(--ease-out-expo); }
+.motion-dialog[data-state='closed'] { animation: dialog-out 150ms ease-in; }
+.motion-sheet-right[data-state='open'] { animation: slide-in-right 460ms var(--ease-drawer); }
+.motion-sheet-right[data-state='closed'] { animation: slide-out-right 260ms var(--ease-drawer); }
+.motion-sheet-left[data-state='open'] { animation: slide-in-left 460ms var(--ease-drawer); }
+.motion-sheet-left[data-state='closed'] { animation: slide-out-left 260ms var(--ease-drawer); }
+.motion-pop {
+  transform-origin: var(--radix-select-content-transform-origin, var(--radix-dropdown-menu-content-transform-origin, var(--radix-popper-transform-origin, top)));
+}
+.motion-pop[data-state='open'] { animation: pop-in 200ms var(--ease-out-expo); }
+.motion-pop[data-state='closed'] { animation: pop-out 120ms ease-in; }
+
+/* Children arrive one after another (menus, drawer links). */
+.motion-stagger > * { animation: rise-in 480ms var(--ease-out-expo) both; }
+.motion-stagger > :nth-child(2) { animation-delay: 30ms; }
+.motion-stagger > :nth-child(3) { animation-delay: 60ms; }
+.motion-stagger > :nth-child(4) { animation-delay: 90ms; }
+.motion-stagger > :nth-child(5) { animation-delay: 120ms; }
+.motion-stagger > :nth-child(6) { animation-delay: 150ms; }
+.motion-stagger > :nth-child(7) { animation-delay: 180ms; }
+.motion-stagger > :nth-child(8) { animation-delay: 210ms; }
+.motion-stagger > :nth-child(9) { animation-delay: 240ms; }
+.motion-stagger > :nth-child(n + 10) { animation-delay: 270ms; }
+
+/* Arrows that lead somewhere nudge forward when their control is hovered. */
+.icon-nudge { transition: transform 220ms var(--ease-out-expo); }
+:is(a, button):hover > .icon-nudge,
+.group:hover .icon-nudge { transform: translateX(3px); }
+
+/* Sections ease in as they scroll into view. Scroll-driven, no JS;
+   browsers without support simply show the content. */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+
+/* <details> opens and closes smoothly where the browser supports it. */
+details::details-content {
+  block-size: 0;
+  overflow-y: clip;
+  transition: block-size 320ms var(--ease-out-expo), content-visibility 320ms allow-discrete;
+}
+details[open]::details-content { block-size: auto; }
+
+/* Page navigation: the old page leaves quickly, the new one rises in.
+   The header is anchored so the viewer keeps a fixed point. */
+::view-transition { pointer-events: none; }
+::view-transition-old(.page-exit) { animation: 140ms ease-in both fade-out; }
+::view-transition-new(.page-enter) { animation: 380ms var(--ease-out-expo) 80ms both rise-in; }
+::view-transition-group(site-header) { animation: none; z-index: 100; }
+::view-transition-old(site-header) { display: none; }
+::view-transition-new(site-header) { animation: none; }
+
 /* Respect the user's motion preference across the whole product. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -216,6 +302,13 @@
     scroll-behavior: auto !important;
   }
   .skeleton { animation: none; }
+  .reveal { animation: none; }
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
 }
 
 /* Print: invoices and proposals are printed constantly in this market. */

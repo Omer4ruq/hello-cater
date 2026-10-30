@@ -14,11 +14,11 @@ export function DialogContent({
 }: React.ComponentProps<typeof D.Content> & { size?: 'sm' | 'md' | 'lg' | 'xl' }) {
   return (
     <D.Portal>
-      <D.Overlay className="fixed inset-0 z-50 bg-ink-950/40 backdrop-blur-[2px] data-[state=open]:animate-in data-[state=open]:fade-in" />
+      <D.Overlay className="motion-overlay fixed inset-0 z-50 bg-ink-950/40 backdrop-blur-[2px]" />
       <D.Content
         className={cn(
           'fixed left-1/2 top-1/2 z-50 w-[calc(100vw-2rem)] -translate-x-1/2 -translate-y-1/2',
-          'max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-xl border border-ink-200 bg-white p-6 shadow-xl',
+          'motion-dialog max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-2xl border border-ink-200 bg-white p-6 shadow-xl',
           { sm: 'max-w-md', md: 'max-w-lg', lg: 'max-w-2xl', xl: 'max-w-4xl' }[size],
           className,
         )}
@@ -26,7 +26,7 @@ export function DialogContent({
       >
         {children}
         <D.Close
-          className="absolute right-4 top-4 rounded-md p-1 text-ink-500 transition-colors hover:bg-ink-100 hover:text-ink-900"
+          className="absolute right-4 top-4 rounded-full p-1.5 text-ink-500 transition-colors hover:bg-ink-100 hover:text-ink-900"
           aria-label="Close"
         >
           <X aria-hidden className="size-4" />

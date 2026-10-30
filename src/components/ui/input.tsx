@@ -2,35 +2,22 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 const base =
-  'w-full rounded-md border border-ink-200 bg-white px-3 text-sm text-ink-950 shadow-xs ' +
-  'placeholder:text-ink-400 transition-colors ' +
-  'hover:border-ink-300 focus:border-brand-600 ' +
+  'w-full rounded-lg border border-ink-300 bg-white px-3.5 text-sm text-ink-950 ' +
+  'placeholder:text-ink-500 transition-[border-color,box-shadow] duration-150 ' +
+  'hover:border-ink-400 focus:border-ink-900 focus:shadow-[0_0_0_1px_var(--color-ink-900)] focus-visible:outline-none ' +
   'disabled:cursor-not-allowed disabled:bg-ink-50 disabled:text-ink-500 ' +
   'aria-[invalid=true]:border-danger-500 aria-[invalid=true]:focus:outline-danger-500';
 
 export function Input({ className, ...props }: React.ComponentProps<'input'>) {
-  return <input className={cn(base, 'h-10', className)} {...props} />;
+  return <input className={cn(base, 'h-11', className)} {...props} />;
 }
 
 export function Textarea({ className, ...props }: React.ComponentProps<'textarea'>) {
   return <textarea className={cn(base, 'min-h-24 py-2.5 leading-relaxed', className)} {...props} />;
 }
 
-export function Select({ className, children, ...props }: React.ComponentProps<'select'>) {
-  return (
-    <select
-      className={cn(
-        base, 'h-10 appearance-none bg-no-repeat pr-9',
-        "bg-[url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='%236b655a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m19.5 8.25-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E\")]",
-        'bg-[position:right_0.65rem_center] bg-[size:1.1rem]',
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </select>
-  );
-}
+// The designed dropdown lives in ./select; re-exported so existing imports keep working.
+export { Select } from './select';
 
 /**
  * Money input. Displays taka, emits poisha, and never lets a float reach
@@ -79,7 +66,7 @@ export function TakaInput({
           setText(raw);
           onValueChange(raw === '' ? null : Math.round(Number(raw) * 100));
         }}
-        className={cn(base, 'h-10 pl-7', className)}
+        className={cn(base, 'h-11 pl-7', className)}
       />
     </div>
   );

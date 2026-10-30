@@ -1,89 +1,69 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Users, Wallet } from 'lucide-react';
-import { Card } from '@/components/ui/card';
-import { Badge, VerifiedBadge } from '@/components/ui/badge';
+import { ArrowRight, BadgeCheck, Star } from 'lucide-react';
 import { Money } from '@/components/ui/money';
 import type { PartnerCard as PartnerCardData } from '../queries';
 
-/** Marketplace listing card. Kept dense but calm — it appears 12 at a time. */
+/**
+ * Marketplace listing card: the photo leads, details sit quietly below.
+ * Same rhythm everywhere partners are listed.
+ */
 export function PartnerCard({ partner, priority }: { partner: PartnerCardData; priority?: boolean }) {
+  const details = [
+    partner.maxGuests ? `Up to ${partner.maxGuests} guests` : null,
+    partner.completedBookings > 0 ? `${partner.completedBookings} events delivered` : null,
+  ].filter(Boolean);
+
   return (
-    <Link href={`/partners/${partner.slug}`} className="group block h-full">
-      <Card interactive className="flex h-full flex-col overflow-hidden">
-        <div className="relative h-44 bg-ink-100">
-          <Image
-            src={partner.coverImageUrl ?? '/img/partner.svg'}
-            alt=""
-            fill
-            priority={priority}
-            sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          />
-          <div className="absolute left-3 top-3 flex gap-1.5">
-            <VerifiedBadge />
-            {partner.isFeatured ? <Badge tone="saffron">Featured</Badge> : null}
-          </div>
-        </div>
-
-        <div className="flex flex-1 flex-col p-5">
-          <h3 className="font-sans text-base font-semibold text-ink-950 group-hover:text-brand-800">
-            {partner.displayName}
-          </h3>
-          {partner.tagline ? (
-            <p className="mt-1 line-clamp-2 text-sm text-ink-600">{partner.tagline}</p>
+    <Link href={`/partners/${partner.slug}`} className="group block min-w-0">
+      <div className="relative aspect-20/19 overflow-hidden rounded-2xl bg-ink-100">
+        <Image
+          src={partner.coverImageUrl ?? '/img/photos/chef.jpg'}
+          alt=""
+          fill
+          priority={priority}
+          sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 100vw"
+          className="object-cover transition-transform duration-700 ease-(--ease-out-expo) group-hover:scale-105"
+        />
+        <div className="absolute left-3 top-3 flex gap-1.5">
+          <span className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-xs font-bold text-ink-900 shadow-md">
+            <BadgeCheck aria-hidden className="size-3.5 text-brand-700" /> Verified
+          </span>
+          {partner.isFeatured ? (
+            <span className="rounded-full bg-ink-900 px-3 py-1 text-xs font-bold text-white shadow-md">Featured</span>
           ) : null}
-
-          <dl className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1.5 pt-4 text-xs text-ink-600">
-            <div className="flex items-center gap-1">
-              <dt className="sr-only">Rating</dt>
-              <dd>
-                {partner.ratingCount > 0 ? (
-                  <>
-                    <span className="font-medium text-ink-900">★ {partner.ratingAvg.toFixed(1)}</span>{' '}
-                    <span>({partner.ratingCount})</span>
-                  </>
-                ) : (
-                  <Badge tone="neutral">New partner</Badge>
-                )}
-              </dd>
-            </div>
-
-            {partner.completedBookings > 0 ? (
-              <div className="flex items-center gap-1">
-                <dt className="sr-only">Events delivered</dt>
-                <dd>{partner.completedBookings} events</dd>
-              </div>
-            ) : null}
-
-            {partner.maxGuests ? (
-              <div className="flex items-center gap-1">
-                <dt className="sr-only">Capacity</dt>
-                <Users aria-hidden className="size-3" />
-                <dd>up to {partner.maxGuests}</dd>
-              </div>
-            ) : null}
-
-            {partner.priceFromMinor ? (
-              <div className="flex items-center gap-1">
-                <dt className="sr-only">From</dt>
-                <Wallet aria-hidden className="size-3" />
-                <dd>
-                  from <Money minor={partner.priceFromMinor} compact />
-                </dd>
-              </div>
-            ) : partner.minOrderMinor > 0 ? (
-              <div className="flex items-center gap-1">
-                <dt className="sr-only">Minimum order</dt>
-                <Wallet aria-hidden className="size-3" />
-                <dd>
-                  min <Money minor={partner.minOrderMinor} compact />
-                </dd>
-              </div>
-            ) : null}
-          </dl>
         </div>
-      </Card>
+        <span
+          aria-hidden
+          className="absolute bottom-3 right-3 inline-flex translate-y-2 items-center gap-1 rounded-full bg-white px-3.5 py-2 text-xs font-bold text-ink-900 opacity-0 shadow-md transition-[opacity,translate] duration-300 ease-(--ease-out-expo) group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
+        >
+          View profile <ArrowRight className="icon-nudge size-3.5" />
+        </span>
+      </div>
+
+      <div className="mt-3 flex items-baseline justify-between gap-2">
+        <h3 className="truncate font-sans text-base font-semibold text-ink-900">{partner.displayName}</h3>
+        {partner.ratingCount > 0 ? (
+          <span className="flex shrink-0 items-center gap-1 text-sm text-ink-900">
+            <Star aria-hidden className="size-3.5 fill-current" />
+            {partner.ratingAvg.toFixed(2)}
+            <span className="sr-only">out of 5 from {partner.ratingCount} reviews</span>
+          </span>
+        ) : (
+          <span className="shrink-0 text-sm text-ink-900">New</span>
+        )}
+      </div>
+      {partner.tagline ? <p className="truncate text-sm text-ink-600">{partner.tagline}</p> : null}
+      {details.length > 0 ? <p className="text-sm text-ink-600">{details.join(' · ')}</p> : null}
+      {partner.priceFromMinor ? (
+        <p className="mt-1 text-sm text-ink-900">
+          <span className="font-semibold">from <Money minor={partner.priceFromMinor} compact /></span>
+        </p>
+      ) : partner.minOrderMinor > 0 ? (
+        <p className="mt-1 text-sm text-ink-900">
+          <span className="font-semibold"><Money minor={partner.minOrderMinor} compact /></span> minimum order
+        </p>
+      ) : null}
     </Link>
   );
 }

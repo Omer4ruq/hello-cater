@@ -107,4 +107,6 @@ Writing the tests was not a formality — it found eight genuine defects.
 | Tests | 143 unit/DB, 42 E2E, all passing |
 | Documentation | Complete |
 
+**UI redesign (in progress since 2026-10-30):** see [plans/ui-redesign.md](./plans/ui-redesign.md) and [DESIGN-SYSTEM.md](./DESIGN-SYSTEM.md).
+
 **Not built, deliberately:** staff MFA, a dedicated corporate-portal UI, self-service partner document upload, server-side PDF rendering, SMS/WhatsApp delivery, an AI layer. Each is either premature or blocked on a business decision. See the known-gaps table in [PRODUCTION-CHECKLIST.md](./PRODUCTION-CHECKLIST.md#known-gaps-at-launch).

@@ -1,21 +1,14 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Fraunces, Noto_Sans_Bengali } from 'next/font/google';
+import { Figtree, Noto_Sans_Bengali } from 'next/font/google';
 import { Toaster } from 'sonner';
 import { brand } from '@/config/brand';
 import { appUrl } from '@/lib/env';
 import './globals.css';
 
-const inter = Inter({
+const figtree = Figtree({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-figtree',
   display: 'swap',
-});
-
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  variable: '--font-fraunces',
-  display: 'swap',
-  axes: ['SOFT', 'WONK', 'opsz'],
 });
 
 const bangla = Noto_Sans_Bengali({
@@ -39,7 +32,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0e4f3c',
+  themeColor: '#ffffff',
   colorScheme: 'light',
   width: 'device-width',
   initialScale: 1,
@@ -47,7 +40,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable} ${bangla.variable}`}>
+    <html lang="en" className={`${figtree.variable} ${bangla.variable}`}>
       <body className="min-h-dvh antialiased">
         <a
           href="#main"
@@ -60,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           position="bottom-right"
           toastOptions={{
             classNames: {
-              toast: 'rounded-lg border border-ink-200 bg-white text-ink-900 shadow-lg',
+              toast: 'rounded-xl border border-ink-200 bg-white text-ink-900 shadow-lg',
               description: 'text-ink-600',
             },
           }}

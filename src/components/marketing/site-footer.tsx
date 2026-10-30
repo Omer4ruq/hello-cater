@@ -45,12 +45,12 @@ const COLUMNS = [
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 border-t border-ink-200 bg-ink-950 text-ink-300">
+    <footer className="mt-24 border-t border-ink-200 bg-ink-50 text-ink-700">
       <div className="container-page py-14">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_repeat(4,minmax(0,1fr))]">
           <div>
-            <Logo mono showTagline href="/" />
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink-400">
+            <Logo showTagline href="/" />
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink-600">
               {brand.description}
             </p>
             <ul className="mt-6 space-y-2.5 text-sm">
@@ -62,13 +62,13 @@ export function SiteFooter() {
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone aria-hidden className="size-4 shrink-0 text-ink-500" />
-                <a className="hover:text-white" href={`tel:${brand.supportPhone}`}>
+                <a className="hover:text-ink-900 hover:underline" href={`tel:${brand.supportPhone}`}>
                   {brand.supportPhoneDisplay}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail aria-hidden className="size-4 shrink-0 text-ink-500" />
-                <a className="hover:text-white" href={`mailto:${brand.supportEmail}`}>
+                <a className="hover:text-ink-900 hover:underline" href={`mailto:${brand.supportEmail}`}>
                   {brand.supportEmail}
                 </a>
               </li>
@@ -77,13 +77,13 @@ export function SiteFooter() {
 
           {COLUMNS.map((col) => (
             <nav key={col.title} aria-label={col.title}>
-              <h2 className="font-sans text-xs font-semibold uppercase tracking-wider text-white">
+              <h2 className="font-sans text-sm font-semibold text-ink-900">
                 {col.title}
               </h2>
               <ul className="mt-4 space-y-2.5">
                 {col.links.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-sm text-ink-400 transition-colors hover:text-white">
+                    <Link href={link.href} className="text-sm text-ink-700 underline-offset-4 hover:text-ink-900 hover:underline">
                       {link.label}
                     </Link>
                   </li>
@@ -93,7 +93,7 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-ink-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-ink-300 pt-6 text-sm text-ink-600 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {brand.legalName}. All rights reserved.
           </p>

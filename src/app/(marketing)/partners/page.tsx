@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
-import { Search } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowRight, Search } from 'lucide-react';
 import { PartnerCard } from '@/features/marketplace/components/partner-card';
 import { SearchFilters } from '@/features/marketplace/components/search-filters';
 import { searchPartners } from '@/features/marketplace/queries';
@@ -36,28 +37,41 @@ export default async function PartnersPage({
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: 'Home', path: '/' }, { name: 'Partners', path: '/partners' }])} />
 
-      <section className="border-b border-ink-200 bg-white">
-        <div className="container-page py-14 lg:py-20">
+      <section className="container-page grid items-center gap-12 py-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:py-20">
+        <div>
           <p className="eyebrow">Our network</p>
-          <h1 className="mt-2 max-w-3xl text-display-lg">
+          <h1 className="mt-3 max-w-3xl text-display-lg font-extrabold">
             Verified catering and event partners in {brand.launchCity}
           </h1>
-          <p className="mt-5 max-w-2xl text-lg text-ink-600">
+          <p className="mt-5 max-w-xl text-lg text-ink-600">
             Every partner here has passed business verification and capacity checks. Browse them, or
             skip the browsing and let our team shortlist for your specific brief.
           </p>
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg">
-              <Link href="/plan">Get matched partners</Link>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="lg" className="rounded-full px-7">
+              <Link href="/plan">
+                Get matched partners <ArrowRight aria-hidden className="icon-nudge" />
+              </Link>
             </Button>
-            <Button asChild size="lg" variant="secondary">
+            <Button asChild size="lg" variant="secondary" className="rounded-full px-7">
               <Link href="/how-it-works">How it works</Link>
             </Button>
           </div>
         </div>
+        <div aria-hidden className="hidden h-96 grid-cols-2 grid-rows-2 gap-3 lg:grid">
+          <div className="relative row-span-2 overflow-hidden rounded-3xl">
+            <Image src="/img/photos/stage.jpg" alt="" fill priority sizes="22vw" className="object-cover" />
+          </div>
+          <div className="relative overflow-hidden rounded-3xl">
+            <Image src="/img/photos/buffet.jpg" alt="" fill sizes="18vw" className="object-cover" />
+          </div>
+          <div className="relative overflow-hidden rounded-3xl">
+            <Image src="/img/photos/banquet.jpg" alt="" fill sizes="18vw" className="object-cover" />
+          </div>
+        </div>
       </section>
 
-      <section className="container-page py-12">
+      <section className="container-page pb-16">
         <Suspense fallback={<div className="h-24" />}>
           <PartnerResults
             params={params}
@@ -113,14 +127,14 @@ async function PartnerResults({
           description="We are onboarding partners continuously. Tell us your requirement and our team will match you manually — including partners not yet listed publicly."
           action={
             <div className="flex flex-wrap justify-center gap-3">
-              <Button asChild><Link href="/plan">Submit a requirement</Link></Button>
-              <Button asChild variant="secondary"><Link href="/partners">Clear filters</Link></Button>
+              <Button asChild size="lg" className="rounded-full"><Link href="/plan">Submit a requirement</Link></Button>
+              <Button asChild size="lg" variant="secondary" className="rounded-full"><Link href="/partners">Clear filters</Link></Button>
             </div>
           }
         />
       ) : (
         <>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {result.rows.map((partner, index) => (
               <PartnerCard key={partner.id} partner={partner} priority={index < 4} />
             ))}

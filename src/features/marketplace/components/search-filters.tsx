@@ -72,10 +72,10 @@ export function SearchFilters({
     <div className="mb-8">
       <div className="flex flex-wrap items-center gap-2">
         <div className="relative min-w-56 flex-1">
-          <Search aria-hidden className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-ink-400" />
+          <Search aria-hidden className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-ink-500" />
           <Input
             type="search" value={query} onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search partners by name…" aria-label="Search partners" className="pl-9"
+            placeholder="Search partners by name…" aria-label="Search partners" className="h-12 rounded-full pl-11"
           />
         </div>
 
@@ -83,7 +83,7 @@ export function SearchFilters({
           variant="secondary"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className="lg:hidden"
+          className="h-12 rounded-full px-5 lg:hidden"
         >
           <SlidersHorizontal aria-hidden /> Filters
           {active.length > 0 ? <Badge tone="brand">{active.length}</Badge> : null}
@@ -91,7 +91,7 @@ export function SearchFilters({
 
         <Select
           aria-label="Sort by"
-          className="w-auto min-w-40"
+          className="h-12 w-auto min-w-44 rounded-full px-5"
           value={searchParams.get('sort') ?? 'recommended'}
           onChange={(e) => apply({ sort: e.target.value === 'recommended' ? null : e.target.value })}
         >
@@ -107,6 +107,7 @@ export function SearchFilters({
           <Select
             key={filter.key}
             aria-label={filter.label}
+            className="rounded-full px-4"
             value={searchParams.get(filter.key) ?? ''}
             onChange={(e) => apply({ [filter.key]: e.target.value || null })}
           >
@@ -120,6 +121,7 @@ export function SearchFilters({
         <Input
           type="number" min={1} placeholder="Guests"
           aria-label="Minimum capacity for guests"
+          className="rounded-full px-4"
           defaultValue={searchParams.get('guests') ?? ''}
           onBlur={(e) => apply({ guests: e.target.value || null })}
         />

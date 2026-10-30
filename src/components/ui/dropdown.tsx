@@ -13,7 +13,7 @@ export function DropdownContent({ className, ...props }: React.ComponentProps<ty
       <DM.Content
         sideOffset={6}
         className={cn(
-          'z-50 min-w-48 overflow-hidden rounded-lg border border-ink-200 bg-white p-1 shadow-lg',
+          'motion-pop z-50 min-w-48 overflow-hidden rounded-xl border border-ink-200 bg-white p-1.5 shadow-lg',
           className,
         )}
         {...props}
@@ -26,7 +26,7 @@ export function DropdownItem({ className, ...props }: React.ComponentProps<typeo
   return (
     <DM.Item
       className={cn(
-        'flex cursor-pointer items-center gap-2 rounded-md px-2.5 py-2 text-sm text-ink-800 outline-none',
+        'flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-ink-800 outline-none transition-colors duration-150',
         'data-[highlighted]:bg-ink-100 data-[highlighted]:text-ink-950',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         '[&_svg]:size-4 [&_svg]:text-ink-500',
