@@ -94,9 +94,20 @@ Created by `supabase/seed_demo.sql`. **Password for all of them: `DemoPassword20
 | Company admin | `company.admin@demo.eventlybd.test` | ABC Technologies corporate account |
 | Company staff | `company.staff@demo.eventlybd.test` | Same company, limited spend |
 | Individual customer | `customer@demo.eventlybd.test` | A confirmed holud event |
-| Caterer | `caterer@demo.eventlybd.test` | Partner dashboard with live quotes |
-| Decorator | `decorator@demo.eventlybd.test` | Partner dashboard |
-| Photographer | `photographer@demo.eventlybd.test` | Partner dashboard |
+| Caterer | `caterer@demo.eventlybd.test` | Bengal Feast Catering |
+| Caterer | `kacchi@demo.eventlybd.test` | Kacchi Bari Events |
+| Caterer | `zaika@demo.eventlybd.test` | Zaika Corporate Kitchen |
+| Decorator | `decorator@demo.eventlybd.test` | Orchid Decor Studio |
+| Decorator | `shobuj@demo.eventlybd.test` | Shobuj Mandap Decoration |
+| Photographer | `photographer@demo.eventlybd.test` | Lens & Light Studio |
+| Videographer | `framestory@demo.eventlybd.test` | Frame Story Films |
+| Event planner | `planner@demo.eventlybd.test` | Aurora Event Management |
+| Stage & AV | `sound@demo.eventlybd.test` | Dhaka Stage Productions |
+| Sound & lighting | `nagar@demo.eventlybd.test` | Nagar Sound & Lighting (pending verification) |
+
+Partners see invited requests by event type and reference (`REQ-…`), never the customer's name: the platform holds customer details.
+
+> The original five partner logins also co-own a second business, but the partner dashboard opens a user's first business and has no switcher, so use the dedicated logins above for those businesses.
 
 These addresses use the reserved `.test` TLD, so they can never receive real mail.
 

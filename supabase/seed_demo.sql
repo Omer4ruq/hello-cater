@@ -43,7 +43,14 @@ insert into demo_people (id, email, full_name, phone) values
   ('33333333-0000-4000-8000-000000000002','decorator@demo.eventlybd.test','Shampa Das','+8801713000002'),
   ('33333333-0000-4000-8000-000000000003','photographer@demo.eventlybd.test','Imran Sheikh','+8801713000003'),
   ('33333333-0000-4000-8000-000000000004','planner@demo.eventlybd.test','Sadia Noor','+8801713000004'),
-  ('33333333-0000-4000-8000-000000000005','sound@demo.eventlybd.test','Jubayer Alam','+8801713000005');
+  ('33333333-0000-4000-8000-000000000005','sound@demo.eventlybd.test','Jubayer Alam','+8801713000005'),
+  -- One login per partner business: the partner dashboard opens a user's
+  -- first business, so these make the second businesses reachable.
+  ('33333333-0000-4000-8000-000000000006','kacchi@demo.eventlybd.test','Habib Rahman','+8801713000006'),
+  ('33333333-0000-4000-8000-000000000007','zaika@demo.eventlybd.test','Tasnim Ahmed','+8801713000007'),
+  ('33333333-0000-4000-8000-000000000008','shobuj@demo.eventlybd.test','Mitu Begum','+8801713000008'),
+  ('33333333-0000-4000-8000-000000000009','framestory@demo.eventlybd.test','Arif Hossain','+8801713000009'),
+  ('33333333-0000-4000-8000-000000000010','nagar@demo.eventlybd.test','Rubel Mia','+8801713000010');
 
 -- confirmed_at is generated on Supabase; the token columns must be ''
 -- rather than NULL or Supabase Auth fails to sign the user in.
@@ -131,6 +138,14 @@ on conflict (id) do nothing;
 insert into organization_members (organization_id, profile_id, role, status, joined_at)
 select o.id, o.created_by, 'owner', 'active', now()
 from organizations o where o.kind = 'partner' and o.created_by is not null
+on conflict (organization_id, profile_id) do nothing;
+
+insert into organization_members (organization_id, profile_id, role, status, joined_at) values
+  ('55555555-0000-4000-8000-000000000002','33333333-0000-4000-8000-000000000006','owner','active', now()),
+  ('55555555-0000-4000-8000-000000000003','33333333-0000-4000-8000-000000000007','owner','active', now()),
+  ('55555555-0000-4000-8000-000000000005','33333333-0000-4000-8000-000000000008','owner','active', now()),
+  ('55555555-0000-4000-8000-000000000007','33333333-0000-4000-8000-000000000009','owner','active', now()),
+  ('55555555-0000-4000-8000-000000000010','33333333-0000-4000-8000-000000000010','owner','active', now())
 on conflict (organization_id, profile_id) do nothing;
 
 insert into partner_profiles (

@@ -11,7 +11,6 @@ import { recordAudit } from '@/features/audit/log';
 import { notify, sendTransactionalEmail } from '@/features/notifications/service';
 import { computeMatchesForRequest } from '@/features/matching/service';
 import { priceEvent, DEFAULT_PRICING_RULE, type PartnerLineInput } from '@/features/pricing/engine';
-import { appUrl } from '@/lib/env';
 
 type Result<T = undefined> =
   | ({ ok: true } & (T extends undefined ? { data?: never } : { data: T }))
@@ -953,4 +952,3 @@ export async function resendProposalEmail(proposalId: string): Promise<Result> {
   }
 }
 
-export { appUrl };

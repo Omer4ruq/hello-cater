@@ -10,7 +10,7 @@ import { logger } from '@/lib/logger';
 import { formatMinor } from '@/lib/money';
 import { recordAudit } from '@/features/audit/log';
 import { notifyStaff } from '@/features/notifications/service';
-import { quoteDraftSchema, quoteTotals, type QuoteDraftInput } from './schema';
+import { quoteDraftSchema, type QuoteDraftInput } from './schema';
 
 type Result<T = undefined> =
   | ({ ok: true } & (T extends undefined ? { data?: never } : { data: T }))
@@ -385,4 +385,3 @@ function friendlySubmitError(message: string): string {
   return 'We could not submit this quote. Please try again.';
 }
 
-export { quoteTotals };

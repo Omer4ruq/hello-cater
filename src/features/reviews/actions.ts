@@ -8,7 +8,7 @@ import { toPublicError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 import { notify } from '@/features/notifications/service';
 
-export const reviewSchema = z.object({
+const reviewSchema = z.object({
   bookingId: z.string().uuid(),
   rating: z.number().int().min(1, 'Choose an overall rating').max(5),
   qualityRating: z.number().int().min(1).max(5).nullable().optional(),
