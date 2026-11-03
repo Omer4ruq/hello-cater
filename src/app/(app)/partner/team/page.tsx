@@ -36,7 +36,7 @@ export default async function PartnerTeamPage() {
   const [{ data: members }, { data: invites }] = await Promise.all([
     supabase
       .from('organization_members')
-      .select('id, profile_id, role, status, title, joined_at, profiles(full_name, email, phone)')
+      .select('id, profile_id, role, status, title, joined_at, profiles!organization_members_profile_id_fkey(full_name, email, phone)')
       .eq('organization_id', partner.organizationId)
       .neq('status', 'removed'),
     supabase
@@ -55,7 +55,7 @@ export default async function PartnerTeamPage() {
         description="Who from your business can use this dashboard, and what they can do."
       />
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
         <div className="space-y-6">
           <Card className="overflow-hidden">
             <CardHeader><CardTitle as="h2">Team members ({(members ?? []).length})</CardTitle></CardHeader>

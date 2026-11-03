@@ -170,7 +170,7 @@ export function QuoteBuilder(props: QuoteBuilderProps) {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
       <div className="space-y-6">
         {error ? <Alert tone="danger" title="Check your quote">{error}</Alert> : null}
 
@@ -217,7 +217,7 @@ export function QuoteBuilder(props: QuoteBuilderProps) {
                   <div className="flex items-start gap-2">
                     <GripVertical aria-hidden className="mt-2.5 size-4 shrink-0 text-ink-300" />
                     <div className="grid min-w-0 flex-1 gap-3">
-                      <div className="grid gap-3 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
                         <Field>
                           <FieldLabel>Description</FieldLabel>
                           <FieldControl>

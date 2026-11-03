@@ -47,7 +47,7 @@ export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-ink-200 bg-ink-50 text-ink-700">
       <div className="container-page py-14">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_repeat(4,minmax(0,1fr))]">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.3fr)_repeat(4,minmax(0,1fr))]">
           <div>
             <Logo showTagline href="/" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink-600">

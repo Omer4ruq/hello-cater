@@ -16,30 +16,30 @@ export default async function CustomerDashboardLayout({ children }: { children: 
   const sections: NavSection[] = [
     {
       links: [
-        { label: 'Overview', href: '/dashboard', icon: LayoutDashboard, exact: true },
-        { label: 'My requests', href: '/dashboard/requests', icon: FileText },
-        { label: 'Proposals', href: '/dashboard/proposals', icon: Sparkles },
-        { label: 'My events', href: '/dashboard/events', icon: CalendarRange },
-        { label: 'Messages', href: '/dashboard/messages', icon: MessageSquare },
+        { label: 'Overview', href: '/dashboard', icon: <LayoutDashboard />, exact: true },
+        { label: 'My requests', href: '/dashboard/requests', icon: <FileText /> },
+        { label: 'Proposals', href: '/dashboard/proposals', icon: <Sparkles /> },
+        { label: 'My events', href: '/dashboard/events', icon: <CalendarRange /> },
+        { label: 'Messages', href: '/dashboard/messages', icon: <MessageSquare /> },
       ],
     },
     {
       title: 'Money',
       links: [
-        { label: 'Payments', href: '/dashboard/payments', icon: CreditCard },
-        { label: 'Invoices', href: '/dashboard/invoices', icon: Receipt },
+        { label: 'Payments', href: '/dashboard/payments', icon: <CreditCard /> },
+        { label: 'Invoices', href: '/dashboard/invoices', icon: <Receipt /> },
       ],
     },
     {
       title: 'Account',
       links: [
-        { label: 'Saved partners', href: '/dashboard/saved', icon: Heart },
+        { label: 'Saved partners', href: '/dashboard/saved', icon: <Heart /> },
         ...(company
-          ? [{ label: 'Company & team', href: '/dashboard/company', icon: Building2 }]
+          ? [{ label: 'Company & team', href: '/dashboard/company', icon: <Building2 /> }]
           : []),
-        { label: 'Notifications', href: '/dashboard/notifications', icon: Bell, badge: unread || null },
-        { label: 'Support', href: '/dashboard/support', icon: LifeBuoy },
-        { label: 'Settings', href: '/account/settings', icon: Settings },
+        { label: 'Notifications', href: '/dashboard/notifications', icon: <Bell />, badge: unread || null },
+        { label: 'Support', href: '/dashboard/support', icon: <LifeBuoy /> },
+        { label: 'Settings', href: '/account/settings', icon: <Settings /> },
       ],
     },
   ];

@@ -30,7 +30,7 @@ export async function issueCustomerInvoice(eventId: string): Promise<{ ok: boole
 
   const { data: event } = await admin
     .from('events')
-    .select('id, reference, title, total_minor, paid_minor, event_date, customer_profile_id, organization_id, proposal_id, profiles(full_name, email, phone), organizations(name, address_line, area, city, tin, billing_email)')
+    .select('id, reference, title, total_minor, paid_minor, event_date, customer_profile_id, organization_id, proposal_id, profiles!events_customer_profile_id_fkey(full_name, email, phone), organizations(name, address_line, area, city, tin, billing_email)')
     .eq('id', eventId)
     .maybeSingle();
 

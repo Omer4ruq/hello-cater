@@ -38,7 +38,7 @@ export default async function BecomePartnerPage() {
       <JsonLd data={breadcrumbJsonLd([{ name: 'Home', path: '/' }, { name: 'Become a partner', path: '/become-a-partner' }])} />
       <JsonLd data={faqJsonLd(faqs.map((f) => ({ question: f.question, answer: f.answer })))} />
 
-      <section className="container-page grid items-center gap-10 pt-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14 lg:pt-20">
+      <section className="container-page grid grid-cols-1 items-center gap-10 pt-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14 lg:pt-20">
         <div>
           <p className="eyebrow">For caterers, planners and suppliers</p>
           <h1 className="mt-3 max-w-2xl text-display-lg font-extrabold tracking-[-0.035em] text-ink-900">
@@ -73,7 +73,7 @@ export default async function BecomePartnerPage() {
         </div>
       </section>
 
-      <div className="container-page grid gap-12 pt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16 lg:pt-24">
+      <div className="container-page grid grid-cols-1 gap-12 pt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16 lg:pt-24">
         <div className="lg:sticky lg:top-24 lg:self-start">
           <h2 className="text-display-sm font-extrabold">Why partners join</h2>
           <ul className="mt-7 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">

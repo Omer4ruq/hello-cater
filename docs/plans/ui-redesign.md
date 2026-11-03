@@ -52,14 +52,15 @@ Also: the old `/img/*.svg` art is deleted; `supabase/seed_demo.sql` now points d
 
 Checks: typecheck and lint clean; 64 unit tests pass; 42 e2e pass (8 skipped, need a database); every public page loads at 390 and 1440 with no horizontal scroll, no old art and no native select.
 
-## Not yet verified
+## Verified against a real database (2026-11-03)
 
-These need a Supabase project and a demo login ([LOCAL-DEVELOPMENT.md](../LOCAL-DEVELOPMENT.md)); they were checked by typecheck and lint only:
+Connected to a test Supabase project with the demo data. Every sidebar page plus up to 25 detail pages per role was opened for customer, company admin, caterer, decorator, super admin, ops, finance and support, at 1440 and 390: no crashes, console errors or horizontal scroll. 48 e2e tests pass (2 skipped are mobile/desktop-only), 79 database tests and 64 unit tests pass.
 
-- Dashboards (`/dashboard`, `/partner`, `/admin`): sidebar hover pill, proposal cards, quote builder, saved partners, Stat tiles, admin GMV chart. Invoice print preview.
-- Brief wizard step 1 tiles (event types come from the database; without one step 1 is empty, as before) and the 8 skipped e2e tests.
-- Partner sign-up form chips on `/become-a-partner` (form only renders with Supabase).
-- Email templates (no preview route).
+Pre-existing bugs this found and fixed: dashboards crashed (icon components passed from server layouts to the client shell; layouts now pass `<Icon />` elements); partner accounts got 404 (`partner_profiles` embed is one object, not an array); 12 queries embedded `profiles` ambiguously and failed silently, including invoices and the partner quote access check (now explicit `profiles!<fk>` hints; the quote check is two plain lookups); partner profile editor crashed (`FieldDescription` outside a `Field`); 38 layouts overflowed on phones (`grid` without `grid-cols-1` before a `lg:grid-cols-[...]`); `seed_demo.sql` failed on real Supabase (`confirmed_at` is generated, token columns must be `''`, email identities needed).
+
+Still unchecked: email templates (no preview route) and invoice print preview.
+
+To re-check every query against the live schema, run a script that extracts each `.from('t').select('…')` and calls it with `limit(0)`; PostgREST reports ambiguous or missing relationships that typecheck cannot see.
 
 Small follow-ups: `OCCASION_ICONS` is duplicated in the homepage and the wizard (move to a shared module if a third copy appears); the proposal list marks the newest version "Latest version" because there is no "recommended" field.
 

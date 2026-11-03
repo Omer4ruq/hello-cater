@@ -46,7 +46,7 @@ export default async function LegalPage({ params }: { params: Promise<{ slug: st
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: 'Home', path: '/' }, { name: page.title, path: `/${slug}` }])} />
 
-      <div className="container-page grid gap-12 py-12 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-16 lg:py-20">
+      <div className="container-page grid grid-cols-1 gap-12 py-12 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-16 lg:py-20">
         {toc.length > 1 ? (
           <nav aria-label="On this page" className="hidden lg:block">
             <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2">

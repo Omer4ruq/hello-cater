@@ -37,39 +37,39 @@ export default async function PartnerLayout({ children }: { children: React.Reac
   const sections: NavSection[] = [
     {
       links: [
-        { label: 'Dashboard', href: '/partner', icon: LayoutDashboard, exact: true },
-        { label: 'Requests', href: '/partner/requests', icon: Inbox, badge: openInvites || null },
-        { label: 'Quotes', href: '/partner/quotes', icon: ClipboardList, badge: draftQuotes || null },
-        { label: 'Bookings', href: '/partner/bookings', icon: BadgeCheck },
-        { label: 'Calendar', href: '/partner/calendar', icon: CalendarDays },
+        { label: 'Dashboard', href: '/partner', icon: <LayoutDashboard />, exact: true },
+        { label: 'Requests', href: '/partner/requests', icon: <Inbox />, badge: openInvites || null },
+        { label: 'Quotes', href: '/partner/quotes', icon: <ClipboardList />, badge: draftQuotes || null },
+        { label: 'Bookings', href: '/partner/bookings', icon: <BadgeCheck /> },
+        { label: 'Calendar', href: '/partner/calendar', icon: <CalendarDays /> },
       ],
     },
     {
       title: 'Catalogue',
       links: [
-        { label: 'Packages', href: '/partner/services', icon: BookOpen },
-        { label: 'Menus', href: '/partner/menus', icon: Utensils },
+        { label: 'Packages', href: '/partner/services', icon: <BookOpen /> },
+        { label: 'Menus', href: '/partner/menus', icon: <Utensils /> },
       ],
     },
     {
       title: 'Business',
       links: [
-        { label: 'Customers', href: '/partner/customers', icon: Users },
-        { label: 'Messages', href: '/partner/messages', icon: MessageSquare },
-        { label: 'Earnings', href: '/partner/earnings', icon: Wallet },
-        { label: 'Payouts', href: '/partner/payouts', icon: Receipt },
-        { label: 'Reviews', href: '/partner/reviews', icon: Star },
+        { label: 'Customers', href: '/partner/customers', icon: <Users /> },
+        { label: 'Messages', href: '/partner/messages', icon: <MessageSquare /> },
+        { label: 'Earnings', href: '/partner/earnings', icon: <Wallet /> },
+        { label: 'Payouts', href: '/partner/payouts', icon: <Receipt /> },
+        { label: 'Reviews', href: '/partner/reviews', icon: <Star /> },
       ],
     },
     {
       title: 'Account',
       links: [
-        { label: 'Business profile', href: '/partner/profile', icon: UserCog },
-        { label: 'Documents', href: '/partner/documents', icon: FileText },
-        { label: 'Team', href: '/partner/team', icon: Users },
-        { label: 'Notifications', href: '/partner/notifications', icon: Bell, badge: unread || null },
-        { label: 'Help', href: '/dashboard/support', icon: LifeBuoy },
-        { label: 'Settings', href: '/account/settings', icon: Settings },
+        { label: 'Business profile', href: '/partner/profile', icon: <UserCog /> },
+        { label: 'Documents', href: '/partner/documents', icon: <FileText /> },
+        { label: 'Team', href: '/partner/team', icon: <Users /> },
+        { label: 'Notifications', href: '/partner/notifications', icon: <Bell />, badge: unread || null },
+        { label: 'Help', href: '/dashboard/support', icon: <LifeBuoy /> },
+        { label: 'Settings', href: '/account/settings', icon: <Settings /> },
       ],
     },
   ];

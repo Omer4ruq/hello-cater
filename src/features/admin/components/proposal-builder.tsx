@@ -286,7 +286,7 @@ export function ProposalBuilder({
             <ul className="space-y-3">
               {lines.map((line) => (
                 <li key={line.key} className="rounded-2xl border border-ink-200 p-3.5">
-                  <div className="grid gap-3 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_auto]">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_auto]">
                     <Field>
                       <FieldLabel>Line label (customer sees this)</FieldLabel>
                       <FieldControl>
@@ -347,7 +347,7 @@ export function ProposalBuilder({
       </Card>
 
       {/* ------------------------------------------------ Commercials */}
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
         <Card>
           <CardHeader><CardTitle as="h2">Presentation & terms</CardTitle></CardHeader>
           <CardContent className="space-y-5 pt-3">

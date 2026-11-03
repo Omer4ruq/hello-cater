@@ -20,16 +20,24 @@ type Result<T = undefined> =
 async function assertPartnerOnRequest(partnerId: string, requestId: string, userId: string) {
   const admin = createAdminSupabase();
 
-  const { data: membership } = await admin
+  // Members belong to the partner's organization, not to the partner profile.
+  const { data: partner } = await admin
     .from('partner_profiles')
-    .select('id, verification_status, organization_id, organization_members!inner(profile_id, status)')
+    .select('id, verification_status, organization_id')
     .eq('id', partnerId)
-    .eq('organization_members.profile_id', userId)
-    .eq('organization_members.status', 'active')
     .maybeSingle();
+  const { data: membership } = partner
+    ? await admin
+        .from('organization_members')
+        .select('id')
+        .eq('organization_id', partner.organization_id)
+        .eq('profile_id', userId)
+        .eq('status', 'active')
+        .maybeSingle()
+    : { data: null };
 
-  if (!membership) throw new AppError('forbidden', 'You do not have access to this partner account.');
-  if (membership.verification_status !== 'approved') {
+  if (!partner || !membership) throw new AppError('forbidden', 'You do not have access to this partner account.');
+  if (partner.verification_status !== 'approved') {
     throw new AppError('forbidden', 'Your account must be verified before you can submit quotes.');
   }
 

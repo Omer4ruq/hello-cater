@@ -65,7 +65,7 @@ export default async function AdminDashboardPage() {
         <Stat label="Verified partners" icon={Building2} href="/admin/partners" value={data.activePartnerCount} hint={`${data.activeCustomerCount} customers`} />
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
         <Card>
           <CardHeader><CardTitle as="h2">GMV, last 30 days</CardTitle></CardHeader>
           <CardContent className="pt-3">

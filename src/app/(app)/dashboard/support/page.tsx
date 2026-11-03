@@ -42,7 +42,7 @@ export default async function SupportPage() {
         description="Raise an issue about a booking, a payment or your account. We respond within one working day."
       />
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
         <div>
           <h2 className="mb-3 font-sans text-base font-semibold text-ink-950">Your tickets</h2>
           {(tickets ?? []).length === 0 ? (

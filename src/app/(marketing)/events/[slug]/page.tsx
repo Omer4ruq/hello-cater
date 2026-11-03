@@ -114,7 +114,7 @@ export default async function EventTypePage({ params }: { params: Promise<{ slug
       <JsonLd data={faqJsonLd(faqs.slice(0, 5).map((f) => ({ question: f.question, answer: f.answer })))} />
 
       {/* ---------------------------------------------------------- Hero */}
-      <section className="container-page grid items-center gap-10 py-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14 lg:py-16">
+      <section className="container-page grid grid-cols-1 items-center gap-10 py-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14 lg:py-16">
         <div>
           <nav aria-label="Breadcrumb" className="text-sm text-ink-600">
             <Link href="/events" className="font-medium underline-offset-4 hover:text-ink-900 hover:underline">Events</Link>
@@ -185,7 +185,7 @@ export default async function EventTypePage({ params }: { params: Promise<{ slug
 
       {/* ------------------------------------------------- What it needs */}
       <section className="reveal container-page pt-16" aria-labelledby="needs-heading">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
           <div>
             <h2 id="needs-heading" className="text-2xl">
               {eventType ? `What a ${lower} usually needs` : `What ${lower} usually need`}
@@ -272,7 +272,7 @@ export default async function EventTypePage({ params }: { params: Promise<{ slug
 
       {/* ----------------------------------------------------------- FAQ */}
       <section className="reveal container-page pt-20" aria-labelledby="faq-heading">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
           <div>
             <h2 id="faq-heading" className="text-2xl">Common questions</h2>
             <p className="mt-3 text-ink-600">

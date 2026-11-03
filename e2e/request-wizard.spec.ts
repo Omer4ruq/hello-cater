@@ -45,8 +45,13 @@ test.describe('request wizard', () => {
     await page.getByRole('button', { name: /continue/i }).click();
     await expect(page.getByText(/step 2 of 10/i)).toBeVisible();
 
-    const future = new Date(Date.now() + 45 * 86_400_000).toISOString().slice(0, 10);
-    await page.getByLabel('Event date').fill(future);
+    // The date is a calendar popover: open it, move two months ahead, pick.
+    await page.getByLabel('Event date').click();
+    await expect(page.getByRole('grid').locator('button:focus')).toBeVisible();
+    await page.keyboard.press('PageDown');
+    await page.keyboard.press('PageDown');
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole('grid')).toBeHidden();
     await page.getByRole('button', { name: /continue/i }).click();
     await expect(page.getByText(/step 3 of 10/i)).toBeVisible();
   });
@@ -71,7 +76,7 @@ test.describe('request wizard', () => {
     test.skip(optionCount <= 1, 'Event type catalogue requires a database');
 
     await page.locator('select').first().selectOption({ index: 1 });
-    await page.getByRole('button', { name: /^continue$/i }).click();
+    await page.getByRole('button', { name: /get proposals/i }).click();
 
     await page.waitForURL(/\/plan\?/);
     // The chosen event type arrives as a query parameter and is preselected.

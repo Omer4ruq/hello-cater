@@ -82,7 +82,7 @@ export function PartnerProfileView({ data, slug }: { data: PartnerProfileData; s
       </div>
 
       {/* ----------------------------------------- Content + sidebar */}
-      <div className="container-page mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start lg:gap-20">
+      <div className="container-page mt-10 grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start lg:gap-20">
         <div className="min-w-0 divide-y divide-ink-200">
           {/* Host row */}
           <div className="flex items-center gap-4 pb-8">

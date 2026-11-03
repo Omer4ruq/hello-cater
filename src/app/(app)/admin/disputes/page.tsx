@@ -34,7 +34,7 @@ export default async function AdminSupportPage({
 
   let ticketQuery = supabase
     .from('support_tickets')
-    .select('id, reference, subject, category, status, priority, created_at, first_response_at, opened_by, profiles(full_name, email), partner_profiles(display_name)')
+    .select('id, reference, subject, category, status, priority, created_at, first_response_at, opened_by, profiles!support_tickets_opened_by_fkey(full_name, email), partner_profiles(display_name)')
     .order('created_at', { ascending: false })
     .limit(100);
 

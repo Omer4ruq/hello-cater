@@ -48,7 +48,7 @@ export default async function PartnerProfilePage() {
         </Alert>
       ) : null}
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
         <PartnerProfileForm
           partnerId={partner.partnerId}
           readOnly={!canEdit}

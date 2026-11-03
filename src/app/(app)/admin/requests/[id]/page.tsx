@@ -120,7 +120,7 @@ export default async function AdminRequestWorkspace({ params }: { params: Promis
         }
       />
 
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px] xl:items-start">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_320px] xl:items-start">
         <div className="min-w-0">
           <Tabs defaultValue={submittedQuotes.length > 0 ? 'quotes' : 'partners'}>
             <TabsList>

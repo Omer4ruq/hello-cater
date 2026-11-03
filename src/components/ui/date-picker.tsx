@@ -71,12 +71,18 @@ export function DatePicker({
     setOpen(next);
   };
 
-  // Keep DOM focus on the focused day as it moves.
-  React.useEffect(() => {
+  // Keep DOM focus on the focused day as it moves. Synchronous once the
+  // grid exists (a month change remounts the days, so waiting a frame
+  // would drop fast keypresses); on open the portal mounts a frame later.
+  React.useLayoutEffect(() => {
     if (!open) return;
-    const id = requestAnimationFrame(() => {
+    const focusDay = () =>
       gridRef.current?.querySelector<HTMLButtonElement>(`[data-day="${toYmd(focus)}"]`)?.focus();
-    });
+    if (gridRef.current) {
+      focusDay();
+      return;
+    }
+    const id = requestAnimationFrame(focusDay);
     return () => cancelAnimationFrame(id);
   }, [open, focus]);
 

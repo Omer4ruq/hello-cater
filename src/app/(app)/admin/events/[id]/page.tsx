@@ -30,7 +30,7 @@ export default async function AdminEventWorkspace({ params }: { params: Promise<
   const [event, bookings, tasks, timeline, payments, notes, invoices] = await Promise.all([
     supabase
       .from('events')
-      .select('id, reference, title, stage, event_date, event_end_date, start_time, end_time, guest_count, venue_name, address_line, venue_notes, total_minor, paid_minor, refunded_minor, customer_notes, created_at, event_manager_id, request_id, proposal_id, event_types(name), cities(name), areas(name), organizations(id, name), profiles(full_name, email, phone)')
+      .select('id, reference, title, stage, event_date, event_end_date, start_time, end_time, guest_count, venue_name, address_line, venue_notes, total_minor, paid_minor, refunded_minor, customer_notes, created_at, event_manager_id, request_id, proposal_id, event_types(name), cities(name), areas(name), organizations(id, name), profiles!events_customer_profile_id_fkey(full_name, email, phone)')
       .eq('id', id)
       .maybeSingle(),
     supabase
@@ -39,7 +39,7 @@ export default async function AdminEventWorkspace({ params }: { params: Promise<
       .eq('event_id', id),
     supabase
       .from('event_tasks')
-      .select('id, title, detail, status, due_at, is_customer_visible, completed_at, profiles(full_name)')
+      .select('id, title, detail, status, due_at, is_customer_visible, completed_at, profiles!event_tasks_assignee_id_fkey(full_name)')
       .eq('event_id', id)
       .order('due_at', { nullsFirst: false }),
     supabase
@@ -125,7 +125,7 @@ export default async function AdminEventWorkspace({ params }: { params: Promise<
         </Tile>
       </div>
 
-      <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px] xl:items-start">
+      <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_320px] xl:items-start">
         <div className="min-w-0">
           <Tabs defaultValue="vendors">
             <TabsList>

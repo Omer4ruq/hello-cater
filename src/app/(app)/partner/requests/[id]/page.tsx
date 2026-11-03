@@ -68,7 +68,7 @@ export default async function PartnerRequestDetailPage({ params }: { params: Pro
         actions={<StatusBadge status={invite.status} />}
       />
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
         <Card className="lg:order-2">
           <CardHeader><CardTitle as="h2">The brief</CardTitle></CardHeader>
           <CardContent className="pt-3">

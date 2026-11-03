@@ -37,7 +37,7 @@ export default async function CompanyPage() {
       .maybeSingle(),
     supabase
       .from('organization_members')
-      .select('id, role, status, title, department, spend_limit_minor, requires_approval, joined_at, profiles(full_name, email, phone)')
+      .select('id, role, status, title, department, spend_limit_minor, requires_approval, joined_at, profiles!organization_members_profile_id_fkey(full_name, email, phone)')
       .eq('organization_id', membership.organizationId)
       .neq('status', 'removed'),
     supabase
@@ -72,7 +72,7 @@ export default async function CompanyPage() {
         />
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
         <div className="space-y-6">
           <Card className="overflow-hidden">
             <CardHeader><CardTitle as="h2">Team</CardTitle></CardHeader>

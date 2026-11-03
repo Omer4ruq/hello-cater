@@ -37,47 +37,47 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const sections: NavSection[] = [
     {
       links: filter([
-        { label: 'Dashboard', href: '/admin', icon: LayoutDashboard, exact: true },
-        { label: 'Requests', href: '/admin/requests', icon: Inbox, permission: 'requests.view', badge: openRequests || null },
-        { label: 'Proposals', href: '/admin/proposals', icon: Sparkles, permission: 'proposals.manage' },
-        { label: 'Events', href: '/admin/events', icon: CalendarRange, permission: 'bookings.view' },
-        { label: 'Messages', href: '/admin/messages', icon: MessageSquare },
+        { label: 'Dashboard', href: '/admin', icon: <LayoutDashboard />, exact: true },
+        { label: 'Requests', href: '/admin/requests', icon: <Inbox />, permission: 'requests.view', badge: openRequests || null },
+        { label: 'Proposals', href: '/admin/proposals', icon: <Sparkles />, permission: 'proposals.manage' },
+        { label: 'Events', href: '/admin/events', icon: <CalendarRange />, permission: 'bookings.view' },
+        { label: 'Messages', href: '/admin/messages', icon: <MessageSquare /> },
       ]),
     },
     {
       title: 'Supply',
       links: filter([
-        { label: 'Partners', href: '/admin/partners', icon: Building2, permission: 'partners.view' },
-        { label: 'Verification', href: '/admin/verification', icon: ShieldCheck, permission: 'partners.verify', badge: pendingVerification || null },
-        { label: 'Quotes', href: '/admin/quotes', icon: ClipboardList, permission: 'quotes.view' },
+        { label: 'Partners', href: '/admin/partners', icon: <Building2 />, permission: 'partners.view' },
+        { label: 'Verification', href: '/admin/verification', icon: <ShieldCheck />, permission: 'partners.verify', badge: pendingVerification || null },
+        { label: 'Quotes', href: '/admin/quotes', icon: <ClipboardList />, permission: 'quotes.view' },
       ]),
     },
     {
       title: 'Demand',
       links: filter([
-        { label: 'Customers', href: '/admin/customers', icon: Users, permission: 'customers.view' },
-        { label: 'Reviews', href: '/admin/reviews', icon: Star, permission: 'reviews.moderate' },
-        { label: 'Support', href: '/admin/disputes', icon: LifeBuoy, permission: 'tickets.manage' },
+        { label: 'Customers', href: '/admin/customers', icon: <Users />, permission: 'customers.view' },
+        { label: 'Reviews', href: '/admin/reviews', icon: <Star />, permission: 'reviews.moderate' },
+        { label: 'Support', href: '/admin/disputes', icon: <LifeBuoy />, permission: 'tickets.manage' },
       ]),
     },
     {
       title: 'Money',
       links: filter([
-        { label: 'Payments', href: '/admin/payments', icon: CreditCard, permission: 'payments.view' },
-        { label: 'Invoices', href: '/admin/invoices', icon: Receipt, permission: 'payments.view' },
-        { label: 'Payouts', href: '/admin/payouts', icon: Wallet, permission: 'payouts.view', badge: pendingPayouts || null },
-        { label: 'Reports', href: '/admin/reports', icon: Gauge, permission: 'reports.view' },
+        { label: 'Payments', href: '/admin/payments', icon: <CreditCard />, permission: 'payments.view' },
+        { label: 'Invoices', href: '/admin/invoices', icon: <Receipt />, permission: 'payments.view' },
+        { label: 'Payouts', href: '/admin/payouts', icon: <Wallet />, permission: 'payouts.view', badge: pendingPayouts || null },
+        { label: 'Reports', href: '/admin/reports', icon: <Gauge />, permission: 'reports.view' },
       ]),
     },
     {
       title: 'Platform',
       links: filter([
-        { label: 'Catalogue', href: '/admin/services', icon: BadgeCheck, permission: 'catalog.manage' },
-        { label: 'Locations', href: '/admin/locations', icon: MapPin, permission: 'catalog.manage' },
-        { label: 'Content', href: '/admin/cms', icon: FileText, permission: 'cms.manage' },
-        { label: 'Audit log', href: '/admin/audit', icon: FileSearch, permission: 'audit.view' },
-        { label: 'Notifications', href: '/admin/notifications', icon: Bell, badge: unread || null },
-        { label: 'Settings', href: '/admin/settings', icon: Settings, permission: 'settings.manage' },
+        { label: 'Catalogue', href: '/admin/services', icon: <BadgeCheck />, permission: 'catalog.manage' },
+        { label: 'Locations', href: '/admin/locations', icon: <MapPin />, permission: 'catalog.manage' },
+        { label: 'Content', href: '/admin/cms', icon: <FileText />, permission: 'cms.manage' },
+        { label: 'Audit log', href: '/admin/audit', icon: <FileSearch />, permission: 'audit.view' },
+        { label: 'Notifications', href: '/admin/notifications', icon: <Bell />, badge: unread || null },
+        { label: 'Settings', href: '/admin/settings', icon: <Settings />, permission: 'settings.manage' },
       ]),
     },
   ].filter((section) => section.links.length > 0);

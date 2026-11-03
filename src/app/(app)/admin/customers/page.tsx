@@ -30,7 +30,7 @@ export default async function AdminCustomersPage({
   const [{ data: events }, { data: organizations }] = await Promise.all([
     admin
       .from('events')
-      .select('id, total_minor, paid_minor, event_date, customer_profile_id, organization_id, organizations(name), profiles(full_name, email, phone)')
+      .select('id, total_minor, paid_minor, event_date, customer_profile_id, organization_id, organizations(name), profiles!events_customer_profile_id_fkey(full_name, email, phone)')
       .order('event_date', { ascending: false })
       .limit(2000),
     admin

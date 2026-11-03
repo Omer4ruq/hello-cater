@@ -45,18 +45,34 @@ insert into demo_people (id, email, full_name, phone) values
   ('33333333-0000-4000-8000-000000000004','planner@demo.eventlybd.test','Sadia Noor','+8801713000004'),
   ('33333333-0000-4000-8000-000000000005','sound@demo.eventlybd.test','Jubayer Alam','+8801713000005');
 
+-- confirmed_at is generated on Supabase; the token columns must be ''
+-- rather than NULL or Supabase Auth fails to sign the user in.
 insert into auth.users (
   id, instance_id, aud, role, email, encrypted_password, email_confirmed_at,
-  confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at
+  raw_app_meta_data, raw_user_meta_data, created_at, updated_at,
+  confirmation_token, recovery_token, email_change_token_new, email_change
 )
 select
   p.id, '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated',
-  p.email, crypt('DemoPassword2026!', gen_salt('bf')), now(), now(),
+  p.email, crypt('DemoPassword2026!', gen_salt('bf')), now(),
   '{"provider":"email","providers":["email"]}'::jsonb,
   jsonb_build_object('full_name', p.full_name, 'phone', p.phone),
-  now(), now()
+  now(), now(), '', '', '', ''
 from demo_people p
 on conflict (id) do nothing;
+
+-- Email sign-in needs an identity row (absent from the plain PostgreSQL shim).
+do $$
+begin
+  if to_regclass('auth.identities') is not null then
+    insert into auth.identities (id, user_id, provider_id, provider, identity_data, created_at, updated_at)
+    select p.id, p.id, p.id::text, 'email',
+           jsonb_build_object('sub', p.id::text, 'email', p.email, 'email_verified', true),
+           now(), now()
+    from demo_people p
+    on conflict do nothing;
+  end if;
+end $$;
 
 -- The auth trigger creates profiles; make sure phone/name are populated
 -- even if the trigger is absent (plain PostgreSQL shim).

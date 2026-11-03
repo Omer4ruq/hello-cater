@@ -359,7 +359,7 @@ export default async function HomePage() {
 
       {/* --------------------------------------------------------- FAQ */}
       <section className="reveal container-page pt-24" aria-labelledby="faq-heading">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
           <div>
             <h2 id="faq-heading" className="text-display-md font-extrabold">Before you send a brief</h2>
             <p className="mt-3 text-ink-600">

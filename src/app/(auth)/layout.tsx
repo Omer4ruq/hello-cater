@@ -24,10 +24,13 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           form below the fold. */}
       <aside className="hidden p-4 lg:block">
         <div className="sticky top-4 h-[calc(100dvh-2rem)] overflow-hidden rounded-3xl">
-          <Image
-            src="/img/photos/banquet.jpg" alt="" fill priority
-            sizes="50vw" className="object-cover"
-          />
+          {/* next/image wants a relative parent; the sticky box stays the frame. */}
+          <div className="relative size-full">
+            <Image
+              src="/img/photos/banquet.jpg" alt="" fill priority
+              sizes="50vw" className="object-cover"
+            />
+          </div>
           <div className="absolute inset-x-6 bottom-6 max-w-sm rounded-2xl bg-white/95 p-5 shadow-lg backdrop-blur">
             <p className="text-lg font-bold leading-snug tracking-tight text-ink-900">
               One requirement in. Comparable proposals out. One invoice at the end.

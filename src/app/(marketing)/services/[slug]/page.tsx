@@ -82,7 +82,7 @@ export default async function ServiceCategoryPage({ params }: { params: Promise<
       <JsonLd data={faqJsonLd(faqs.slice(0, 5).map((f) => ({ question: f.question, answer: f.answer })))} />
 
       {/* ---------------------------------------------------------- Hero */}
-      <section className="container-page grid items-center gap-10 py-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14 lg:py-16">
+      <section className="container-page grid grid-cols-1 items-center gap-10 py-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14 lg:py-16">
         <div>
           <nav aria-label="Breadcrumb" className="text-sm text-ink-600">
             <Link href="/services" className="font-medium underline-offset-4 hover:text-ink-900 hover:underline">Services</Link>
@@ -118,7 +118,7 @@ export default async function ServiceCategoryPage({ params }: { params: Promise<
 
       {/* -------------------------------------------------- How it works */}
       <section className="reveal container-page pt-12" aria-labelledby="how-heading">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
           <div>
             <h2 id="how-heading" className="text-2xl">How it works for {lower}</h2>
             <ol className="mt-5 grid gap-4 sm:grid-cols-2">

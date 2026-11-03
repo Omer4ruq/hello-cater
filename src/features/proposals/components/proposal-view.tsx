@@ -128,7 +128,7 @@ export function ProposalDetail({
   const platformLines = lines.filter((l) => l.is_platform_line);
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
       <div className="space-y-6">
         {expired && !readOnly ? (
           <Alert tone="warning" title="This proposal has expired">

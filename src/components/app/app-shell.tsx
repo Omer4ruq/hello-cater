@@ -16,7 +16,8 @@ import { cn, initials } from '@/lib/utils';
 export type NavLink = {
   label: string;
   href: string;
-  icon: React.ElementType;
+  /** A rendered icon element (e.g. `<FileText />`): components can't cross from server layouts. */
+  icon: React.ReactElement<{ className?: string; 'aria-hidden'?: boolean }>;
   /** Shown as a pill on the right of the item. */
   badge?: number | null;
   /** Only match on exact path (used for section index pages). */
@@ -187,10 +188,10 @@ function SidebarNav({
                         : 'font-medium text-ink-700 hover:text-ink-900',
                     )}
                   >
-                    <link.icon
-                      aria-hidden
-                      className={cn('size-[18px] shrink-0', active ? 'text-brand-700' : 'text-ink-500')}
-                    />
+                    {React.cloneElement(link.icon, {
+                      'aria-hidden': true,
+                      className: cn('size-[18px] shrink-0', active ? 'text-brand-700' : 'text-ink-500'),
+                    })}
                     <span className="flex-1 truncate">{link.label}</span>
                     {link.badge ? (
                       <Badge tone={active ? 'brand' : 'neutral'} className="px-1.5 py-0 text-[0.65rem]">

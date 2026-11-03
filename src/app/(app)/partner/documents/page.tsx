@@ -72,7 +72,7 @@ export default async function PartnerDocumentsPage() {
         </Alert>
       ) : null}
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
         <Card className="overflow-hidden">
           <CardHeader><CardTitle as="h2">Uploaded documents</CardTitle></CardHeader>
           <CardContent className="p-0">

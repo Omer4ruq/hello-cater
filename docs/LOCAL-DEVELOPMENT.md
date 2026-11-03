@@ -49,7 +49,7 @@ You need a Supabase project. Creating one takes about three minutes and the free
 2. Choose the **Singapore** region (closest to Bangladesh).
 3. Save the database password somewhere safe — you cannot see it again.
 4. Wait for provisioning (~2 minutes).
-5. Go to **Project Settings → API** and copy three values into `.env.local`:
+5. Go to **Project Settings → API Keys** and copy the keys into `.env.local`. Newer projects show a **Publishable key** (`sb_publishable_…`, use it as the anon key) and a **Secret key** (`sb_secret_…`, use it as the service-role key); older ones show `anon` and `service_role`. Either style works. The Project URL is `https://<project-id>.supabase.co` (Project ID is under **Settings → General**):
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://xxxxxxxx.supabase.co   # "Project URL"
@@ -60,24 +60,22 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...                    # "service_role" — se
 
 > **The service-role key bypasses all security.** It must never appear in client code, a `NEXT_PUBLIC_` variable, a log line, or a git commit. Treat it exactly like your database password.
 
-6. Apply the schema:
+6. Add a direct database connection to `.env.local` (used only by the commands below, never by the app). In Supabase click **Connect** and copy the **Session pooler** string; the "Direct connection" host (`db.<ref>.supabase.co`) is IPv6-only on the free plan and usually fails:
 
 ```bash
-npx supabase link --project-ref xxxxxxxx
-npx supabase db push
+DATABASE_URL=postgresql://postgres.<ref>:<password>@aws-0-<region>.pooler.supabase.com:5432/postgres
 ```
 
-7. Load the reference data (categories, event types, Dhaka areas, CMS copy):
+7. Apply the schema, then the reference data and (development only) the demo data:
 
 ```bash
-npx supabase db execute --file supabase/seed.sql
+set -a; . ./.env.local; set +a
+for f in supabase/migrations/*.sql; do psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -q -1 -f "$f" || break; done
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -q -1 -f supabase/seed.sql
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -q -f supabase/seed_demo.sql   # never on production
 ```
 
-8. Load demo accounts and a worked pipeline **(development only)**:
-
-```bash
-npx supabase db execute --file supabase/seed_demo.sql
-```
+(`npx supabase link` + `npx supabase db push` also works for the schema if you use the Supabase CLI.)
 
 Restart `npm run dev`.
 

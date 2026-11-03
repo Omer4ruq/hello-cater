@@ -165,7 +165,7 @@ export async function invitePartners(input: {
     for (const invite of invites ?? []) {
       const { data: members } = await admin
         .from('partner_profiles')
-        .select('display_name, organization_members:organizations(organization_members(profile_id, role, status, profiles(email, full_name)))')
+        .select('display_name, organization_members:organizations(organization_members(profile_id, role, status, profiles!organization_members_profile_id_fkey(email, full_name)))')
         .eq('id', invite.partner_id)
         .maybeSingle();
 
@@ -522,7 +522,7 @@ export async function setPartnerVerification(input: {
     // Tell the partner's owners.
     const { data: members } = await admin
       .from('organization_members')
-      .select('profile_id, role, profiles(email, full_name)')
+      .select('profile_id, role, profiles!organization_members_profile_id_fkey(email, full_name)')
       .eq('organization_id', before.organization_id)
       .eq('status', 'active')
       .in('role', ['owner', 'admin']);
@@ -838,7 +838,7 @@ export async function updatePayoutStatus(input: {
     // Tell the partner.
     const { data: members } = await admin
       .from('partner_profiles')
-      .select('display_name, organizations(organization_members(profile_id, role, status, profiles(email)))')
+      .select('display_name, organizations(organization_members(profile_id, role, status, profiles!organization_members_profile_id_fkey(email)))')
       .eq('id', payout.partner_id)
       .maybeSingle();
 

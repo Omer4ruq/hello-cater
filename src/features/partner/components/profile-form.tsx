@@ -172,9 +172,9 @@ export function PartnerProfileForm({
       <Card>
         <CardHeader><CardTitle as="h2">Your standard terms</CardTitle></CardHeader>
         <CardContent className="space-y-5 pt-3">
-          <FieldDescription>
+          <p className="text-sm text-ink-600">
             These prefill every quote you build, so you are not retyping them each time.
-          </FieldDescription>
+          </p>
           <Field>
             <FieldLabel optional>Payment terms</FieldLabel>
             <FieldControl>

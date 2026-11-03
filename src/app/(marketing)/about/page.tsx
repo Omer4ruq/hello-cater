@@ -49,7 +49,7 @@ export default async function AboutPage() {
       </section>
 
       <section className="reveal container-page pt-20">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:gap-16">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:gap-16">
           <div className="max-w-prose space-y-5 text-lg leading-relaxed text-ink-700">
             {page?.body ? (
               page.body.split(/\n{2,}/).map((paragraph, i) => <p key={i}>{paragraph.trim()}</p>)

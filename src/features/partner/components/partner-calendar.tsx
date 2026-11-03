@@ -81,7 +81,7 @@ export function PartnerCalendar({
   const selectedAvailability = selected ? availabilityByDate.get(selected) : undefined;
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
       <Card>
         <CardContent>
           <div className="mb-4 flex items-center justify-between">

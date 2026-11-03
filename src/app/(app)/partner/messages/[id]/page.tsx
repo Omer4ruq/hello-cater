@@ -29,7 +29,7 @@ export default async function ThreadPage({ params }: { params: Promise<{ id: str
         ]}
         title="Messages"
       />
-      <div className="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start">
         <div className="hidden lg:block">
           <ThreadList threads={threads} basePath="/partner/messages" activeId={id} />
         </div>

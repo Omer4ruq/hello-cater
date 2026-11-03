@@ -21,7 +21,7 @@ export default function ContactPage() {
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact' }])} />
 
-      <section className="container-page grid items-end gap-10 pt-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:pt-20">
+      <section className="container-page grid grid-cols-1 items-end gap-10 pt-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:pt-20">
         <div>
           <p className="eyebrow">Contact</p>
           <h1 className="mt-3 max-w-2xl text-display-lg font-extrabold tracking-[-0.035em] text-ink-900">Talk to our team</h1>
@@ -35,7 +35,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <div className="container-page grid gap-12 pt-14 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-16 lg:pt-20">
+      <div className="container-page grid grid-cols-1 gap-12 pt-14 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-16 lg:pt-20">
         <section aria-labelledby="message-heading" className="rounded-3xl border border-ink-200 p-6 sm:p-10">
           <h2 id="message-heading" className="text-display-sm font-extrabold">Send a message</h2>
           <div className="mt-6"><ContactForm /></div>

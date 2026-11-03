@@ -38,7 +38,7 @@ const TAB_TRIGGER =
 function Faqs({ id, title, faqs }: { id: string; title: string; faqs: { id: string; question: string; answer: string }[] }) {
   if (faqs.length === 0) return null;
   return (
-    <section className="reveal mt-24 grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]" aria-labelledby={id}>
+    <section className="reveal mt-24 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]" aria-labelledby={id}>
       <div>
         <h2 id={id} className="text-display-sm font-extrabold">{title}</h2>
         <p className="mt-3 text-ink-600">
@@ -71,7 +71,7 @@ export default async function HowItWorksPage() {
       <JsonLd data={breadcrumbJsonLd([{ name: 'Home', path: '/' }, { name: 'How it works', path: '/how-it-works' }])} />
       <JsonLd data={faqJsonLd([...customerFaqs, ...partnerFaqs].slice(0, 10).map((f) => ({ question: f.question, answer: f.answer })))} />
 
-      <section className="container-page grid items-center gap-12 py-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:py-20">
+      <section className="container-page grid grid-cols-1 items-center gap-12 py-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:py-20">
         <div>
           <p className="eyebrow">How it works</p>
           <h1 className="mt-3 max-w-3xl text-display-lg font-extrabold tracking-[-0.035em] text-ink-900">
@@ -166,7 +166,7 @@ export default async function HowItWorksPage() {
               ))}
             </ol>
 
-            <section className="reveal mt-20 grid overflow-hidden rounded-3xl bg-ink-50 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]" aria-labelledby="partner-tools-heading">
+            <section className="reveal mt-20 grid grid-cols-1 overflow-hidden rounded-3xl bg-ink-50 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]" aria-labelledby="partner-tools-heading">
               <div className="relative min-h-72">
                 <Image src="/img/photos/chef.jpg" alt="Chef preparing food for an event" fill sizes="(min-width:1024px) 40vw, 100vw" className="object-cover" />
               </div>

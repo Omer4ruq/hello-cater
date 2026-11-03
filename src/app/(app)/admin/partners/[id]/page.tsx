@@ -70,7 +70,7 @@ export default async function AdminPartnerPage({ params }: { params: Promise<{ i
         }
       />
 
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px] xl:items-start">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_340px] xl:items-start">
         <div className="min-w-0">
           <Tabs defaultValue="overview">
             <TabsList>

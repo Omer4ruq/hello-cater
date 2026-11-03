@@ -83,7 +83,8 @@ test.describe('navigation', () => {
       ['/how-it-works', /managed marketplace, not a directory/i],
       ['/corporate', /stop chasing five caterers/i],
       ['/become-a-partner', /matched work/i],
-      ['/about', /managed marketplace|catering and events/i],
+      // The database's CMS copy titles it "About <brand>"; the built-in copy does not.
+      ['/about', /managed marketplace|catering and events|^about /i],
       ['/contact', /talk to our team/i],
     ] as const) {
       await page.goto(path);

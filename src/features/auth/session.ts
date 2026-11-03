@@ -74,7 +74,8 @@ export const getSessionUser = cache(async (): Promise<SessionUser | null> => {
       name: string;
       slug: string;
       kind: 'customer' | 'partner';
-      partner_profiles: { id: string }[] | null;
+      // organization_id is unique on partner_profiles, so PostgREST returns one object.
+      partner_profiles: { id: string } | { id: string }[] | null;
     };
   };
 
@@ -86,7 +87,7 @@ export const getSessionUser = cache(async (): Promise<SessionUser | null> => {
       organizationSlug: m.organizations.slug,
       kind: m.organizations.kind,
       role: m.role,
-      partnerId: m.organizations.partner_profiles?.[0]?.id ?? null,
+      partnerId: [m.organizations.partner_profiles ?? []].flat()[0]?.id ?? null,
       spendLimitMinor: m.spend_limit_minor,
       requiresApproval: m.requires_approval,
     }));

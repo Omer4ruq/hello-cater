@@ -27,7 +27,7 @@ export default async function AdminReviewsPage({
 
   let query = supabase
     .from('reviews')
-    .select('id, rating, title, comment, status, created_at, moderation_note, partner_profiles(display_name), profiles(full_name)')
+    .select('id, rating, title, comment, status, created_at, moderation_note, partner_profiles(display_name), profiles!reviews_author_id_fkey(full_name)')
     .order('created_at', { ascending: false })
     .limit(100);
 

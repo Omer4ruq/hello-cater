@@ -52,7 +52,7 @@ export default async function CorporatePage() {
       <JsonLd data={breadcrumbJsonLd([{ name: 'Home', path: '/' }, { name: 'Corporate', path: '/corporate' }])} />
 
       {/* ---------------------------------------------------------- Hero */}
-      <section className="container-page grid items-center gap-10 pt-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14 lg:pt-20">
+      <section className="container-page grid grid-cols-1 items-center gap-10 pt-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14 lg:pt-20">
         <div>
           <p className="eyebrow">For HR, admin and procurement teams</p>
           <h1 className="mt-3 max-w-xl text-display-lg font-extrabold tracking-[-0.035em] text-ink-900">
