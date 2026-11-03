@@ -33,12 +33,12 @@ export function Logo({
       <span className="flex flex-col leading-none">
         <span
           className={cn(
-            'font-display text-[1.32rem] font-semibold tracking-tight',
-            mono ? 'text-white' : 'text-ink-950',
+            'font-display text-[1.32rem] font-bold tracking-tight',
+            mono ? 'text-white' : 'text-ink-900',
           )}
         >
           {brand.shortName}
-          <span className={mono ? 'text-saffron-300' : 'text-brand-700'}>{' '}BD</span>
+          <span className={mono ? 'text-white/70' : 'text-brand-700'}>{' '}BD</span>
         </span>
         {showTagline ? (
           <span className={cn('mt-1 text-[0.68rem]', mono ? 'text-white/70' : 'text-ink-500')}>

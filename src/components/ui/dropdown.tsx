@@ -38,7 +38,7 @@ export function DropdownItem({ className, ...props }: React.ComponentProps<typeo
 }
 
 export function DropdownLabel({ className, ...props }: React.ComponentProps<typeof DM.Label>) {
-  return <DM.Label className={cn('px-2.5 py-1.5 text-xs font-semibold uppercase tracking-wide text-ink-500', className)} {...props} />;
+  return <DM.Label className={cn('px-2.5 py-1.5 text-xs font-semibold text-ink-500', className)} {...props} />;
 }
 
 export function DropdownSeparator({ className, ...props }: React.ComponentProps<typeof DM.Separator>) {

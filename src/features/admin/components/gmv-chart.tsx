@@ -18,7 +18,7 @@ export function GmvChart({ data }: { data: { date: string; gmvMinor: number }[] 
 
   if (!hasData) {
     return (
-      <div className="flex h-56 items-center justify-center rounded-lg border border-dashed border-ink-300 text-sm text-ink-500">
+      <div className="flex h-56 items-center justify-center rounded-2xl bg-ink-50 text-sm text-ink-500">
         No confirmed events in the last 30 days yet.
       </div>
     );
@@ -30,38 +30,38 @@ export function GmvChart({ data }: { data: { date: string; gmvMinor: number }[] 
         <AreaChart data={points} margin={{ top: 4, right: 4, bottom: 0, left: -12 }}>
           <defs>
             <linearGradient id="gmv-fill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#185c4b" stopOpacity={0.22} />
-              <stop offset="100%" stopColor="#185c4b" stopOpacity={0.02} />
+              <stop offset="0%" stopColor="#9b1c45" stopOpacity={0.16} />
+              <stop offset="100%" stopColor="#9b1c45" stopOpacity={0.02} />
             </linearGradient>
           </defs>
-          <CartesianGrid stroke="#eeece7" vertical={false} />
+          <CartesianGrid stroke="#ebebeb" vertical={false} />
           <XAxis
             dataKey="date"
             tickFormatter={(value: string) => value.slice(8)}
-            tick={{ fontSize: 11, fill: '#857e70' }}
+            tick={{ fontSize: 11, fill: '#6a6a6a' }}
             tickLine={false}
-            axisLine={{ stroke: '#dcd8d0' }}
+            axisLine={{ stroke: '#dddddd' }}
             interval="preserveStartEnd"
             minTickGap={24}
           />
           <YAxis
-            tick={{ fontSize: 11, fill: '#857e70' }}
+            tick={{ fontSize: 11, fill: '#6a6a6a' }}
             tickLine={false}
             axisLine={false}
             tickFormatter={(value: number) => formatMinorCompact(Math.round(Number(value) * 100))}
             width={64}
           />
           <Tooltip
-            cursor={{ stroke: '#c2bcb0' }}
+            cursor={{ stroke: '#dddddd' }}
             contentStyle={{
-              borderRadius: 8, border: '1px solid #dcd8d0',
-              fontSize: 12, boxShadow: '0 4px 12px -2px rgb(35 33 30 / 0.08)',
+              borderRadius: 12, border: '1px solid #dddddd',
+              fontSize: 12, boxShadow: '0 4px 12px -2px rgb(0 0 0 / 0.08)',
             }}
             labelFormatter={(label) => formatDateShort(String(label))}
             formatter={(value) => [formatMinorCompact(Math.round(Number(value) * 100)), 'GMV']}
           />
           <Area
-            type="monotone" dataKey="value" stroke="#0e4f3c" strokeWidth={2}
+            type="monotone" dataKey="value" stroke="#9b1c45" strokeWidth={2}
             fill="url(#gmv-fill)" dot={false} activeDot={{ r: 4 }}
           />
         </AreaChart>

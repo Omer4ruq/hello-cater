@@ -44,7 +44,7 @@ All in [src/app/globals.css](../src/app/globals.css) under `@theme`. Never hard-
 ## Photography
 
 - Stand-in Unsplash photos live in [public/img/photos/](../public/img/photos/) (README there). Reuse them; replace files by name when real photography arrives.
-- The old abstract `/img/*.svg` placeholders are **retired**. Every page still using them is on the redesign plan.
+- The old abstract `/img/*.svg` placeholders are deleted; do not reintroduce abstract art.
 - Photos are `next/image` with `fill` + `sizes`, inside a `relative overflow-hidden rounded-2xl` box with a fixed `aspect-*`. Above-the-fold photos get `priority` or `loading="eager"`.
 - Never invent partners, ratings, client names or stats on real pages. Real data or a clearly labelled empty state.
 
@@ -60,7 +60,7 @@ Defined once in `globals.css` (section "Motion system"). Reuse these, do not inv
 | `.motion-overlay` | Backdrop fades in and out | Dialog, Sheet overlays |
 | `.motion-dialog` | Scale + fade in, quicker out | `DialogContent` |
 | `.motion-sheet-right` / `-left` | Drawer slides with drawer easing, both ways | `SheetContent` |
-| `.motion-pop` | Pops from the trigger (uses Radix transform-origin) | Dropdown menu, Select |
+| `.motion-pop` | Pops from the trigger (uses Radix transform-origin) | Dropdown menu, Select, DatePicker |
 | `.motion-stagger` | Children rise in one after another | Mega-menu lists, mobile drawer, 404 cards |
 | `.icon-nudge` | Arrow slides 3px forward when its link/button is hovered | Every "→" CTA |
 | `.reveal` | Section eases in as it scrolls into view (CSS scroll timeline, no JS) | Homepage sections |
@@ -79,6 +79,9 @@ Rules:
 - **Nav hover pill:** grey pill glides between items; first hover fades in without sliding (`glide` flag). See `useHoverPill` in the header.
 - **Mega-menu:** always mounted, toggled with `inert` and opacity/translate/scale; 70ms open delay, 160ms close delay; Escape returns focus to the trigger. Featured photo card on the right.
 - **Search bar (brief):** Airbnb-style pill; segment lifts as a white pill on `focus-within`, bar turns grey, neighbouring dividers fade. See [quick-request-form-client.tsx](../src/features/requests/components/quick-request-form-client.tsx).
+- **Sidebar nav (dashboards):** the same gliding grey pill, vertical; active item is an `ink-100` pill with a berry icon. See `SidebarNav` in [app-shell.tsx](../src/components/app/app-shell.tsx).
+- **Choice tiles and pills (forms):** selected = `ink-900` border/fill with a check, never a berry fill. See `ChoiceTile` and `Pill` in [event-wizard.tsx](../src/features/requests/components/event-wizard.tsx).
+- **Listing page:** photo gallery grid, thin dividers between sections, sticky quote card (bottom bar on mobile). See [partner-profile-view.tsx](../src/app/(marketing)/partners/[slug]/partner-profile-view.tsx).
 - **Empty states:** `EmptyState` from `components/ui/feedback.tsx` (grey rounded panel, white icon tile, real next action).
 
 ## Components
@@ -87,7 +90,8 @@ Rules:
 |---|---|---|
 | `Button` | `components/ui/button.tsx` | `primary` (berry), `secondary` (white, grey border), `accent` (white, for dark/photo backgrounds), `ghost`, `outline`, `link`, `danger`. Add `rounded-full` for marketing CTAs |
 | `Select` | `components/ui/select.tsx` (re-exported from `ui/input`) | **Never use a native `<select>`.** Drop-in: same props and `<option>`/`<optgroup>` children, works with react-hook-form `register`, `Controller` and controlled `value`. A hidden native select stays the source of truth. `variant="bare"` for selects inside a larger control |
-| `Input`, `Textarea`, `TakaInput` | `components/ui/input.tsx` | `h-11`, dark focus outline. Date inputs are still native (see plan) |
+| `Input`, `Textarea`, `TakaInput` | `components/ui/input.tsx` | `h-11`, dark focus outline |
+| `DatePicker` | `components/ui/date-picker.tsx` | **Never use `type="date"`.** Controlled: `value`/`onChange` with `YYYY-MM-DD` strings (`''` when cleared), `min`/`max`, `onBlur` for react-hook-form `Controller`. Arrow keys, PageUp/PageDown, Home/End. `variant="bare"` inside a larger control |
 | `Card` | `components/ui/card.tsx` | `rounded-2xl`, `interactive` adds hover shadow |
 | `Dialog`, `Sheet`, `Dropdown` | `components/ui/*` | Animated open and close |
 | `EmptyState` | `components/ui/feedback.tsx` | |
@@ -107,4 +111,4 @@ For every UI task, before calling it done:
 5. `E2E_BASE_URL=http://localhost:<port> npx playwright test e2e/public-site.spec.ts e2e/request-wizard.spec.ts` and `npm run test:unit` pass.
 6. Delete `.playwright-mcp/` artifacts.
 
-Local development has **no database** by default: the homepage falls back to built-in content, but service, event and partner detail pages 404 without Supabase. See [LOCAL-DEVELOPMENT.md](./LOCAL-DEVELOPMENT.md) to connect one when a page needs data.
+Local development has **no database** by default: the homepage and the service and event pages fall back to built-in content; partner profiles 404 (use `/dev/partner-preview` to see the layout); dashboards need Supabase and a login. See [LOCAL-DEVELOPMENT.md](./LOCAL-DEVELOPMENT.md).

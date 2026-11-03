@@ -65,7 +65,7 @@ export function NotificationList({ notifications }: { notifications: Notificatio
                   aria-hidden
                   className={cn(
                     'mt-1.5 size-2 shrink-0 rounded-full',
-                    notification.readAt ? 'bg-transparent' : 'bg-clay-500',
+                    notification.readAt ? 'bg-transparent' : 'bg-brand-700',
                   )}
                 />
                 <span className="min-w-0 flex-1">

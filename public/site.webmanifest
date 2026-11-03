@@ -4,8 +4,8 @@
   "description": "Catering and event services marketplace for Bangladesh.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#fbf9f5",
-  "theme_color": "#0e4f3c",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "icons": [
     {
       "src": "/logo.svg",

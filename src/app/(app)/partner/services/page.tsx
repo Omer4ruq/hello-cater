@@ -71,7 +71,7 @@ export default async function PartnerPackagesPage() {
                     <ul className="mt-3 space-y-1 text-sm text-ink-700">
                       {items.sort((a, b) => a.sort_order - b.sort_order).slice(0, 6).map((item) => (
                         <li key={item.id} className="flex items-start gap-2">
-                          <span aria-hidden className="mt-1.5 size-1 shrink-0 rounded-full bg-clay-500" />
+                          <span aria-hidden className="mt-1.5 size-1 shrink-0 rounded-full bg-ink-400" />
                           <span>
                             {item.label}
                             {item.is_optional ? <span className="text-ink-500"> (optional)</span> : null}

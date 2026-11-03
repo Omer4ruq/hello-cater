@@ -244,7 +244,7 @@
 .motion-sheet-left[data-state='open'] { animation: slide-in-left 460ms var(--ease-drawer); }
 .motion-sheet-left[data-state='closed'] { animation: slide-out-left 260ms var(--ease-drawer); }
 .motion-pop {
-  transform-origin: var(--radix-select-content-transform-origin, var(--radix-dropdown-menu-content-transform-origin, var(--radix-popper-transform-origin, top)));
+  transform-origin: var(--radix-select-content-transform-origin, var(--radix-dropdown-menu-content-transform-origin, var(--radix-popover-content-transform-origin, var(--radix-popper-transform-origin, top))));
 }
 .motion-pop[data-state='open'] { animation: pop-in 200ms var(--ease-out-expo); }
 .motion-pop[data-state='closed'] { animation: pop-out 120ms ease-in; }

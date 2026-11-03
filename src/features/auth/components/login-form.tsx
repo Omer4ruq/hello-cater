@@ -46,7 +46,7 @@ export function LoginForm({ next }: { next?: string }) {
       <Field error={form.formState.errors.password?.message}>
         <div className="flex items-baseline justify-between">
           <FieldLabel>Password</FieldLabel>
-          <Link href="/forgot-password" className="text-sm text-brand-700 underline underline-offset-4">
+          <Link href="/forgot-password" className="text-sm font-semibold text-ink-900 underline decoration-ink-300 underline-offset-4 transition-colors hover:decoration-ink-900">
             Forgot?
           </Link>
         </div>

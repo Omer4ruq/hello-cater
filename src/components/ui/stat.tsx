@@ -21,10 +21,10 @@ export function Stat({
   const body = (
     <>
       <div className="flex items-center justify-between gap-3">
-        <p className="text-xs font-medium uppercase tracking-wide text-ink-500">{label}</p>
+        <p className="text-sm font-medium text-ink-600">{label}</p>
         {Icon ? <Icon aria-hidden className="size-4 text-ink-400" /> : null}
       </div>
-      <p className="mt-2 font-sans text-2xl font-semibold tracking-tight text-ink-950 tabular-nums">
+      <p className="mt-2 font-sans text-2xl font-bold tracking-tight text-ink-900 tabular-nums">
         {value}
       </p>
       <div className="mt-1 flex items-center gap-2">
@@ -45,8 +45,8 @@ export function Stat({
   );
 
   const cls = cn(
-    'rounded-xl border border-ink-200 bg-white p-4',
-    href && 'transition-colors hover:border-ink-300 hover:bg-ink-50/60',
+    'rounded-2xl border border-ink-200 bg-white p-5',
+    href && 'transition-[box-shadow,border-color] duration-200 hover:border-ink-300 hover:shadow-md',
     className,
   );
 

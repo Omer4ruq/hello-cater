@@ -4,6 +4,7 @@ import * as React from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Search, X } from 'lucide-react';
 import { Input, Select } from '@/components/ui/input';
+import { DatePicker } from '@/components/ui/date-picker';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -91,16 +92,16 @@ export function DataToolbar({
 
       {showDateRange ? (
         <div className="flex items-center gap-1.5">
-          <Input
-            type="date" aria-label="From date" className="w-auto"
-            value={searchParams.get('from') ?? ''}
-            onChange={(e) => apply({ from: e.target.value || null })}
+          <DatePicker
+            aria-label="From date" placeholder="From" className="w-36"
+            value={searchParams.get('from')} max={searchParams.get('to') ?? undefined}
+            onChange={(v) => apply({ from: v || null })}
           />
           <span className="text-sm text-ink-500">to</span>
-          <Input
-            type="date" aria-label="To date" className="w-auto"
-            value={searchParams.get('to') ?? ''}
-            onChange={(e) => apply({ to: e.target.value || null })}
+          <DatePicker
+            aria-label="To date" placeholder="To" className="w-36"
+            value={searchParams.get('to')} min={searchParams.get('from') ?? undefined}
+            onChange={(v) => apply({ to: v || null })}
           />
         </div>
       ) : null}

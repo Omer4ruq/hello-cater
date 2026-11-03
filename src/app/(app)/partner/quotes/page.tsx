@@ -88,7 +88,7 @@ export default async function PartnerQuotesPage({
                   return (
                     <TR key={quote.id}>
                       <TD>
-                        <Link href={`/partner/quotes/${quote.id}`} className="font-medium text-clay-600 hover:underline">
+                        <Link href={`/partner/quotes/${quote.id}`} className="font-semibold text-ink-900 underline-offset-4 hover:underline">
                           {quote.reference}
                         </Link>
                         {category ? <span className="block text-xs text-ink-500">{category.name}</span> : null}

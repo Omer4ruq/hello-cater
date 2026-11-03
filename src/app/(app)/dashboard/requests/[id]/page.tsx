@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { CalendarDays, MapPin, Sparkles, Users } from 'lucide-react';
+import { ArrowRight, CalendarDays, MapPin, Sparkles, Star, Users } from 'lucide-react';
 import { PageHeader } from '@/components/app/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +11,7 @@ import { Alert } from '@/components/ui/feedback';
 import { requireUserPage } from '@/features/auth/session';
 import { getCustomerRequest } from '@/features/customer/queries';
 import { buildMetadata } from '@/lib/seo';
+import { cn } from '@/lib/utils';
 import { formatEventDate, formatTime, relativeDate } from '@/lib/dates';
 
 export const metadata = buildMetadata({
@@ -118,30 +119,57 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
           </Card>
 
           {proposals.length > 0 ? (
-            <Card>
-              <CardHeader><CardTitle as="h2">Proposals</CardTitle></CardHeader>
-              <CardContent className="pt-3">
-                <ul className="divide-y divide-ink-100">
-                  {proposals.map((proposal) => (
-                    <li key={proposal.id} className="flex items-center justify-between gap-4 py-3">
-                      <div>
-                        <Link
-                          href={`/dashboard/proposals/${proposal.id}`}
-                          className="text-sm font-medium text-brand-700 hover:underline"
-                        >
-                          {proposal.reference}
-                        </Link>
-                        <span className="ml-2 text-xs text-ink-500">v{proposal.version_no}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Money minor={proposal.total_minor} className="text-sm font-semibold" />
-                        <StatusBadge status={proposal.status} />
-                      </div>
+            <section aria-labelledby="proposals-heading">
+              <div className="flex items-baseline justify-between gap-4">
+                <h2 id="proposals-heading" className="font-sans text-xl font-bold tracking-tight text-ink-900">Proposals</h2>
+                <p className="text-sm text-ink-500">
+                  {proposals.length} {proposals.length === 1 ? 'version' : 'versions'}
+                </p>
+              </div>
+              <ul className="motion-stagger mt-4 grid gap-4 sm:grid-cols-2">
+                {proposals.map((proposal, index) => {
+                  const latest = index === 0;
+                  return (
+                    <li key={proposal.id} className="min-w-0">
+                      <Link
+                        href={`/dashboard/proposals/${proposal.id}`}
+                        className={cn(
+                          'group flex h-full flex-col rounded-2xl border bg-white p-5 transition-[box-shadow,border-color] duration-200 hover:shadow-md',
+                          latest ? 'border-ink-900 ring-1 ring-ink-900' : 'border-ink-200 hover:border-ink-300',
+                        )}
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          {latest ? (
+                            <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">
+                              <Star aria-hidden className="size-3.5 fill-current" /> Latest version
+                            </span>
+                          ) : (
+                            <span className="text-sm font-medium text-ink-500">Version {proposal.version_no}</span>
+                          )}
+                          <StatusBadge status={proposal.status} />
+                        </div>
+                        <p className="mt-3 truncate text-base font-semibold text-ink-900">
+                          {proposal.title || `Proposal ${proposal.reference}`}
+                        </p>
+                        <p className="text-sm text-ink-500">
+                          {proposal.reference}{latest ? ` · v${proposal.version_no}` : ''}
+                        </p>
+                        <p className="mt-5 text-sm text-ink-600">Total</p>
+                        <Money minor={proposal.total_minor} className="font-sans text-3xl font-extrabold tracking-tight text-ink-900 tabular-nums" />
+                        <div className="mt-auto flex items-center justify-between gap-3 pt-5 text-sm">
+                          <span className="text-ink-500">
+                            {proposal.valid_until ? `Valid until ${formatEventDate(proposal.valid_until)}` : proposal.sent_at ? `Sent ${relativeDate(proposal.sent_at)}` : ''}
+                          </span>
+                          <span className="inline-flex items-center gap-1 font-semibold text-ink-900">
+                            Review <ArrowRight aria-hidden className="icon-nudge size-4" />
+                          </span>
+                        </div>
+                      </Link>
                     </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+                  );
+                })}
+              </ul>
+            </section>
           ) : null}
         </div>
 
@@ -149,9 +177,9 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
           <Card>
             <CardHeader><CardTitle as="h2">Progress</CardTitle></CardHeader>
             <CardContent className="pt-3">
-              <div className="mb-5 rounded-lg bg-ink-50 p-3.5">
+              <div className="mb-5 rounded-xl bg-ink-50 p-3.5">
                 <p className="flex items-center gap-2 text-sm text-ink-700">
-                  <Sparkles aria-hidden className="size-4 text-brand-600" />
+                  <Sparkles aria-hidden className="size-4 text-brand-700" />
                   {invitesTotal === 0
                     ? 'Our team is shortlisting partners for you.'
                     : `${invitesTotal} ${invitesTotal === 1 ? 'partner' : 'partners'} approached · ${invitesAccepted} quoting`}
@@ -161,7 +189,7 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
               <ol className="space-y-3">
                 {history.map((entry) => (
                   <li key={entry.id} className="flex gap-3">
-                    <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-brand-600" />
+                    <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-brand-700" />
                     <span className="text-sm">
                       <span className="block text-ink-900">{statusLabel(entry.to_status)}</span>
                       <span className="block text-xs text-ink-500">{relativeDate(entry.created_at)}</span>
@@ -196,7 +224,7 @@ function Detail({
 }) {
   return (
     <div>
-      <dt className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-ink-500">
+      <dt className="flex items-center gap-1.5 text-sm font-medium text-ink-500">
         {Icon ? <Icon aria-hidden className="size-3.5" /> : null}
         {label}
       </dt>

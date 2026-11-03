@@ -88,7 +88,7 @@ export function ThreadView({
   }
 
   return (
-    <div className="flex h-[calc(100dvh-13rem)] min-h-96 flex-col rounded-xl border border-ink-200 bg-white">
+    <div className="flex h-[calc(100dvh-13rem)] min-h-96 flex-col rounded-2xl border border-ink-200 bg-white">
       <header className="flex items-center justify-between gap-3 border-b border-ink-200 px-5 py-3.5">
         <h2 className="truncate font-sans text-base font-semibold text-ink-950">{subject}</h2>
         {!contactSharingAllowed ? (
@@ -124,7 +124,7 @@ export function ThreadView({
                 className={cn(
                   'grid size-8 shrink-0 place-items-center rounded-full text-[0.68rem] font-semibold text-white',
                   message.senderSide === 'platform' ? 'bg-brand-700'
-                    : message.senderSide === 'partner' ? 'bg-clay-600' : 'bg-ink-700',
+                    : message.senderSide === 'partner' ? 'bg-ink-500' : 'bg-ink-700',
                 )}
               >
                 {initials(message.senderName)}

@@ -118,7 +118,7 @@ export default async function AdminPartnerPage({ params }: { params: Promise<{ i
 
                     {profile.about ? (
                       <div className="mt-5 border-t border-ink-100 pt-4">
-                        <p className="text-xs font-medium uppercase tracking-wide text-ink-500">About</p>
+                        <p className="text-xs font-medium text-ink-500">About</p>
                         <p className="mt-1 whitespace-pre-wrap text-sm text-ink-700">{profile.about}</p>
                       </div>
                     ) : null}
@@ -143,7 +143,7 @@ export default async function AdminPartnerPage({ params }: { params: Promise<{ i
                     </dl>
 
                     <div className="mt-5 border-t border-ink-100 pt-4">
-                      <p className="text-xs font-medium uppercase tracking-wide text-ink-500">Categories</p>
+                      <p className="text-xs font-medium text-ink-500">Categories</p>
                       <div className="mt-2 flex flex-wrap gap-1.5">
                         {categories.map((c) => {
                           const category = c.service_categories as unknown as { name: string } | null;
@@ -156,7 +156,7 @@ export default async function AdminPartnerPage({ params }: { params: Promise<{ i
                         })}
                       </div>
 
-                      <p className="mt-4 text-xs font-medium uppercase tracking-wide text-ink-500">Service areas</p>
+                      <p className="mt-4 text-xs font-medium text-ink-500">Service areas</p>
                       <div className="mt-2 flex flex-wrap gap-1.5">
                         {serviceAreas.map((area) => {
                           const areaName = (area.areas as unknown as { name: string } | null)?.name;
@@ -273,7 +273,7 @@ export default async function AdminPartnerPage({ params }: { params: Promise<{ i
                         const actor = event.profiles as unknown as { full_name: string } | null;
                         return (
                           <li key={event.id} className="flex gap-3">
-                            <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-brand-600" />
+                            <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-brand-700" />
                             <div>
                               <p className="text-sm text-ink-900">
                                 {event.from_status ? `${event.from_status} → ` : ''}
@@ -323,7 +323,7 @@ export default async function AdminPartnerPage({ params }: { params: Promise<{ i
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div>
-      <dt className="text-xs font-medium uppercase tracking-wide text-ink-500">{label}</dt>
+      <dt className="text-xs font-medium text-ink-500">{label}</dt>
       <dd className="mt-0.5 text-ink-900">{value}</dd>
     </div>
   );

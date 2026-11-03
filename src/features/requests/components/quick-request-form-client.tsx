@@ -4,6 +4,7 @@ import * as React from 'react';
 import { useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { DatePicker } from '@/components/ui/date-picker';
 import { Select } from '@/components/ui/select';
 import { track } from '@/lib/analytics';
 import { brand } from '@/config/brand';
@@ -101,11 +102,7 @@ export function QuickRequestFormClient({
         </BarSegment>
         <BarDivider />
         <BarSegment label="Date">
-          <input
-            type="date" min={today} value={eventDate}
-            onChange={(e) => setEventDate(e.target.value)}
-            className={barControl + (eventDate ? '' : ' text-ink-500')}
-          />
+          <DatePicker variant="bare" min={today} value={eventDate} onChange={setEventDate} className={barControl} />
         </BarSegment>
         <BarDivider />
         <BarSegment label="Guests">
@@ -160,6 +157,8 @@ function BarSegment({
         'flex min-w-0 flex-1 cursor-pointer flex-col justify-center rounded-full px-6 py-3 ' +
         'transition-[background-color,box-shadow] duration-200 ease-out ' +
         'hover:bg-ink-100 focus-within:bg-white focus-within:shadow-lg focus-within:hover:bg-white ' +
+        // An open picker (its menu is portalled out) keeps the segment lifted.
+        'has-data-[state=open]:bg-white has-data-[state=open]:shadow-lg ' +
         'md:min-h-16 ' + (className ?? '')
       }
     >
@@ -174,7 +173,7 @@ function BarDivider() {
   return (
     <span
       aria-hidden
-      className="hidden h-8 w-px shrink-0 bg-ink-300 transition-opacity duration-200 md:block [label:focus-within+&]:opacity-0 [&:has(+label:focus-within)]:opacity-0"
+      className="hidden h-8 w-px shrink-0 bg-ink-300 transition-opacity duration-200 md:block [label:focus-within+&]:opacity-0 [&:has(+label:focus-within)]:opacity-0 [label:has([data-state=open])+&]:opacity-0 [&:has(+label_[data-state=open])]:opacity-0"
     />
   );
 }

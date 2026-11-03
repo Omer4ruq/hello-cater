@@ -112,7 +112,7 @@ export default async function PartnerQuoteDetailPage({ params }: { params: Promi
           }[]).sort((a, b) => a.sort_order - b.sort_order);
 
           return (
-            <Card key={version.id} className={version.id === current?.id ? 'border-clay-300' : undefined}>
+            <Card key={version.id} className={version.id === current?.id ? 'border-ink-900 ring-1 ring-ink-900' : undefined}>
               <CardHeader className="flex-row flex-wrap items-center justify-between gap-2">
                 <div>
                   <CardTitle as="h2">
@@ -197,7 +197,7 @@ export default async function PartnerQuoteDetailPage({ params }: { params: Promi
 
                 {version.notes ? (
                   <div className="mt-5">
-                    <p className="text-xs font-medium uppercase tracking-wide text-ink-500">Notes</p>
+                    <p className="text-sm font-medium text-ink-500">Notes</p>
                     <p className="mt-1 whitespace-pre-wrap text-sm text-ink-700">{version.notes}</p>
                   </div>
                 ) : null}

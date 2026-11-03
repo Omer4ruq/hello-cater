@@ -39,9 +39,9 @@ export function NotificationPreferences({ types }: { types: NotificationType[] }
       <caption className="sr-only">Notification preferences by type and channel</caption>
       <thead>
         <tr className="border-b border-ink-200 text-left">
-          <th scope="col" className="pb-2 text-xs font-semibold uppercase tracking-wide text-ink-500">Notification</th>
-          <th scope="col" className="w-20 pb-2 text-center text-xs font-semibold uppercase tracking-wide text-ink-500">In app</th>
-          <th scope="col" className="w-20 pb-2 text-center text-xs font-semibold uppercase tracking-wide text-ink-500">Email</th>
+          <th scope="col" className="pb-2 text-sm font-semibold text-ink-600">Notification</th>
+          <th scope="col" className="w-20 pb-2 text-center text-sm font-semibold text-ink-600">In app</th>
+          <th scope="col" className="w-20 pb-2 text-center text-sm font-semibold text-ink-600">Email</th>
         </tr>
       </thead>
       <tbody className="divide-y divide-ink-100">

@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic';
 export default function ResetPasswordPage() {
   return (
     <div>
-      <h1 className="text-display-sm">Choose a new password</h1>
+      <h1 className="text-display-sm font-extrabold tracking-tight text-ink-900">Choose a new password</h1>
       <p className="mt-2 text-ink-600">Pick something you have not used elsewhere.</p>
       <ResetPasswordForm />
     </div>

@@ -68,7 +68,7 @@ export default async function AdminReviewsPage({
                 <CardContent>
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
-                      <p className="text-sm text-saffron-600" aria-label={`${review.rating} out of 5`}>
+                      <p className="text-sm text-ink-900" aria-label={`${review.rating} out of 5`}>
                         <span aria-hidden>{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</span>
                       </p>
                       <p className="mt-1 text-sm">
@@ -87,7 +87,7 @@ export default async function AdminReviewsPage({
                     <p className="mt-1.5 whitespace-pre-wrap text-sm leading-relaxed text-ink-700">{review.comment}</p>
                   ) : null}
                   {review.moderation_note ? (
-                    <p className="mt-2 rounded-lg bg-ink-50 p-2.5 text-xs text-ink-600">
+                    <p className="mt-2 rounded-xl bg-ink-50 p-2.5 text-xs text-ink-600">
                       Moderation note: {review.moderation_note}
                     </p>
                   ) : null}

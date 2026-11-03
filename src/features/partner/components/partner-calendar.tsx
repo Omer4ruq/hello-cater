@@ -102,7 +102,7 @@ export function PartnerCalendar({
           <div role="grid" aria-label={`Calendar for ${monthLabel}`}>
             <div role="row" className="grid grid-cols-7 gap-1 border-b border-ink-200 pb-2">
               {WEEKDAYS.map((day) => (
-                <div key={day} role="columnheader" className="text-center text-xs font-semibold uppercase tracking-wide text-ink-500">
+                <div key={day} role="columnheader" className="text-center text-sm font-medium text-ink-500">
                   <span aria-hidden>{day.slice(0, 1)}</span>
                   <span className="sr-only">{day}</span>
                   <span className="hidden sm:inline" aria-hidden>{day.slice(1)}</span>
@@ -135,14 +135,14 @@ export function PartnerCalendar({
                     aria-label={`${formatEventDate(iso)}${isBlocked ? ', blocked' : ''}${dayBookings.length ? `, ${dayBookings.length} bookings` : ''}`}
                     className={cn(
                       'flex min-h-16 flex-col items-start rounded-lg border p-1.5 text-left transition-colors sm:min-h-20',
-                      selected === iso ? 'border-clay-500 ring-1 ring-clay-500' : 'border-ink-200',
+                      selected === iso ? 'border-ink-900 ring-1 ring-ink-900' : 'border-ink-200',
                       isBlocked && 'bg-ink-100 text-ink-400',
                       !isBlocked && isFull && 'bg-danger-50',
                       !isBlocked && !isFull && dayBookings.length > 0 && 'bg-success-50',
                       isPast && 'opacity-55',
                     )}
                   >
-                    <span className={cn('text-xs font-medium', iso === todayIso && 'rounded-full bg-clay-600 px-1.5 text-white')}>
+                    <span className={cn('text-xs font-medium', iso === todayIso && 'rounded-full bg-brand-700 px-1.5 text-white')}>
                       {day}
                     </span>
                     {isBlocked ? (

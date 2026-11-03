@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart } from 'lucide-react';
+import { ArrowRight, Heart, Star } from 'lucide-react';
 import { PageHeader } from '@/components/app/page-header';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { VerifiedBadge } from '@/components/ui/badge';
 import { EmptyState } from '@/components/ui/feedback';
@@ -16,6 +15,9 @@ export const metadata = buildMetadata({
 });
 
 export const dynamic = 'force-dynamic';
+
+// Partners without a cover photo get a stand-in so the grid keeps its rhythm.
+const STAND_IN_PHOTOS = ['/img/photos/buffet.jpg', '/img/photos/banquet.jpg', '/img/photos/chef.jpg', '/img/photos/dining.jpg', '/img/photos/longtable.jpg', '/img/photos/terrace.jpg'];
 
 export default async function SavedPartnersPage() {
   await requireUserPage('/dashboard/saved');
@@ -36,42 +38,58 @@ export default async function SavedPartnersPage() {
           action={<Button asChild><Link href="/partners">Browse partners</Link></Button>}
         />
       ) : (
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {saved.map((favorite) => {
+        <div className="motion-stagger grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {saved.map((favorite, index) => {
             const partner = favorite.partner_profiles as unknown as {
               id: string; slug: string; display_name: string; tagline: string | null;
-              logo_url: string | null; rating_avg: number; rating_count: number;
+              logo_url: string | null; cover_image_url: string | null; rating_avg: number; rating_count: number;
             } | null;
             if (!partner) return null;
 
             return (
-              <Link key={favorite.id} href={`/partners/${partner.slug}`} className="group">
-                <Card interactive className="h-full">
-                  <CardContent className="flex gap-4">
-                    <div className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-ink-100">
-                      <Image
-                        src={partner.logo_url ?? '/img/catering.svg'}
-                        alt="" fill sizes="56px" className="object-cover"
-                      />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <h2 className="truncate font-sans text-base font-semibold text-ink-950 group-hover:text-brand-800">
-                          {partner.display_name}
-                        </h2>
-                        <VerifiedBadge />
-                      </div>
-                      {partner.tagline ? (
-                        <p className="mt-1 line-clamp-2 text-sm text-ink-600">{partner.tagline}</p>
-                      ) : null}
-                      <p className="mt-1.5 text-xs text-ink-500">
-                        {partner.rating_count > 0
-                          ? `★ ${partner.rating_avg.toFixed(1)} (${partner.rating_count} reviews)`
-                          : 'New partner'}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
+              <Link key={favorite.id} href={`/partners/${partner.slug}`} className="group block min-w-0">
+                <div className="relative aspect-20/19 overflow-hidden rounded-2xl bg-ink-100">
+                  <Image
+                    src={partner.cover_image_url ?? STAND_IN_PHOTOS[index % STAND_IN_PHOTOS.length]}
+                    alt=""
+                    fill
+                    priority={index < 3}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-700 ease-(--ease-out-expo) group-hover:scale-105"
+                  />
+                  <div className="absolute left-3 top-3 flex items-center gap-2">
+                    {partner.logo_url ? (
+                      <span className="relative size-9 overflow-hidden rounded-full bg-white shadow-md ring-2 ring-white">
+                        <Image src={partner.logo_url} alt="" fill sizes="36px" className="object-cover" />
+                      </span>
+                    ) : null}
+                    <VerifiedBadge className="border-transparent bg-white font-bold text-ink-900 shadow-md" />
+                  </div>
+                  <span className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-full bg-white text-brand-700 shadow-md">
+                    <Heart aria-hidden className="size-4 fill-current" />
+                    <span className="sr-only">Saved</span>
+                  </span>
+                  <span
+                    aria-hidden
+                    className="absolute bottom-3 right-3 inline-flex translate-y-2 items-center gap-1 rounded-full bg-white px-3.5 py-2 text-xs font-bold text-ink-900 opacity-0 shadow-md transition-[opacity,translate] duration-300 ease-(--ease-out-expo) group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
+                  >
+                    View profile <ArrowRight className="icon-nudge size-3.5" />
+                  </span>
+                </div>
+
+                <div className="mt-3 flex items-baseline justify-between gap-2">
+                  <h2 className="truncate font-sans text-base font-semibold text-ink-900">{partner.display_name}</h2>
+                  {partner.rating_count > 0 ? (
+                    <span className="flex shrink-0 items-center gap-1 text-sm text-ink-900">
+                      <Star aria-hidden className="size-3.5 fill-current" />
+                      {partner.rating_avg.toFixed(2)}
+                      <span className="sr-only">out of 5 from {partner.rating_count} reviews</span>
+                    </span>
+                  ) : (
+                    <span className="shrink-0 text-sm text-ink-900">New</span>
+                  )}
+                </div>
+                {partner.tagline ? <p className="line-clamp-2 text-sm text-ink-600">{partner.tagline}</p> : null}
               </Link>
             );
           })}

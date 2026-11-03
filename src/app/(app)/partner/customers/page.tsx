@@ -52,15 +52,15 @@ export default async function PartnerCustomersPage() {
 
                 <dl className="mt-4 grid grid-cols-3 gap-3 border-y border-ink-100 py-3 text-sm">
                   <div>
-                    <dt className="text-xs uppercase tracking-wide text-ink-500">Events</dt>
+                    <dt className="text-sm font-medium text-ink-500">Events</dt>
                     <dd className="font-medium text-ink-900">{customer.bookings}</dd>
                   </div>
                   <div>
-                    <dt className="text-xs uppercase tracking-wide text-ink-500">Delivered</dt>
+                    <dt className="text-sm font-medium text-ink-500">Delivered</dt>
                     <dd className="font-medium text-ink-900">{customer.completed}</dd>
                   </div>
                   <div>
-                    <dt className="text-xs uppercase tracking-wide text-ink-500">Total value</dt>
+                    <dt className="text-sm font-medium text-ink-500">Total value</dt>
                     <dd className="font-medium text-ink-900"><Money minor={customer.totalMinor} compact /></dd>
                   </div>
                 </dl>

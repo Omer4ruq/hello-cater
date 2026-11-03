@@ -37,7 +37,7 @@ export default async function PlanPage() {
   };
 
   return (
-    <div className="container-page py-12 lg:py-16">
+    <div className="container-page py-8 lg:py-14">
       <Suspense fallback={<SkeletonCard />}>
         <EventWizard catalog={catalog} isAuthenticated={Boolean(user)} />
       </Suspense>

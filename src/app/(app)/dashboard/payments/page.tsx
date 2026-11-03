@@ -89,7 +89,7 @@ export default async function CustomerPaymentsPage({
                       <TDNum>
                         <Money minor={payment.amount_minor} />
                         {payment.refunded_minor > 0 ? (
-                          <span className="block text-xs text-clay-700">
+                          <span className="block text-xs text-ink-500">
                             <Money minor={payment.refunded_minor} /> refunded
                           </span>
                         ) : null}
@@ -113,7 +113,7 @@ export default async function CustomerPaymentsPage({
 
       <p className="mt-6 text-sm text-ink-600">
         Need an invoice? They are in{' '}
-        <Link href="/dashboard/invoices" className="font-medium text-brand-700 underline underline-offset-4">Invoices</Link>.
+        <Link href="/dashboard/invoices" className="font-semibold text-ink-900 underline underline-offset-4 hover:text-brand-700">Invoices</Link>.
       </p>
     </>
   );

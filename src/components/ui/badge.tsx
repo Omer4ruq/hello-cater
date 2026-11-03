@@ -10,8 +10,9 @@ const badgeVariants = cva(
       tone: {
         neutral: 'border-ink-200 bg-ink-50 text-ink-700',
         brand: 'border-brand-200 bg-brand-50 text-brand-800',
-        saffron: 'border-saffron-200 bg-saffron-50 text-saffron-800',
-        clay: 'border-clay-200 bg-clay-50 text-clay-800',
+        // Legacy tone names kept for API compatibility; they render in the new palette.
+        saffron: 'border-warning-500/25 bg-warning-50 text-warning-700',
+        clay: 'border-ink-300 bg-white text-ink-800',
         success: 'border-success-500/25 bg-success-50 text-success-700',
         warning: 'border-warning-500/25 bg-warning-50 text-warning-700',
         danger: 'border-danger-500/25 bg-danger-50 text-danger-700',

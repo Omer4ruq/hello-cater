@@ -140,10 +140,10 @@ export function PartnerInvitePanel({
                 <li key={candidate.id}>
                   <label
                     className={cn(
-                      'flex cursor-pointer items-start gap-3 rounded-lg border p-3.5 transition-colors',
+                      'flex cursor-pointer items-start gap-3 rounded-2xl border p-3.5 transition-colors',
                       candidate.disqualified && 'cursor-not-allowed border-ink-200 bg-ink-50 opacity-70',
                       !candidate.disqualified && selected.has(candidate.id)
-                        ? 'border-brand-600 bg-brand-50 ring-1 ring-brand-600'
+                        ? 'border-ink-900 bg-ink-50 ring-1 ring-ink-900'
                         : !candidate.disqualified && 'border-ink-200 hover:border-ink-300 hover:bg-ink-50',
                     )}
                   >
@@ -193,7 +193,7 @@ export function PartnerInvitePanel({
                       <span className="block font-sans text-lg font-semibold tabular-nums text-ink-950">
                         {candidate.disqualified ? '—' : candidate.score.toFixed(0)}
                       </span>
-                      <span className="block text-[0.65rem] uppercase tracking-wide text-ink-500">score</span>
+                      <span className="block text-xs text-ink-500">Score</span>
                     </span>
                   </label>
                 </li>
@@ -212,8 +212,8 @@ export function PartnerInvitePanel({
             ) : null}
 
             {selected.size > 0 ? (
-              <div className="mt-5 space-y-4 rounded-lg border border-brand-200 bg-brand-50/60 p-4">
-                <p className="text-sm font-medium text-brand-900">
+              <div className="mt-5 space-y-4 rounded-2xl bg-ink-50 p-4">
+                <p className="text-sm font-semibold text-ink-900">
                   Inviting {selected.size} {selected.size === 1 ? 'partner' : 'partners'}
                 </p>
 

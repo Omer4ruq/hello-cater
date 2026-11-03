@@ -1,3 +1,6 @@
+import type { CategorySummary, EventTypeSummary } from './queries';
+
+
 /**
  * Resilience fallbacks for the public marketing site.
  *
@@ -50,3 +53,52 @@ export const FALLBACK_TESTIMONIALS = [
   { id: 't2', author_name: 'Tanvir Ahmed', author_title: 'Operations Manager', company: 'A Gulshan-based software firm', quote: 'Weekly office lunch for 60 people used to be a recurring headache. It now runs on a standing arrangement and a single monthly invoice.', rating: 5, event_type: 'Corporate', avatar_url: null },
   { id: 't3', author_name: 'Farhana & Rezaul', author_title: '', company: 'Wedding in Uttara', quote: 'Catering, decoration and photography came back as one proposal with one total. Having a single coordinator on the day was worth it by itself.', rating: 5, event_type: 'Wedding', avatar_url: null },
 ];
+
+/** Root service categories from supabase/seed.sql (the ones the header links to). */
+export const FALLBACK_CATEGORIES: CategorySummary[] = [
+  { slug: 'catering', name: 'Catering', name_bn: 'ক্যাটারিং', kind: 'catering', sort_order: 10,
+    short_description: 'Corporate, wedding and private catering from verified kitchens.',
+    seo_title: 'Catering Services in Dhaka | Corporate, Wedding & Private',
+    seo_description: 'Request quotations from verified caterers in Dhaka for corporate lunch, weddings, conferences and private events.' },
+  { slug: 'event-management', name: 'Event Management', name_bn: 'ইভেন্ট ম্যানেজমেন্ট', kind: 'event_service', sort_order: 20,
+    short_description: 'End-to-end planning and on-the-day coordination.',
+    seo_title: 'Event Management Companies in Dhaka',
+    seo_description: 'Compare proposals from verified event management companies in Dhaka for corporate programmes, weddings and launches.' },
+  { slug: 'event-vendors', name: 'Event Vendors', name_bn: 'ইভেন্ট ভেন্ডর', kind: 'vendor', sort_order: 30,
+    short_description: 'Decor, venue, photography, sound, lighting and everything in between.',
+    seo_title: 'Event Vendors & Suppliers in Dhaka',
+    seo_description: 'Find verified decorators, photographers, sound and lighting suppliers, venues and more in Dhaka.' },
+].map((c) => ({
+  ...c, id: `builtin-${c.slug}`, kind: c.kind as CategorySummary['kind'], description: null,
+  image_url: null, icon: null, is_featured: true, parent_id: null,
+}));
+
+/** Featured event types from supabase/seed.sql. */
+export const FALLBACK_EVENT_TYPES: EventTypeSummary[] = ([
+  ['corporate-lunch', 'Corporate Lunch', 'কর্পোরেট লাঞ্চ', 'corporate', 10, 20, 500, 'Office lunch for teams, clients and visitors.',
+    'Corporate Lunch Catering in Dhaka', 'Office lunch catering in Dhaka with verified partners, transparent pricing and one invoice.'],
+  ['conference', 'Conference', 'কনফারেন্স', 'corporate', 30, 50, 2000, 'Multi-session conferences with catering and AV.',
+    'Conference Management & Catering in Dhaka', 'Conference catering, AV, stage and registration handled end to end.'],
+  ['product-launch', 'Product Launch', 'প্রোডাক্ট লঞ্চ', 'corporate', 70, 50, 1000, 'Launches, press meets and brand activations.', null, null],
+  ['corporate-iftar', 'Corporate Iftar', 'কর্পোরেট ইফতার', 'corporate', 110, 30, 1500, 'Ramadan iftar for staff, clients and partners.',
+    'Corporate Iftar Party Catering in Dhaka', 'Iftar catering for offices in Dhaka — packed boxes or full buffet, delivered on time.'],
+  ['wedding', 'Wedding', 'বিয়ে', 'wedding', 200, 150, 2000, 'The main wedding ceremony and feast.',
+    'Wedding Catering & Planning in Dhaka', 'Plan your wedding in Dhaka with verified caterers, decorators and photographers in one place.'],
+  ['holud', 'Holud', 'গায়ে হলুদ', 'wedding', 210, 100, 800, 'Gaye holud with stage, decor and catering.',
+    'Holud Event Planning & Catering in Dhaka', 'Holud decoration, catering, photography and sound arranged through one coordinator.'],
+  ['reception', 'Reception', 'রিসেপশন', 'wedding', 240, 200, 2000, 'Bou bhat and reception dinners.', null, null],
+  ['birthday', 'Birthday', 'জন্মদিন', 'private', 300, 15, 200, 'Birthday parties at home or a venue.',
+    'Birthday Party Catering & Planning in Dhaka', 'Birthday catering, cake, decoration and photography in one request.'],
+] as const).map(([slug, name, name_bn, segment, sort_order, typical_guests_min, typical_guests_max, short_description, seo_title, seo_description]) => ({
+  id: `builtin-${slug}`, slug, name, name_bn, segment, sort_order, typical_guests_min, typical_guests_max,
+  short_description, seo_title, seo_description, description: null, image_url: null, is_featured: true,
+}));
+
+/** Event segments: grouping on /events and landing pages at /events/<key>. */
+export const EVENT_SEGMENTS = [
+  { key: 'corporate', title: 'Corporate events', blurb: 'Lunches, conferences, launches, dealer programmes and iftar.' },
+  { key: 'wedding', title: 'Weddings', blurb: 'Holud, mehendi, akhd, wedding and reception — one plan across all of it.' },
+  { key: 'private', title: 'Private events', blurb: 'Birthdays, anniversaries and family gatherings.' },
+  { key: 'social', title: 'Social & religious', blurb: 'Aqiqah, milad, cultural nights and community programmes.' },
+  { key: 'government', title: 'Government & NGO', blurb: 'Public programmes with procurement-friendly documentation.' },
+] as const;

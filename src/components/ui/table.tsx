@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 export function TableWrap({ className, children, label }: { className?: string; children: React.ReactNode; label: string }) {
   return (
     <div
-      className={cn('overflow-x-auto rounded-xl border border-ink-200 bg-white', className)}
+      className={cn('overflow-x-auto rounded-2xl border border-ink-200 bg-white', className)}
       role="region"
       aria-label={label}
       tabIndex={0}
@@ -33,7 +33,7 @@ export function TH({ className, ...props }: React.ComponentProps<'th'>) {
   return (
     <th
       scope="col"
-      className={cn('whitespace-nowrap border-b border-ink-200 px-4 py-3 text-xs font-semibold uppercase tracking-wide text-ink-600', className)}
+      className={cn('whitespace-nowrap border-b border-ink-200 px-4 py-3 text-sm font-semibold text-ink-600', className)}
       {...props}
     />
   );

@@ -127,15 +127,15 @@ export function getEmailProvider(): EmailProvider {
 /* ------------------------------------------------------------ Templates */
 
 const styles = {
-  wrapper: 'margin:0;padding:24px;background:#fbf9f5;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#23211e;',
-  card: 'max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #dcd8d0;border-radius:12px;overflow:hidden;',
-  header: 'padding:24px 28px;border-bottom:1px solid #eeece7;',
+  wrapper: 'margin:0;padding:24px;background:#ffffff;font-family:Figtree,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#222222;',
+  card: 'max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #ebebeb;border-radius:16px;overflow:hidden;',
+  header: 'padding:24px 28px;border-bottom:1px solid #ebebeb;',
   body: 'padding:28px;font-size:15px;line-height:1.65;',
-  button: 'display:inline-block;background:#0e4f3c;color:#ffffff;text-decoration:none;padding:12px 22px;border-radius:8px;font-weight:600;font-size:14px;',
-  footer: 'padding:20px 28px;background:#f7f6f3;font-size:12px;color:#6b655a;line-height:1.6;',
+  button: 'display:inline-block;background:#9b1c45;color:#ffffff;text-decoration:none;padding:12px 24px;border-radius:9999px;font-weight:600;font-size:14px;',
+  footer: 'padding:20px 28px;background:#f7f7f7;font-size:12px;color:#5e5e5e;line-height:1.6;',
   table: 'width:100%;border-collapse:collapse;font-size:14px;margin:18px 0;',
-  th: 'text-align:left;padding:8px 0;border-bottom:1px solid #eeece7;color:#6b655a;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.04em;',
-  td: 'padding:10px 0;border-bottom:1px solid #f4f3f0;',
+  th: 'text-align:left;padding:8px 0;border-bottom:1px solid #ebebeb;color:#5e5e5e;font-weight:600;font-size:13px;',
+  td: 'padding:10px 0;border-bottom:1px solid #f0f0f0;',
 };
 
 export type TemplateKey =
@@ -160,7 +160,7 @@ function renderTemplate(input: TemplateInput): { html: string; text: string } {
     ? `<table style="${styles.table}"><tbody>${input.rows
         .map(
           (r) =>
-            `<tr><td style="${styles.td};color:#6b655a;width:45%">${escapeHtml(r.label)}</td>` +
+            `<tr><td style="${styles.td};color:#5e5e5e;width:45%">${escapeHtml(r.label)}</td>` +
             `<td style="${styles.td};font-weight:600;text-align:right">${escapeHtml(r.value)}</td></tr>`,
         )
         .join('')}</tbody></table>`
@@ -172,15 +172,15 @@ function renderTemplate(input: TemplateInput): { html: string; text: string } {
 <body style="${styles.wrapper}">
   <div style="${styles.card}">
     <div style="${styles.header}">
-      <span style="font-size:18px;font-weight:700;color:#0e4f3c;letter-spacing:-0.02em;">${brand.name}</span>
+      <span style="font-size:18px;font-weight:800;color:#222222;letter-spacing:-0.02em;">${brand.name}</span>
     </div>
     <div style="${styles.body}">
-      <h1 style="margin:0 0 16px;font-size:21px;line-height:1.3;color:#14110e;">${escapeHtml(input.heading)}</h1>
+      <h1 style="margin:0 0 16px;font-size:21px;line-height:1.3;color:#222222;font-weight:700;letter-spacing:-0.01em;">${escapeHtml(input.heading)}</h1>
       ${input.greeting ? `<p style="margin:0 0 14px;">${escapeHtml(input.greeting)}</p>` : ''}
       ${input.paragraphs.map((p) => `<p style="margin:0 0 14px;">${escapeHtml(p)}</p>`).join('')}
       ${rows}
       ${input.cta ? `<p style="margin:24px 0 8px;"><a href="${input.cta.href}" style="${styles.button}">${escapeHtml(input.cta.label)}</a></p>` : ''}
-      ${input.footnote ? `<p style="margin:20px 0 0;font-size:13px;color:#6b655a;">${escapeHtml(input.footnote)}</p>` : ''}
+      ${input.footnote ? `<p style="margin:20px 0 0;font-size:13px;color:#5e5e5e;">${escapeHtml(input.footnote)}</p>` : ''}
     </div>
     <div style="${styles.footer}">
       <p style="margin:0 0 6px;">${brand.legalName} · ${brand.address.line1}, ${brand.address.city}</p>

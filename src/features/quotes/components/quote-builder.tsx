@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { GripVertical, Plus, Save, Send, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { DatePicker } from '@/components/ui/date-picker';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input, Select, Textarea, TakaInput } from '@/components/ui/input';
 import { Field, FieldControl, FieldDescription, FieldLabel } from '@/components/ui/field';
@@ -209,7 +210,7 @@ export function QuoteBuilder(props: QuoteBuilderProps) {
                 <li
                   key={index}
                   className={cn(
-                    'rounded-lg border p-3.5',
+                    'rounded-2xl border p-4 transition-[border-color,background-color] duration-200',
                     item.isOptional ? 'border-dashed border-ink-300 bg-ink-50/50' : 'border-ink-200',
                   )}
                 >
@@ -274,8 +275,8 @@ export function QuoteBuilder(props: QuoteBuilderProps) {
                           />
                         </Field>
                         <div className="flex flex-col justify-end pb-0.5">
-                          <p className="text-xs font-medium uppercase tracking-wide text-ink-500">Line total</p>
-                          <p className="mt-1 text-sm font-semibold tabular-nums text-ink-950">
+                          <p className="text-sm font-medium text-ink-500">Line total</p>
+                          <p className="mt-1 text-base font-bold tabular-nums text-ink-900">
                             <Money minor={Math.round(item.quantity * item.unitPriceMinor)} />
                           </p>
                         </div>
@@ -285,7 +286,7 @@ export function QuoteBuilder(props: QuoteBuilderProps) {
                         <label className="flex items-center gap-2 text-sm text-ink-700">
                           <input
                             type="checkbox"
-                            className="size-4 accent-clay-600"
+                            className="size-4 accent-brand-700"
                             checked={item.isOptional}
                             onChange={(e) => updateItem(index, { isOptional: e.target.checked })}
                           />
@@ -407,11 +408,10 @@ export function QuoteBuilder(props: QuoteBuilderProps) {
             <Field>
               <FieldLabel optional>Quote valid until</FieldLabel>
               <FieldControl>
-                <Input
-                  type="date"
+                <DatePicker
                   min={new Date().toISOString().slice(0, 10)}
                   value={validUntil}
-                  onChange={(e) => setValidUntil(e.target.value)}
+                  onChange={setValidUntil}
                 />
               </FieldControl>
             </Field>
@@ -419,7 +419,7 @@ export function QuoteBuilder(props: QuoteBuilderProps) {
 
           <div className="mt-5 flex items-baseline justify-between border-t border-ink-200 pt-4">
             <span className="font-sans text-sm font-semibold text-ink-900">Your total</span>
-            <Money minor={totals.totalMinor} className="font-sans text-xl font-semibold" />
+            <Money minor={totals.totalMinor} className="font-sans text-2xl font-extrabold tracking-tight text-ink-900" />
           </div>
           {totals.perPersonMinor != null ? (
             <p className="mt-1 text-right text-xs text-ink-500">

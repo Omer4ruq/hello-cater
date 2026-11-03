@@ -293,7 +293,7 @@ export async function listSavedPartners() {
   const supabase = await createServerSupabase();
   const { data, error } = await supabase
     .from('favorites')
-    .select('id, created_at, partner_profiles(id, slug, display_name, tagline, logo_url, rating_avg, rating_count)')
+    .select('id, created_at, partner_profiles(id, slug, display_name, tagline, logo_url, cover_image_url, rating_avg, rating_count)')
     .not('partner_id', 'is', null)
     .order('created_at', { ascending: false });
   if (error) throw error;

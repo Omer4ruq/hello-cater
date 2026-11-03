@@ -73,7 +73,7 @@ export default async function PartnerReviewsPage() {
                 <CardContent>
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
-                      <p className="text-sm text-saffron-600" aria-label={`${review.rating} out of 5 stars`}>
+                      <p className="text-sm text-ink-900" aria-label={`${review.rating} out of 5 stars`}>
                         <span aria-hidden>{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</span>
                       </p>
                       {review.title ? (
@@ -88,8 +88,8 @@ export default async function PartnerReviewsPage() {
                   ) : null}
 
                   {response ? (
-                    <div className="mt-4 rounded-lg border-l-2 border-clay-400 bg-ink-50 p-3.5">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-ink-500">Your reply</p>
+                    <div className="mt-4 rounded-xl border-l-2 border-ink-300 bg-ink-50 p-3.5">
+                      <p className="text-sm font-medium text-ink-500">Your reply</p>
                       <p className="mt-1 whitespace-pre-wrap text-sm text-ink-700">{response.body}</p>
                     </div>
                   ) : (

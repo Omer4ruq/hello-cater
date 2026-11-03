@@ -41,7 +41,7 @@ function StarRating({
             key={star}
             className={cn(
               'cursor-pointer rounded p-0.5 transition-colors',
-              'focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-brand-600',
+              'focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ink-900',
             )}
           >
             <input
@@ -55,9 +55,9 @@ function StarRating({
             <Star
               aria-hidden
               className={cn(
-                'size-7',
+                'size-7 transition-[scale,color,fill] duration-150 ease-out hover:scale-110',
                 value !== null && star <= value
-                  ? 'fill-saffron-400 text-saffron-400'
+                  ? 'fill-ink-900 text-ink-900'
                   : 'text-ink-300',
               )}
             />

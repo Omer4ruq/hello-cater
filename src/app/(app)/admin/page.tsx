@@ -83,13 +83,13 @@ export default async function AdminDashboardPage() {
             </ul>
             <dl className="mt-6 grid grid-cols-2 gap-4 border-t border-ink-200 pt-4 text-sm">
               <div>
-                <dt className="text-xs uppercase tracking-wide text-ink-500">Quote rate</dt>
+                <dt className="text-xs text-ink-500">Quote rate</dt>
                 <dd className="mt-0.5 font-sans text-lg font-semibold text-ink-950">
                   {data.funnel.quoteRatePct.toFixed(1)}%
                 </dd>
               </div>
               <div>
-                <dt className="text-xs uppercase tracking-wide text-ink-500">Win rate</dt>
+                <dt className="text-xs text-ink-500">Win rate</dt>
                 <dd className="mt-0.5 font-sans text-lg font-semibold text-ink-950">
                   {data.funnel.winRatePct.toFixed(1)}%
                 </dd>
@@ -156,7 +156,7 @@ function FunnelRow({ label, value, total }: { label: string; value: number; tota
         <span className="font-medium tabular-nums text-ink-950">{value}</span>
       </div>
       <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-ink-100">
-        <div className="h-full rounded-full bg-brand-600" style={{ width: `${Math.max(pct, 2)}%` }} />
+        <div className="h-full rounded-full bg-brand-700" style={{ width: `${Math.max(pct, 2)}%` }} />
       </div>
     </li>
   );

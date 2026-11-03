@@ -163,19 +163,19 @@ export default async function AdminReportsPage() {
         <CardContent className="pt-3">
           <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <div>
-              <dt className="text-xs uppercase tracking-wide text-ink-500">Requests (30 days)</dt>
+              <dt className="text-xs text-ink-500">Requests (30 days)</dt>
               <dd className="mt-1 font-sans text-2xl font-semibold text-ink-950">{overview.funnel.submitted}</dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-wide text-ink-500">Reached quotation</dt>
+              <dt className="text-xs text-ink-500">Reached quotation</dt>
               <dd className="mt-1 font-sans text-2xl font-semibold text-ink-950">{overview.funnel.quoted}</dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-wide text-ink-500">Converted</dt>
+              <dt className="text-xs text-ink-500">Converted</dt>
               <dd className="mt-1 font-sans text-2xl font-semibold text-ink-950">{overview.funnel.won}</dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-wide text-ink-500">Cancelled / disputed</dt>
+              <dt className="text-xs text-ink-500">Cancelled / disputed</dt>
               <dd className="mt-1 font-sans text-2xl font-semibold text-ink-950">{cancellations?.length ?? 0}</dd>
             </div>
           </dl>

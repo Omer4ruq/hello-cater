@@ -69,7 +69,7 @@ export function RegisterForm() {
       {error ? <Alert tone="danger">{error}</Alert> : null}
 
       <fieldset>
-        <legend className="mb-2 text-sm font-medium text-ink-900">Account type</legend>
+        <legend className="mb-2 text-sm font-semibold text-ink-900">Account type</legend>
         <div className="grid grid-cols-2 gap-2">
           {([
             { value: 'individual', label: 'Personal', hint: 'Weddings, birthdays, family events' },
@@ -78,9 +78,9 @@ export function RegisterForm() {
             <label
               key={option.value}
               className={cn(
-                'cursor-pointer rounded-lg border p-3.5 transition-colors',
+                'cursor-pointer rounded-xl border p-4 transition-[border-color,background-color] duration-200 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink-900',
                 accountType === option.value
-                  ? 'border-brand-600 bg-brand-50 ring-1 ring-brand-600'
+                  ? 'border-ink-900 bg-white ring-1 ring-ink-900'
                   : 'border-ink-200 hover:border-ink-300 hover:bg-ink-50',
               )}
             >
@@ -88,9 +88,9 @@ export function RegisterForm() {
                 type="radio" value={option.value} className="sr-only"
                 {...form.register('accountType')}
               />
-              <span className="flex items-center gap-1.5 text-sm font-medium text-ink-950">
+              <span className="flex items-center gap-1.5 text-sm font-semibold text-ink-900">
                 {accountType === option.value ? (
-                  <CheckCircle2 aria-hidden className="size-4 text-brand-600" />
+                  <CheckCircle2 aria-hidden className="size-4 text-brand-700" />
                 ) : null}
                 {option.label}
               </span>
@@ -146,9 +146,9 @@ export function RegisterForm() {
           <input type="checkbox" className="mt-0.5 size-4 accent-brand-700" {...form.register('acceptTerms')} />
           <span>
             I agree to the{' '}
-            <Link href="/terms" className="font-medium text-brand-700 underline underline-offset-4">Terms of Service</Link>
+            <Link href="/terms" className="font-semibold text-ink-900 underline decoration-ink-300 underline-offset-4 transition-colors hover:decoration-ink-900">Terms of Service</Link>
             {' '}and{' '}
-            <Link href="/privacy" className="font-medium text-brand-700 underline underline-offset-4">Privacy Policy</Link>.
+            <Link href="/privacy" className="font-semibold text-ink-900 underline decoration-ink-300 underline-offset-4 transition-colors hover:decoration-ink-900">Privacy Policy</Link>.
           </span>
         </label>
       </Field>

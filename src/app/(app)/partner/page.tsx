@@ -79,10 +79,10 @@ export default async function PartnerDashboardPage() {
       </div>
 
       {data.todayJobs.length > 0 ? (
-        <Card className="mt-6 border-saffron-300 bg-saffron-50/50">
+        <Card className="mt-6 border-ink-900 ring-1 ring-ink-900">
           <CardHeader><CardTitle as="h2">Today</CardTitle></CardHeader>
           <CardContent className="pt-3">
-            <ul className="divide-y divide-saffron-200/60">
+            <ul className="divide-y divide-ink-100">
               {data.todayJobs.map((booking) => {
                 const event = booking.events as unknown as { title: string; venue_name: string | null } | null;
                 return (
@@ -110,7 +110,7 @@ export default async function PartnerDashboardPage() {
         <Card>
           <CardHeader className="flex-row items-center justify-between">
             <CardTitle as="h2">New quotation requests</CardTitle>
-            <Link href="/partner/requests" className="text-sm font-medium text-clay-600 hover:underline">View all</Link>
+            <Link href="/partner/requests" className="text-sm font-semibold text-ink-900 underline-offset-4 hover:underline">View all</Link>
           </CardHeader>
           <CardContent>
             {data.newInvites.length === 0 ? (
@@ -156,7 +156,7 @@ export default async function PartnerDashboardPage() {
         <Card>
           <CardHeader className="flex-row items-center justify-between">
             <CardTitle as="h2">Upcoming bookings</CardTitle>
-            <Link href="/partner/bookings" className="text-sm font-medium text-clay-600 hover:underline">View all</Link>
+            <Link href="/partner/bookings" className="text-sm font-semibold text-ink-900 underline-offset-4 hover:underline">View all</Link>
           </CardHeader>
           <CardContent>
             {data.upcomingBookings.length === 0 ? (
@@ -190,13 +190,13 @@ export default async function PartnerDashboardPage() {
           <Card className="lg:col-span-2">
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle as="h2">Recent reviews</CardTitle>
-              <Link href="/partner/reviews" className="text-sm font-medium text-clay-600 hover:underline">View all</Link>
+              <Link href="/partner/reviews" className="text-sm font-semibold text-ink-900 underline-offset-4 hover:underline">View all</Link>
             </CardHeader>
             <CardContent>
               <ul className="grid gap-4 md:grid-cols-3">
                 {data.recentReviews.map((review) => (
-                  <li key={review.id} className="rounded-lg border border-ink-200 p-4">
-                    <p className="text-sm font-medium text-saffron-600">{'★'.repeat(review.rating)}</p>
+                  <li key={review.id} className="rounded-2xl border border-ink-200 p-5">
+                    <p className="text-sm font-medium text-ink-900">{'★'.repeat(review.rating)}</p>
                     {review.title ? <p className="mt-1.5 text-sm font-medium text-ink-950">{review.title}</p> : null}
                     {review.comment ? <p className="mt-1 line-clamp-3 text-sm text-ink-600">{review.comment}</p> : null}
                     <p className="mt-2 text-xs text-ink-500">{relativeDate(review.created_at)}</p>

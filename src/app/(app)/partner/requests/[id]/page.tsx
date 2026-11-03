@@ -95,7 +95,7 @@ export default async function PartnerRequestDetailPage({ params }: { params: Pro
             </dl>
 
             <div className="mt-5">
-              <p className="text-xs font-medium uppercase tracking-wide text-ink-500">Services requested</p>
+              <p className="text-sm font-medium text-ink-500">Services requested</p>
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {services.map((service) => {
                   const category = service.service_categories as unknown as { name: string } | null;
@@ -106,7 +106,7 @@ export default async function PartnerRequestDetailPage({ params }: { params: Pro
 
             {cuisines.length > 0 ? (
               <div className="mt-4">
-                <p className="text-xs font-medium uppercase tracking-wide text-ink-500">Cuisine</p>
+                <p className="text-sm font-medium text-ink-500">Cuisine</p>
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   {cuisines.map((c) => {
                     const cuisine = c.cuisines as unknown as { name: string } | null;
@@ -214,7 +214,7 @@ function Detail({
 }: { icon: React.ElementType; label: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-ink-500">
+      <dt className="flex items-center gap-1.5 text-sm font-medium text-ink-500">
         <Icon aria-hidden className="size-3.5" /> {label}
       </dt>
       <dd className="mt-0.5 text-ink-900">{children}</dd>
@@ -225,7 +225,7 @@ function Detail({
 function Note({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="mt-4">
-      <p className="text-xs font-medium uppercase tracking-wide text-ink-500">{label}</p>
+      <p className="text-sm font-medium text-ink-500">{label}</p>
       <p className="mt-1 whitespace-pre-wrap text-sm text-ink-700">{children}</p>
     </div>
   );

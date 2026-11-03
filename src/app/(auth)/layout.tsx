@@ -5,38 +5,37 @@ import { brand } from '@/config/brand';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="grid min-h-dvh lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <div className="flex flex-col px-5 py-8 sm:px-10 lg:px-16">
+    <div className="grid min-h-dvh bg-paper lg:grid-cols-2">
+      <div className="flex flex-col px-5 py-6 sm:px-10 lg:px-16 lg:py-8">
         <header className="mb-10">
           <Logo />
         </header>
         <main id="main" className="flex flex-1 items-center">
-          <div className="mx-auto w-full max-w-sm">{children}</div>
+          <div className="motion-stagger mx-auto w-full max-w-sm">{children}</div>
         </main>
-        <footer className="mt-10 text-xs text-ink-500">
-          <p>
-            © {new Date().getFullYear()} {brand.legalName} ·{' '}
-            <Link href="/terms" className="underline underline-offset-2 hover:text-ink-700">Terms</Link>
-            {' · '}
-            <Link href="/privacy" className="underline underline-offset-2 hover:text-ink-700">Privacy</Link>
-          </p>
+        <footer className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-ink-500">
+          <span>© {new Date().getFullYear()} {brand.legalName}</span>
+          <Link href="/terms" className="transition-colors hover:text-ink-900">Terms</Link>
+          <Link href="/privacy" className="transition-colors hover:text-ink-900">Privacy</Link>
         </footer>
       </div>
 
-      {/* Editorial panel — hidden on small screens where it would only
-          push the form below the fold. */}
-      <aside className="relative hidden overflow-hidden bg-brand-950 lg:block">
-        <Image src="/img/hero.svg" alt="" fill sizes="50vw" className="object-cover opacity-70" />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-950 via-brand-950/60 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 p-14">
-          <blockquote className="max-w-md">
-            <p className="font-display text-3xl leading-snug text-white">
+      {/* Photo panel: hidden on small screens where it would only push the
+          form below the fold. */}
+      <aside className="hidden p-4 lg:block">
+        <div className="sticky top-4 h-[calc(100dvh-2rem)] overflow-hidden rounded-3xl">
+          <Image
+            src="/img/photos/banquet.jpg" alt="" fill priority
+            sizes="50vw" className="object-cover"
+          />
+          <div className="absolute inset-x-6 bottom-6 max-w-sm rounded-2xl bg-white/95 p-5 shadow-lg backdrop-blur">
+            <p className="text-lg font-bold leading-snug tracking-tight text-ink-900">
               One requirement in. Comparable proposals out. One invoice at the end.
             </p>
-            <footer className="mt-6 text-sm text-white/60">
+            <p className="mt-2 text-sm text-ink-600">
               How {brand.name} runs catering and events across {brand.launchCity}.
-            </footer>
-          </blockquote>
+            </p>
+          </div>
         </div>
       </aside>
     </div>

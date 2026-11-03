@@ -5,7 +5,9 @@ import { createServerSupabase } from '@/lib/supabase/server';
 import { isSupabaseConfigured } from '@/lib/env';
 import { logger } from '@/lib/logger';
 import type { Tables } from '@/types/database';
-import { FALLBACK_FAQS, FALLBACK_HOME_SECTIONS, FALLBACK_TESTIMONIALS } from './fallback';
+import {
+  FALLBACK_CATEGORIES, FALLBACK_EVENT_TYPES, FALLBACK_FAQS, FALLBACK_HOME_SECTIONS, FALLBACK_TESTIMONIALS,
+} from './fallback';
 
 /**
  * Runs a public read and degrades to a fallback instead of throwing.
@@ -68,6 +70,22 @@ export const getEventTypes = cache(async (segment?: string) =>
     return data ?? [];
   }, []),
 );
+
+/**
+ * Service and event pages: the live catalogue, or the built-in rows when
+ * there is no database (local dev) or it is down, so header links never 404.
+ * Kept apart from getCategories/getEventTypes because those feed forms that
+ * need real ids.
+ */
+export const getCatalogCategories = cache(async () => {
+  const rows = await getCategories();
+  return rows.length ? rows : FALLBACK_CATEGORIES;
+});
+
+export const getCatalogEventTypes = cache(async () => {
+  const rows = await getEventTypes();
+  return rows.length ? rows : FALLBACK_EVENT_TYPES;
+});
 
 export const getCities = cache(async () =>
   safeRead('cities', async () => {

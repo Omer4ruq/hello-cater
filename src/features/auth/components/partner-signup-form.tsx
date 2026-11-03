@@ -62,18 +62,18 @@ export function PartnerSignupForm({
 
   if (submitted) {
     return (
-      <Card className="p-8 text-center sm:p-12">
-        <span className="mx-auto grid size-14 place-items-center rounded-full bg-brand-50 text-brand-700">
+      <Card className="motion-stagger p-8 text-center sm:p-12">
+        <span className="mx-auto grid size-14 place-items-center rounded-full bg-ink-50 text-brand-700">
           <CheckCircle2 aria-hidden className="size-6" />
         </span>
-        <h2 className="mt-6 text-display-sm">Application received</h2>
+        <h2 className="mt-6 text-display-sm font-extrabold">Application received</h2>
         <p className="mx-auto mt-3 max-w-md text-ink-600">
           Check your email to confirm your address, then sign in to upload your trade licence and
           supporting documents. Our partner team reviews applications within two working days.
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Button asChild size="lg"><Link href="/login">Sign in to your dashboard</Link></Button>
-          <Button asChild size="lg" variant="secondary"><Link href="/">Back to home</Link></Button>
+          <Button asChild size="lg" className="rounded-full px-7"><Link href="/login">Sign in to your dashboard</Link></Button>
+          <Button asChild size="lg" variant="secondary" className="rounded-full px-7"><Link href="/">Back to home</Link></Button>
         </div>
       </Card>
     );
@@ -92,8 +92,8 @@ export function PartnerSignupForm({
       {error ? <Alert tone="danger" title="We could not submit your application">{error}</Alert> : null}
 
       <Card>
-        <CardHeader><CardTitle as="h2">Your business</CardTitle></CardHeader>
-        <CardContent className="space-y-5 pt-3">
+        <CardHeader className="p-6 pb-0 sm:p-7 sm:pb-0"><CardTitle as="h2" className="text-lg font-bold">Your business</CardTitle></CardHeader>
+        <CardContent className="space-y-5 p-6 pt-4 sm:p-7 sm:pt-4">
           <Field error={form.formState.errors.businessName?.message}>
             <FieldLabel>Business name</FieldLabel>
             <FieldControl>
@@ -162,8 +162,8 @@ export function PartnerSignupForm({
       </Card>
 
       <Card>
-        <CardHeader><CardTitle as="h2">What you offer</CardTitle></CardHeader>
-        <CardContent className="space-y-5 pt-3">
+        <CardHeader className="p-6 pb-0 sm:p-7 sm:pb-0"><CardTitle as="h2" className="text-lg font-bold">What you offer</CardTitle></CardHeader>
+        <CardContent className="space-y-5 p-6 pt-4 sm:p-7 sm:pt-4">
           <Controller
             control={form.control} name="categoryIds"
             render={({ field, fieldState }) => (
@@ -176,7 +176,7 @@ export function PartnerSignupForm({
                     if (!items.length) return null;
                     return (
                       <fieldset key={group.kind}>
-                        <legend className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink-500">
+                        <legend className="mb-2 text-sm font-semibold text-ink-900">
                           {group.label}
                         </legend>
                         <div className="flex flex-wrap gap-2">
@@ -186,10 +186,10 @@ export function PartnerSignupForm({
                               <label
                                 key={category.id}
                                 className={cn(
-                                  'cursor-pointer rounded-full border px-3.5 py-2 text-sm transition-colors',
+                                  'inline-flex min-h-11 cursor-pointer items-center rounded-full border px-4 text-sm font-medium transition-[background-color,border-color,color,scale] duration-200 active:scale-[0.97] has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink-900',
                                   checked
-                                    ? 'border-clay-600 bg-clay-600 font-medium text-white'
-                                    : 'border-ink-200 bg-white text-ink-700 hover:border-ink-300 hover:bg-ink-50',
+                                    ? 'border-ink-900 bg-ink-900 text-white'
+                                    : 'border-ink-300 bg-white text-ink-900 hover:border-ink-900',
                                 )}
                               >
                                 <input
@@ -241,10 +241,10 @@ export function PartnerSignupForm({
                       <label
                         key={area.id}
                         className={cn(
-                          'cursor-pointer rounded-full border px-3 py-1.5 text-sm transition-colors',
+                          'inline-flex min-h-11 cursor-pointer items-center rounded-full border px-4 text-sm font-medium transition-[background-color,border-color,color,scale] duration-200 active:scale-[0.97] has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink-900',
                           checked
-                            ? 'border-brand-600 bg-brand-50 font-medium text-brand-800'
-                            : 'border-ink-200 bg-white text-ink-700 hover:bg-ink-50',
+                            ? 'border-ink-900 bg-ink-900 text-white'
+                            : 'border-ink-300 bg-white text-ink-900 hover:border-ink-900',
                         )}
                       >
                         <input
@@ -269,8 +269,8 @@ export function PartnerSignupForm({
       </Card>
 
       <Card>
-        <CardHeader><CardTitle as="h2">Your account</CardTitle></CardHeader>
-        <CardContent className="space-y-5 pt-3">
+        <CardHeader className="p-6 pb-0 sm:p-7 sm:pb-0"><CardTitle as="h2" className="text-lg font-bold">Your account</CardTitle></CardHeader>
+        <CardContent className="space-y-5 p-6 pt-4 sm:p-7 sm:pt-4">
           <div className="grid gap-5 sm:grid-cols-2">
             <Field error={form.formState.errors.contactName?.message}>
               <FieldLabel>Owner or contact name</FieldLabel>
@@ -299,12 +299,12 @@ export function PartnerSignupForm({
 
           <Field error={form.formState.errors.acceptTerms?.message}>
             <label className="flex items-start gap-3 text-sm text-ink-700">
-              <input type="checkbox" className="mt-0.5 size-4 accent-clay-600" {...form.register('acceptTerms')} />
+              <input type="checkbox" className="mt-0.5 size-4 accent-ink-900" {...form.register('acceptTerms')} />
               <span>
                 I agree to the{' '}
-                <Link href="/partner-agreement" className="font-medium text-brand-700 underline underline-offset-4">Partner Agreement</Link>
+                <Link href="/partner-agreement" className="font-semibold text-ink-900 underline underline-offset-4">Partner Agreement</Link>
                 {' '}and{' '}
-                <Link href="/terms" className="font-medium text-brand-700 underline underline-offset-4">Terms of Service</Link>,
+                <Link href="/terms" className="font-semibold text-ink-900 underline underline-offset-4">Terms of Service</Link>,
                 and confirm I am authorised to represent this business.
               </span>
             </label>
@@ -317,7 +317,7 @@ export function PartnerSignupForm({
         team verifies your business. Upload your trade licence from the dashboard to speed that up.
       </Alert>
 
-      <Button type="submit" size="lg" block loading={form.formState.isSubmitting}>
+      <Button type="submit" size="lg" block className="rounded-full" loading={form.formState.isSubmitting}>
         Submit application
       </Button>
     </form>

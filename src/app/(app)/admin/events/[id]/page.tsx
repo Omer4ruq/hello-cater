@@ -234,7 +234,7 @@ export default async function AdminEventWorkspace({ params }: { params: Promise<
                       <Figure label="Partner payable" value={totalPayable} />
                     </dl>
                     {record.refunded_minor > 0 ? (
-                      <p className="mt-4 text-sm text-clay-700">
+                      <p className="mt-4 text-sm text-ink-600">
                         <Money minor={record.refunded_minor} /> refunded on this event.
                       </p>
                     ) : null}
@@ -312,7 +312,7 @@ export default async function AdminEventWorkspace({ params }: { params: Promise<
                     <ol className="space-y-4">
                       {(timeline.data ?? []).map((entry) => (
                         <li key={entry.id} className="flex gap-3">
-                          <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-brand-600" />
+                          <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-brand-700" />
                           <div>
                             <p className="text-sm font-medium text-ink-900">
                               {entry.title}
@@ -354,13 +354,13 @@ export default async function AdminEventWorkspace({ params }: { params: Promise<
               ) : null}
               {record.customer_notes ? (
                 <div className="mt-4 border-t border-ink-100 pt-3">
-                  <p className="text-xs font-medium uppercase tracking-wide text-ink-500">Their requirements</p>
+                  <p className="text-xs font-medium text-ink-500">Their requirements</p>
                   <p className="mt-1 whitespace-pre-wrap text-sm text-ink-700">{record.customer_notes}</p>
                 </div>
               ) : null}
               {record.venue_notes ? (
                 <div className="mt-4 border-t border-ink-100 pt-3">
-                  <p className="text-xs font-medium uppercase tracking-wide text-ink-500">Venue access</p>
+                  <p className="text-xs font-medium text-ink-500">Venue access</p>
                   <p className="mt-1 whitespace-pre-wrap text-sm text-ink-700">{record.venue_notes}</p>
                 </div>
               ) : null}
@@ -384,7 +384,7 @@ export default async function AdminEventWorkspace({ params }: { params: Promise<
 function Tile({ icon: Icon, label, children }: { icon: React.ElementType; label: string; children: React.ReactNode }) {
   return (
     <Card className="p-4">
-      <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-ink-500">
+      <p className="flex items-center gap-1.5 text-xs font-medium text-ink-500">
         <Icon aria-hidden className="size-3.5" /> {label}
       </p>
       <div className="mt-1.5 text-sm font-medium text-ink-950">{children}</div>
@@ -395,7 +395,7 @@ function Tile({ icon: Icon, label, children }: { icon: React.ElementType; label:
 function Figure({ label, value, tone }: { label: string; value: number; tone?: 'success' }) {
   return (
     <div>
-      <dt className="text-xs uppercase tracking-wide text-ink-500">{label}</dt>
+      <dt className="text-xs text-ink-500">{label}</dt>
       <dd className={`mt-1 font-sans text-xl font-semibold ${tone === 'success' ? 'text-success-700' : 'text-ink-950'}`}>
         <Money minor={value} />
       </dd>

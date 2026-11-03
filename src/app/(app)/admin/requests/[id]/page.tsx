@@ -160,7 +160,7 @@ export default async function AdminRequestWorkspace({ params }: { params: Promis
                   </dl>
 
                   <div className="mt-5">
-                    <p className="text-xs font-medium uppercase tracking-wide text-ink-500">Services</p>
+                    <p className="text-xs font-medium text-ink-500">Services</p>
                     <div className="mt-2 flex flex-wrap gap-1.5">
                       {services.map((s) => {
                         const category = s.service_categories as unknown as { name: string } | null;
@@ -171,11 +171,11 @@ export default async function AdminRequestWorkspace({ params }: { params: Promis
 
                   {cuisines.length > 0 ? (
                     <div className="mt-4">
-                      <p className="text-xs font-medium uppercase tracking-wide text-ink-500">Cuisine</p>
+                      <p className="text-xs font-medium text-ink-500">Cuisine</p>
                       <div className="mt-2 flex flex-wrap gap-1.5">
                         {cuisines.map((c) => {
                           const cuisine = c.cuisines as unknown as { name: string } | null;
-                          return <Badge key={c.cuisine_id} tone="saffron">{cuisine?.name}</Badge>;
+                          return <Badge key={c.cuisine_id}>{cuisine?.name}</Badge>;
                         })}
                       </div>
                     </div>
@@ -313,7 +313,7 @@ export default async function AdminRequestWorkspace({ params }: { params: Promis
                           )}
 
                           {current?.notes ? (
-                            <p className="mt-3 whitespace-pre-wrap rounded-lg bg-ink-50 p-3 text-sm text-ink-700">
+                            <p className="mt-3 whitespace-pre-wrap rounded-xl bg-ink-50 p-3 text-sm text-ink-700">
                               {current.notes}
                             </p>
                           ) : null}
@@ -380,7 +380,7 @@ export default async function AdminRequestWorkspace({ params }: { params: Promis
                       const actor = entry.profiles as unknown as { full_name: string } | null;
                       return (
                         <li key={entry.id} className="flex gap-3">
-                          <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-brand-600" />
+                          <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-brand-700" />
                           <div>
                             <p className="text-sm text-ink-900">
                               {entry.from_status ? `${statusLabel(entry.from_status)} → ` : ''}
@@ -450,7 +450,7 @@ export default async function AdminRequestWorkspace({ params }: { params: Promis
 function Detail({ icon: Icon, label, children }: { icon: React.ElementType; label: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-ink-500">
+      <dt className="flex items-center gap-1.5 text-xs font-medium text-ink-500">
         <Icon aria-hidden className="size-3.5" /> {label}
       </dt>
       <dd className="mt-1 text-sm text-ink-900">{children}</dd>
@@ -461,7 +461,7 @@ function Detail({ icon: Icon, label, children }: { icon: React.ElementType; labe
 function Note({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="mt-4">
-      <p className="text-xs font-medium uppercase tracking-wide text-ink-500">{label}</p>
+      <p className="text-xs font-medium text-ink-500">{label}</p>
       <p className="mt-1 whitespace-pre-wrap text-sm text-ink-700">{children}</p>
     </div>
   );

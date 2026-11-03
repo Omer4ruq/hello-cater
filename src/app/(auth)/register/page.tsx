@@ -23,7 +23,7 @@ export default async function RegisterPage() {
 
   return (
     <div>
-      <h1 className="text-display-sm">Create your account</h1>
+      <h1 className="text-display-sm font-extrabold tracking-tight text-ink-900">Create your account</h1>
       <p className="mt-2 text-ink-600">
         Submit requirements, compare proposals and keep every event in one place.
       </p>
@@ -38,7 +38,7 @@ export default async function RegisterPage() {
 
       <p className="mt-8 text-sm text-ink-600">
         Already have an account?{' '}
-        <Link href="/login" className="font-medium text-brand-700 underline underline-offset-4">Sign in</Link>
+        <Link href="/login" className="font-semibold text-ink-900 underline decoration-ink-300 underline-offset-4 transition-colors hover:decoration-ink-900">Sign in</Link>
       </p>
     </div>
   );

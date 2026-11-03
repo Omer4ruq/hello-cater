@@ -103,7 +103,7 @@ export default async function PartnerProfilePage() {
           <Card>
             <CardHeader><CardTitle as="h2">Coverage</CardTitle></CardHeader>
             <CardContent className="pt-3">
-              <p className="text-xs font-medium uppercase tracking-wide text-ink-500">Services</p>
+              <p className="text-sm font-medium text-ink-500">Services</p>
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {catalog.categories.map((c) => {
                   const category = c.service_categories as unknown as { name: string } | null;
@@ -112,7 +112,7 @@ export default async function PartnerProfilePage() {
                 {catalog.categories.length === 0 ? <p className="text-sm text-ink-600">None set.</p> : null}
               </div>
 
-              <p className="mt-4 text-xs font-medium uppercase tracking-wide text-ink-500">Service areas</p>
+              <p className="mt-4 text-sm font-medium text-ink-500">Service areas</p>
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {catalog.serviceAreas.map((area) => {
                   const areaName = (area.areas as unknown as { name: string } | null)?.name;
@@ -122,7 +122,7 @@ export default async function PartnerProfilePage() {
                 {catalog.serviceAreas.length === 0 ? <p className="text-sm text-ink-600">None set.</p> : null}
               </div>
 
-              <p className="mt-4 text-xs font-medium uppercase tracking-wide text-ink-500">Cuisines</p>
+              <p className="mt-4 text-sm font-medium text-ink-500">Cuisines</p>
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {catalog.cuisines.map((c) => {
                   const cuisine = c.cuisines as unknown as { id: string; name: string } | null;

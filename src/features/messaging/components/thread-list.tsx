@@ -49,7 +49,7 @@ export function ThreadList({
                 aria-hidden
                 className={cn(
                   'mt-1.5 size-2 shrink-0 rounded-full',
-                  thread.unread ? 'bg-clay-500' : 'bg-transparent',
+                  thread.unread ? 'bg-brand-700' : 'bg-transparent',
                 )}
               />
               <span className="min-w-0 flex-1">

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Layers, Plus, Send, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { DatePicker } from '@/components/ui/date-picker';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input, Textarea, TakaInput } from '@/components/ui/input';
 import { Field, FieldControl, FieldDescription, FieldLabel } from '@/components/ui/field';
@@ -230,8 +231,8 @@ export function ProposalBuilder({
                   <li key={quote.quoteId}>
                     <div
                       className={cn(
-                        'flex h-full items-start justify-between gap-3 rounded-lg border p-3.5',
-                        used ? 'border-brand-300 bg-brand-50/60' : 'border-ink-200',
+                        'flex h-full items-start justify-between gap-3 rounded-2xl border p-3.5',
+                        used ? 'border-ink-900 bg-ink-50' : 'border-ink-200',
                       )}
                     >
                       <div className="min-w-0">
@@ -284,7 +285,7 @@ export function ProposalBuilder({
           ) : (
             <ul className="space-y-3">
               {lines.map((line) => (
-                <li key={line.key} className="rounded-lg border border-ink-200 p-3.5">
+                <li key={line.key} className="rounded-2xl border border-ink-200 p-3.5">
                   <div className="grid gap-3 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_auto]">
                     <Field>
                       <FieldLabel>Line label (customer sees this)</FieldLabel>
@@ -431,7 +432,7 @@ export function ProposalBuilder({
               </p>
             ) : null}
 
-            <dl className="mt-4 space-y-1.5 rounded-lg bg-ink-50 p-3 text-sm">
+            <dl className="mt-4 space-y-1.5 rounded-xl bg-ink-50 p-3 text-sm">
               <Row label="Platform revenue" value={breakdown.platformRevenueMinor} strong />
               <Row label="Partners receive" value={breakdown.partnerPayableTotalMinor} />
             </dl>
@@ -465,9 +466,9 @@ export function ProposalBuilder({
             <Field className="mt-3">
               <FieldLabel optional>Valid until</FieldLabel>
               <FieldControl>
-                <Input
-                  type="date" min={new Date().toISOString().slice(0, 10)}
-                  value={validUntil} onChange={(e) => setValidUntil(e.target.value)}
+                <DatePicker
+                  min={new Date().toISOString().slice(0, 10)}
+                  value={validUntil} onChange={setValidUntil}
                 />
               </FieldControl>
             </Field>

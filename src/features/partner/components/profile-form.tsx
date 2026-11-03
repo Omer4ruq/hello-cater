@@ -155,7 +155,7 @@ export function PartnerProfileForm({
 
           <label className="flex items-start gap-3 rounded-lg border border-ink-200 p-3.5">
             <input
-              type="checkbox" className="mt-0.5 size-4 accent-clay-600" disabled={readOnly}
+              type="checkbox" className="mt-0.5 size-4 accent-brand-700" disabled={readOnly}
               checked={values.isAcceptingOrders}
               onChange={(e) => set('isAcceptingOrders', e.target.checked)}
             />

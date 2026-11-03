@@ -30,7 +30,7 @@ export default async function LoginPage({
 
   return (
     <div>
-      <h1 className="text-display-sm">Welcome back</h1>
+      <h1 className="text-display-sm font-extrabold tracking-tight text-ink-900">Welcome back</h1>
       <p className="mt-2 text-ink-600">
         Sign in to track requests, review proposals and manage your events.
       </p>
@@ -50,11 +50,11 @@ export default async function LoginPage({
 
       <p className="mt-8 text-sm text-ink-600">
         New here?{' '}
-        <Link href="/register" className="font-medium text-brand-700 underline underline-offset-4">
+        <Link href="/register" className="font-semibold text-ink-900 underline decoration-ink-300 underline-offset-4 transition-colors hover:decoration-ink-900">
           Create an account
         </Link>
         {' · '}
-        <Link href="/become-a-partner" className="font-medium text-brand-700 underline underline-offset-4">
+        <Link href="/become-a-partner" className="font-semibold text-ink-900 underline decoration-ink-300 underline-offset-4 transition-colors hover:decoration-ink-900">
           Join as a partner
         </Link>
       </p>

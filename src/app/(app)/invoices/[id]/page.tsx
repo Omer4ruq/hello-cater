@@ -64,11 +64,11 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
           </div>
         </div>
 
-        <article className="rounded-xl border border-ink-200 bg-white p-8 shadow-sm print:rounded-none print:border-0 print:p-0 print:shadow-none">
+        <article className="rounded-2xl border border-ink-200 bg-white p-6 shadow-sm sm:p-10 print:rounded-none print:border-0 print:p-0 print:shadow-none">
           <header className="flex flex-wrap items-start justify-between gap-6 border-b border-ink-200 pb-6">
             <div>
-              <p className="font-display text-2xl font-semibold text-brand-800">
-                {brand.shortName} <span className="text-saffron-500">BD</span>
+              <p className="font-display text-2xl font-extrabold tracking-tight text-ink-900">
+                {brand.shortName} <span className="text-brand-700">BD</span>
               </p>
               <address className="mt-2 not-italic text-sm leading-relaxed text-ink-600">
                 {brand.legalName}
@@ -81,7 +81,7 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
               </address>
             </div>
             <div className="text-right">
-              <h1 className="font-sans text-xl font-semibold uppercase tracking-wide text-ink-950">
+              <h1 className="font-sans text-2xl font-bold tracking-tight text-ink-900">
                 {isStatement ? 'Settlement statement' : invoice.kind === 'credit_note' ? 'Credit note' : 'Invoice'}
               </h1>
               <p className="mt-1 font-mono text-sm text-ink-700">{invoice.number}</p>
@@ -102,7 +102,7 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
 
           <section className="grid gap-6 border-b border-ink-200 py-6 sm:grid-cols-2">
             <div>
-              <h2 className="text-xs font-semibold uppercase tracking-wide text-ink-500">
+              <h2 className="text-sm font-semibold text-ink-500">
                 {isStatement ? 'Settled to' : 'Billed to'}
               </h2>
               <p className="mt-2 font-medium text-ink-950">{invoice.bill_to_name}</p>
@@ -122,7 +122,7 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
 
             {event ? (
               <div>
-                <h2 className="text-xs font-semibold uppercase tracking-wide text-ink-500">Event</h2>
+                <h2 className="text-sm font-semibold text-ink-500">Event</h2>
                 <p className="mt-2 font-medium text-ink-950">{event.title}</p>
                 <p className="mt-0.5 text-sm text-ink-600">{event.reference}</p>
                 <p className="mt-0.5 text-sm text-ink-600">{formatDateShort(event.event_date)}</p>
@@ -136,10 +136,10 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
               <caption className="sr-only">Invoice line items</caption>
               <thead>
                 <tr className="border-b border-ink-200 text-left">
-                  <th scope="col" className="pb-2 text-xs font-semibold uppercase tracking-wide text-ink-500">Description</th>
-                  <th scope="col" className="pb-2 text-right text-xs font-semibold uppercase tracking-wide text-ink-500">Qty</th>
-                  <th scope="col" className="pb-2 text-right text-xs font-semibold uppercase tracking-wide text-ink-500">Unit</th>
-                  <th scope="col" className="pb-2 text-right text-xs font-semibold uppercase tracking-wide text-ink-500">Amount</th>
+                  <th scope="col" className="pb-2 text-sm font-semibold text-ink-500">Description</th>
+                  <th scope="col" className="pb-2 text-right text-sm font-semibold text-ink-500">Qty</th>
+                  <th scope="col" className="pb-2 text-right text-sm font-semibold text-ink-500">Unit</th>
+                  <th scope="col" className="pb-2 text-right text-sm font-semibold text-ink-500">Amount</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-ink-100">

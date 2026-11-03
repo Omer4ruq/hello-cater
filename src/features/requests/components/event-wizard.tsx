@@ -6,8 +6,12 @@ import { useSearchParams } from 'next/navigation';
 import { useForm, useWatch, Controller, type Resolver } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { ArrowLeft, ArrowRight, Check, CircleCheck, Loader2, PartyPopper } from 'lucide-react';
+import {
+  ArrowLeft, ArrowRight, Briefcase, Cake, Check, CircleCheck, Flower2, Heart, Loader2, Mic, Moon,
+  PartyPopper, Presentation, Rocket, Sparkles, Users, UtensilsCrossed, Wine, type LucideIcon,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { DatePicker } from '@/components/ui/date-picker';
 import { Card } from '@/components/ui/card';
 import { Input, Select, Textarea, TakaInput } from '@/components/ui/input';
 import { Field, FieldControl, FieldDescription, FieldLabel } from '@/components/ui/field';
@@ -36,6 +40,24 @@ const SEGMENT_LABELS: Record<string, string> = {
   corporate: 'Corporate', wedding: 'Wedding', private: 'Private',
   social: 'Social & religious', government: 'Government & NGO',
 };
+
+/** Same name-to-icon map as the homepage occasion row; the catalogue has no icon field. */
+const OCCASION_ICONS: [RegExp, LucideIcon][] = [
+  [/conference|seminar|summit/i, Presentation],
+  [/town ?hall|agm|meeting/i, Users],
+  [/lunch|catering|meal/i, UtensilsCrossed],
+  [/iftar|ramadan|eid/i, Moon],
+  [/launch/i, Rocket],
+  [/dinner|gala|award/i, Wine],
+  [/holud|mehendi/i, Flower2],
+  [/wedding|reception|engagement/i, Heart],
+  [/birthday|anniversary/i, Cake],
+  [/party|celebration/i, PartyPopper],
+  [/training|workshop|offsite/i, Briefcase],
+  [/concert|music|cultural/i, Mic],
+];
+const occasionIcon = (name: string) =>
+  OCCASION_ICONS.find(([re]) => re.test(name))?.[1] ?? Sparkles;
 
 const DRAFT_KEY = 'evently:request-draft';
 
@@ -205,20 +227,17 @@ export function EventWizard({ catalog, isAuthenticated }: { catalog: WizardCatal
   if (result) return <SubmittedPanel {...result} />;
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,220px)_minmax(0,1fr)] lg:gap-12">
+    <div className="mx-auto max-w-3xl">
       <StepRail stepIndex={stepIndex} onJump={(i) => i < stepIndex && setStepIndex(i)} />
 
-      <form onSubmit={onSubmit} noValidate className="min-w-0">
+      <form onSubmit={onSubmit} noValidate className="mt-10 min-w-0">
         <input type="text" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" {...form.register('company_website')} />
 
-        <div className="mb-7">
-          <p className="eyebrow">
-            Step {stepIndex + 1} of {WIZARD_STEPS.length}
-          </p>
-          <h1 className="mt-2 text-display-sm">{step.title}</h1>
-        </div>
+        {/* Keyed by step so each new step remounts and rises in. */}
+        <div key={step.id} className="animate-[rise-in_420ms_var(--ease-out-expo)_both]">
+          <h1 className="text-display-sm font-bold tracking-tight text-ink-900">{step.title}</h1>
 
-        <Card className="p-6 sm:p-8">
+          <div className="mt-8">
           {/* ------------------------------------------------ 1. Type */}
           {step.id === 'type' ? (
             <Controller
@@ -230,7 +249,7 @@ export function EventWizard({ catalog, isAuthenticated }: { catalog: WizardCatal
                   <FieldDescription>
                     Not sure? Pick the nearest option — you can add detail later.
                   </FieldDescription>
-                  <div className="mt-2 space-y-6">
+                  <div className="mt-4 space-y-8">
                     {Object.entries(
                       catalog.eventTypes.reduce<Record<string, typeof catalog.eventTypes>>((acc, type) => {
                         (acc[type.segment] ??= []).push(type);
@@ -238,35 +257,23 @@ export function EventWizard({ catalog, isAuthenticated }: { catalog: WizardCatal
                       }, {}),
                     ).map(([segment, types]) => (
                       <fieldset key={segment}>
-                        <legend className="mb-2.5 text-xs font-semibold uppercase tracking-wide text-ink-500">
+                        <legend className="mb-3 text-sm font-semibold text-ink-900">
                           {SEGMENT_LABELS[segment] ?? segment}
                         </legend>
-                        <div className="grid gap-2 sm:grid-cols-2">
+                        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                           {types.map((type) => (
-                            <label
+                            <ChoiceTile
                               key={type.id}
-                              className={cn(
-                                'flex cursor-pointer items-start gap-3 rounded-lg border p-3.5 transition-colors',
-                                field.value === type.id
-                                  ? 'border-brand-600 bg-brand-50 ring-1 ring-brand-600'
-                                  : 'border-ink-200 hover:border-ink-300 hover:bg-ink-50',
-                              )}
-                            >
-                              <input
-                                type="radio" name="eventTypeId" value={type.id}
-                                checked={field.value === type.id}
-                                onChange={() => field.onChange(type.id)}
-                                className="mt-0.5 size-4 accent-brand-700"
-                              />
-                              <span>
-                                <span className="block text-sm font-medium text-ink-950">{type.name}</span>
-                                {type.typicalMin && type.typicalMax ? (
-                                  <span className="mt-0.5 block text-xs text-ink-500">
-                                    Typically {type.typicalMin}–{type.typicalMax} guests
-                                  </span>
-                                ) : null}
-                              </span>
-                            </label>
+                              name="eventTypeId"
+                              value={type.id}
+                              checked={field.value === type.id}
+                              onChange={() => field.onChange(type.id)}
+                              icon={occasionIcon(type.name)}
+                              title={type.name}
+                              hint={type.typicalMin && type.typicalMax
+                                ? `Typically ${type.typicalMin}–${type.typicalMax} guests`
+                                : undefined}
+                            />
                           ))}
                         </div>
                       </fieldset>
@@ -287,7 +294,7 @@ export function EventWizard({ catalog, isAuthenticated }: { catalog: WizardCatal
                     <Field error={fieldState.error?.message}>
                       <FieldLabel>Event date</FieldLabel>
                       <FieldControl>
-                        <Input type="date" min={new Date().toISOString().slice(0, 10)} {...field} value={field.value ?? ''} />
+                        <DatePicker min={new Date().toISOString().slice(0, 10)} value={field.value} onChange={field.onChange} onBlur={field.onBlur} />
                       </FieldControl>
                     </Field>
                   )}
@@ -299,10 +306,11 @@ export function EventWizard({ catalog, isAuthenticated }: { catalog: WizardCatal
                       <FieldLabel optional>End date</FieldLabel>
                       <FieldDescription>For multi-day programmes.</FieldDescription>
                       <FieldControl>
-                        <Input
-                          type="date" min={values.eventDate || undefined}
-                          value={field.value ?? ''}
-                          onChange={(e) => field.onChange(e.target.value || null)}
+                        <DatePicker
+                          min={values.eventDate || undefined}
+                          value={field.value}
+                          onChange={(v) => field.onChange(v || null)}
+                          onBlur={field.onBlur}
                         />
                       </FieldControl>
                     </Field>
@@ -335,10 +343,10 @@ export function EventWizard({ catalog, isAuthenticated }: { catalog: WizardCatal
                 />
               </div>
 
-              <label className="flex items-start gap-3 rounded-lg border border-ink-200 p-3.5">
-                <input type="checkbox" className="mt-0.5 size-4 accent-brand-700" {...form.register('isDateFlexible')} />
+              <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-ink-200 p-4 transition-colors duration-200 hover:border-ink-400 has-checked:border-ink-900 has-checked:ring-1 has-checked:ring-ink-900">
+                <input type="checkbox" className="mt-0.5 size-4 accent-ink-900" {...form.register('isDateFlexible')} />
                 <span>
-                  <span className="block text-sm font-medium text-ink-950">My date is flexible</span>
+                  <span className="block text-sm font-semibold text-ink-900">My date is flexible</span>
                   <span className="mt-0.5 block text-xs text-ink-600">
                     We will tell you if moving by a day or two unlocks better partners or pricing.
                   </span>
@@ -481,35 +489,26 @@ export function EventWizard({ catalog, isAuthenticated }: { catalog: WizardCatal
                       if (!items.length) return null;
                       return (
                         <fieldset key={kind}>
-                          <legend className="mb-2.5 text-xs font-semibold uppercase tracking-wide text-ink-500">
+                          <legend className="mb-3 text-sm font-semibold text-ink-900">
                             {kind === 'catering' ? 'Catering' : kind === 'event_service' ? 'Event management' : 'Vendors & suppliers'}
                           </legend>
                           <div className="flex flex-wrap gap-2">
                             {items.map((cat) => {
                               const checked = field.value?.includes(cat.id) ?? false;
                               return (
-                                <label
+                                <Pill
                                   key={cat.id}
-                                  className={cn(
-                                    'cursor-pointer rounded-full border px-3.5 py-2 text-sm transition-colors',
-                                    checked
-                                      ? 'border-brand-600 bg-brand-700 font-medium text-white'
-                                      : 'border-ink-200 bg-white text-ink-700 hover:border-ink-300 hover:bg-ink-50',
-                                  )}
+                                  checked={checked}
+                                  onChange={() =>
+                                    field.onChange(
+                                      checked
+                                        ? field.value!.filter((v) => v !== cat.id)
+                                        : [...(field.value ?? []), cat.id],
+                                    )
+                                  }
                                 >
-                                  <input
-                                    type="checkbox" className="sr-only" checked={checked}
-                                    onChange={() =>
-                                      field.onChange(
-                                        checked
-                                          ? field.value!.filter((v) => v !== cat.id)
-                                          : [...(field.value ?? []), cat.id],
-                                      )
-                                    }
-                                  />
-                                  {checked ? <Check aria-hidden className="mr-1 inline size-3.5" /> : null}
                                   {cat.name}
-                                </label>
+                                </Pill>
                               );
                             })}
                           </div>
@@ -536,27 +535,19 @@ export function EventWizard({ catalog, isAuthenticated }: { catalog: WizardCatal
                         {catalog.cuisines.map((cuisine) => {
                           const checked = field.value?.includes(cuisine.id) ?? false;
                           return (
-                            <label
+                            <Pill
                               key={cuisine.id}
-                              className={cn(
-                                'cursor-pointer rounded-full border px-3.5 py-2 text-sm transition-colors',
-                                checked
-                                  ? 'border-saffron-400 bg-saffron-400 font-medium text-ink-950'
-                                  : 'border-ink-200 bg-white text-ink-700 hover:border-ink-300 hover:bg-ink-50',
-                              )}
+                              checked={checked}
+                              onChange={() =>
+                                field.onChange(
+                                  checked
+                                    ? field.value!.filter((v) => v !== cuisine.id)
+                                    : [...(field.value ?? []), cuisine.id],
+                                )
+                              }
                             >
-                              <input
-                                type="checkbox" className="sr-only" checked={checked}
-                                onChange={() =>
-                                  field.onChange(
-                                    checked
-                                      ? field.value!.filter((v) => v !== cuisine.id)
-                                      : [...(field.value ?? []), cuisine.id],
-                                  )
-                                }
-                              />
                               {cuisine.name}
-                            </label>
+                            </Pill>
                           );
                         })}
                       </div>
@@ -590,33 +581,22 @@ export function EventWizard({ catalog, isAuthenticated }: { catalog: WizardCatal
                 render={({ field }) => (
                   <Field>
                     <FieldLabel>How would you like to express your budget?</FieldLabel>
-                    <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                    <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-4">
                       {([
                         { value: 'total', label: 'Total budget', hint: 'One overall figure' },
                         { value: 'per_person', label: 'Per person', hint: 'Cost per guest' },
                         { value: 'range', label: 'A range', hint: 'Minimum to maximum' },
                         { value: 'flexible', label: 'Not sure yet', hint: 'Show me options' },
                       ] as const).map((option) => (
-                        <label
+                        <ChoiceTile
                           key={option.value}
-                          className={cn(
-                            'flex cursor-pointer items-start gap-3 rounded-lg border p-3.5 transition-colors',
-                            field.value === option.value
-                              ? 'border-brand-600 bg-brand-50 ring-1 ring-brand-600'
-                              : 'border-ink-200 hover:border-ink-300 hover:bg-ink-50',
-                          )}
-                        >
-                          <input
-                            type="radio" name="budgetMode" value={option.value}
-                            checked={field.value === option.value}
-                            onChange={() => field.onChange(option.value)}
-                            className="mt-0.5 size-4 accent-brand-700"
-                          />
-                          <span>
-                            <span className="block text-sm font-medium text-ink-950">{option.label}</span>
-                            <span className="mt-0.5 block text-xs text-ink-600">{option.hint}</span>
-                          </span>
-                        </label>
+                          name="budgetMode"
+                          value={option.value}
+                          checked={field.value === option.value}
+                          onChange={() => field.onChange(option.value)}
+                          title={option.label}
+                          hint={option.hint}
+                        />
                       ))}
                     </div>
                   </Field>
@@ -800,30 +780,37 @@ export function EventWizard({ catalog, isAuthenticated }: { catalog: WizardCatal
               {formError}
             </Alert>
           ) : null}
-        </Card>
-
-        <div className="mt-6 flex items-center justify-between gap-4">
-          <Button type="button" variant="ghost" onClick={goBack} disabled={stepIndex === 0}>
-            <ArrowLeft aria-hidden /> Back
-          </Button>
-
-          {stepIndex < WIZARD_STEPS.length - 1 ? (
-            <Button type="button" size="lg" onClick={goNext}>
-              Continue <ArrowRight aria-hidden />
-            </Button>
-          ) : (
-            <Button type="submit" size="lg" loading={submitting}>
-              {submitting ? 'Submitting…' : 'Submit request'}
-            </Button>
-          )}
+          </div>
         </div>
 
         {stepIndex === WIZARD_STEPS.length - 1 ? (
-          <p className="mt-4 text-center text-sm text-ink-600">
+          <p className="mt-8 text-sm text-ink-600">
             Submitting is free and non-binding. Nothing is confirmed until you accept a proposal.
             {!isAuthenticated ? ' We will create your account so you can track proposals.' : null}
           </p>
         ) : null}
+
+        {/* Sticky action bar: always in reach on long steps and on phones. */}
+        <div className="sticky bottom-0 z-10 -mx-5 mt-10 border-t border-ink-200 bg-white px-5 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:mx-0 sm:px-0">
+          <div className="flex items-center justify-between gap-4">
+            <Button
+              type="button" variant="ghost" size="lg" onClick={goBack} disabled={stepIndex === 0}
+              className="-ml-3 rounded-full px-4 underline-offset-4 hover:underline"
+            >
+              <ArrowLeft aria-hidden /> Back
+            </Button>
+
+            {stepIndex < WIZARD_STEPS.length - 1 ? (
+              <Button type="button" size="lg" onClick={goNext} className="rounded-full px-8">
+                Continue <ArrowRight aria-hidden className="icon-nudge" />
+              </Button>
+            ) : (
+              <Button type="submit" size="lg" loading={submitting} className="rounded-full px-8">
+                {submitting ? 'Submitting…' : 'Submit request'}
+              </Button>
+            )}
+          </div>
+        </div>
       </form>
     </div>
   );
@@ -832,50 +819,108 @@ export function EventWizard({ catalog, isAuthenticated }: { catalog: WizardCatal
 /* --------------------------------------------------------------- Rail */
 
 /**
- * The step rail.
- *
- * `min-w-0` on the <nav> is load-bearing: a grid item defaults to
- * `min-width: auto`, so without it the rail expands to its content width
- * and scrolls the whole page sideways on mobile instead of letting the
- * inner list scroll. Caught by the mobile end-to-end run.
+ * Step progress: "Step x of y" plus a slim segmented bar. Each segment is
+ * a button, so completed steps can be revisited; segments fill with a
+ * scale transition as the customer moves forward.
  */
 function StepRail({ stepIndex, onJump }: { stepIndex: number; onJump: (index: number) => void }) {
   return (
-    <nav aria-label="Request steps" className="min-w-0 lg:sticky lg:top-24 lg:self-start">
-      <ol className="hide-scrollbar flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:gap-0 lg:overflow-visible lg:pb-0">
+    <nav aria-label="Request steps" className="min-w-0">
+      <p aria-live="polite" className="text-sm font-semibold text-ink-900">
+        Step {stepIndex + 1} of {WIZARD_STEPS.length}
+        <span className="font-normal text-ink-500"> · {WIZARD_STEPS[stepIndex].label}</span>
+      </p>
+      <ol className="mt-1 flex gap-1">
         {WIZARD_STEPS.map((step, i) => {
           const state = i < stepIndex ? 'done' : i === stepIndex ? 'current' : 'todo';
           return (
-            <li key={step.id} className="shrink-0 lg:w-full">
+            <li key={step.id} className="min-w-0 flex-1">
               <button
                 type="button"
                 onClick={() => onJump(i)}
                 disabled={state === 'todo'}
                 aria-current={state === 'current' ? 'step' : undefined}
-                className={cn(
-                  'flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm transition-colors',
-                  state === 'current' && 'bg-brand-50 font-medium text-brand-800',
-                  state === 'done' && 'text-ink-700 hover:bg-ink-100',
-                  state === 'todo' && 'cursor-default text-ink-400',
-                )}
+                aria-label={`Step ${i + 1}: ${step.label}${state === 'done' ? ' (completed)' : ''}`}
+                title={step.label}
+                className="group flex h-11 w-full cursor-pointer items-center disabled:cursor-default lg:h-6"
               >
-                <span
-                  className={cn(
-                    'grid size-5 shrink-0 place-items-center rounded-full border text-[0.68rem] font-semibold',
-                    state === 'done' && 'border-brand-600 bg-brand-600 text-white',
-                    state === 'current' && 'border-brand-700 text-brand-800',
-                    state === 'todo' && 'border-ink-300 text-ink-400',
-                  )}
-                >
-                  {state === 'done' ? <Check aria-hidden className="size-3" /> : i + 1}
+                <span className="h-1 w-full overflow-hidden rounded-full bg-ink-200">
+                  <span
+                    className={cn(
+                      'block h-full origin-left rounded-full bg-ink-900 transition-[scale,opacity] duration-500 ease-(--ease-out-expo)',
+                      state === 'todo' ? 'scale-x-0' : 'scale-x-100',
+                      state === 'done' && 'group-hover:opacity-60',
+                    )}
+                  />
                 </span>
-                {step.label}
               </button>
             </li>
           );
         })}
       </ol>
     </nav>
+  );
+}
+
+/* ------------------------------------------------------------ Choices */
+
+/**
+ * A large single-choice tile. The radio stays a real, visible input
+ * (drawn as the corner check) so it is keyboard and test friendly.
+ */
+function ChoiceTile({
+  name, value, checked, onChange, icon: Icon, title, hint,
+}: {
+  name: string;
+  value: string;
+  checked: boolean;
+  onChange: () => void;
+  icon?: LucideIcon;
+  title: string;
+  hint?: string;
+}) {
+  return (
+    <label
+      className={cn(
+        'relative flex cursor-pointer flex-col justify-between gap-5 rounded-2xl border bg-white p-4 pr-10 transition-[border-color,box-shadow,scale] duration-200 active:scale-[0.98]',
+        'has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink-900',
+        Icon && 'min-h-32',
+        checked ? 'border-ink-900 ring-1 ring-ink-900' : 'border-ink-200 hover:border-ink-400 hover:shadow-md',
+      )}
+    >
+      <input
+        type="radio" name={name} value={value} checked={checked} onChange={onChange}
+        className="peer absolute right-3 top-3 size-5 cursor-pointer appearance-none rounded-full border border-ink-300 bg-white transition-colors duration-200 checked:border-ink-900 checked:bg-ink-900 focus-visible:outline-none"
+      />
+      <Check
+        aria-hidden strokeWidth={3}
+        className="pointer-events-none absolute right-4 top-4 size-3 scale-50 text-white opacity-0 transition-[opacity,scale] duration-200 ease-(--ease-out-expo) peer-checked:scale-100 peer-checked:opacity-100"
+      />
+      {Icon ? <Icon aria-hidden strokeWidth={1.6} className="size-7 text-ink-900" /> : null}
+      <span>
+        <span className="block font-semibold leading-snug text-ink-900">{title}</span>
+        {hint ? <span className="mt-1 block text-sm text-ink-500">{hint}</span> : null}
+      </span>
+    </label>
+  );
+}
+
+/** A toggle pill for multi-select lists (services, cuisines). */
+function Pill({ checked, onChange, children }: { checked: boolean; onChange: () => void; children: React.ReactNode }) {
+  return (
+    <label
+      className={cn(
+        'inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full border px-4 text-sm font-medium transition-[background-color,border-color,color,scale] duration-200 active:scale-[0.97]',
+        'has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink-900',
+        checked
+          ? 'border-ink-900 bg-ink-900 text-white'
+          : 'border-ink-300 bg-white text-ink-700 hover:border-ink-900 hover:text-ink-900',
+      )}
+    >
+      <input type="checkbox" className="sr-only" checked={checked} onChange={onChange} />
+      {checked ? <Check aria-hidden strokeWidth={2.5} className="size-3.5 animate-[pop-in_200ms_var(--ease-out-expo)]" /> : null}
+      {children}
+    </label>
   );
 }
 
@@ -988,7 +1033,7 @@ function SubmittedPanel({
   accountCreated: boolean;
 }) {
   return (
-    <Card className="mx-auto max-w-2xl p-8 text-center sm:p-12">
+    <Card className="mx-auto max-w-2xl animate-[rise-in_420ms_var(--ease-out-expo)_both] p-8 text-center sm:p-12">
       <span className="mx-auto grid size-14 place-items-center rounded-full bg-brand-50 text-brand-700">
         <PartyPopper aria-hidden className="size-6" />
       </span>

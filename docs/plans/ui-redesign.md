@@ -2,7 +2,7 @@
 
 **Audience:** the next developer or AI agent continuing the redesign. Read [../DESIGN-SYSTEM.md](../DESIGN-SYSTEM.md) first; it is the standard every task below is held to. This file is the plan and the handoff.
 
-**Status:** In progress. Foundation, homepage, header/footer, shared components and partners listing are done. Inner public pages, auth, dashboards and brand assets remain.
+**Status:** Done in code (2026-11-03). Every task below is built. What is left is checking the database-backed screens in a browser (see "Not yet verified").
 
 ---
 
@@ -33,104 +33,44 @@ Checks at handoff: typecheck and lint clean; 64 unit tests pass; 42 e2e tests pa
 
 ---
 
-## Remaining tasks
+## Completed 2026-11-03 (tasks 0-7)
 
-### 0. Detail pages work without a database
-```
-Task:        Service, event and partner detail pages render built-in content instead of 404 when Supabase is not configured, like the homepage does.
-Owner:
-Done when:   With an empty .env.local, every link in the header mega-menus opens a real page (no 404).
-Files:       src/features/content/queries.ts (fallback data), src/app/(marketing)/services/[slug]/page.tsx, src/app/(marketing)/events/[slug]/page.tsx
-Constraints: Fallback copy must not invent partners, ratings or prices. Owner decision pending: confirm this is wanted (see Open decisions).
-```
-
-### 1. Inner public pages
-One task per page. Each: replace `/img/*.svg` art with photos from `public/img/photos/`, remove dark green/ink hero bands and uppercase letter-spaced labels, apply photo-card and motion patterns, add `.reveal` to sections.
-
-| # | Page | File | Specific notes |
+| # | Task | What was built | Main files |
 |---|---|---|---|
-| 1a | Service detail | `src/app/(marketing)/services/[slug]/page.tsx` | Photo hero, `PartnerCard` grid (already new), dark hero band to remove |
-| 1b | Event detail | `src/app/(marketing)/events/[slug]/page.tsx` | Same as 1a |
-| 1c | Services index | `src/app/(marketing)/services/page.tsx` | Category photo cards |
-| 1d | Events index | `src/app/(marketing)/events/page.tsx` | Occasion photo cards, like homepage |
-| 1e | Corporate | `src/app/(marketing)/corporate/page.tsx` | Most important for corporate buyers; dark hero, saffron accents, uppercase labels |
-| 1f | Partner profile | `src/app/(marketing)/partners/[slug]/page.tsx` | 520 lines. Photo gallery header (Airbnb listing feel), sticky "Request a quote" card, reviews |
-| 1g | How it works | `src/app/(marketing)/how-it-works/page.tsx` | |
-| 1h | Become a partner | `src/app/(marketing)/become-a-partner/page.tsx` | Dark hero, saffron accents |
-| 1i | About, Contact | `src/app/(marketing)/about/page.tsx`, `contact/page.tsx` | |
-| 1j | Legal pages | `src/app/(marketing)/legal/[slug]/page.tsx` | Typography only |
+| 0 | Detail pages without a database | `getCatalogCategories` / `getCatalogEventTypes` fall back to copies of seed rows (`src/features/content/fallback.ts`); partner lists show an `EmptyState`. `/events/[slug]` also accepts the five segment keys (`corporate`, `wedding`, `private`, `social`, `government`) and shows a segment landing page, which fixed `/events/corporate` and `/events/private` 404ing even **with** a database | `src/features/content/{fallback,queries}.ts`, `events/[slug]`, `services/[slug]` |
+| 1a-d | Services and events pages | Photo heroes, photo category/occasion cards, `PartnerCard` grids, photo CTA | `src/app/(marketing)/{services,events}/**` |
+| 1e, g-j | Corporate, how it works, become a partner, about, contact, legal | Photo-led heroes, grey panels, homepage FAQ style, legal pages with a sticky "On this page" list | those pages, `partner-signup-form.tsx` |
+| 1f | Partner profile | Airbnb listing layout: photo gallery, sticky quote card, mobile bottom bar, two-column reviews. Layout lives in `partner-profile-view.tsx`; dev-only preview with fake data at `/dev/partner-preview` (404 in production) | `src/app/(marketing)/partners/[slug]/*`, `src/app/(marketing)/dev/partner-preview/page.tsx` |
+| 2 | Brief wizard | Centred column, segmented progress bar, rise-in step transitions, `ChoiceTile` and `Pill` controls (local to the wizard), sticky action bar | `event-wizard.tsx` |
+| 3 | Date picker | In-house, no new dependency: Radix Popover calendar, keyboard navigation, `YYYY-MM-DD` strings. No `type="date"` left | `src/components/ui/date-picker.tsx` |
+| 4 | Auth pages | Light form panel + large photo, sentence-case, ink links | `src/app/(auth)/*`, `src/features/auth/components/*` |
+| 5 | App shell | White sidebar with the gliding hover pill (`SidebarNav`), blurred top bar, animated drawer that closes on link tap | `src/components/app/app-shell.tsx`, `page-header.tsx` |
+| 6 | Dashboard pages | Old accents and uppercase labels removed; proposal cards side by side; saved partners as photo cards (now uses `cover_image_url`); `saffron` badge tone renders amber, `clay` renders neutral | `src/app/(app)/**`, `src/components/ui/{badge,stat,table,dropdown}.tsx`, feature components |
+| 7 | Brand assets | Berry favicon/logo, white manifest, new share image (Figtree TTFs in `src/app/_fonts/`), global error page, GMV chart, email templates | `public/*`, `opengraph-image.tsx`, `global-error.tsx`, `gmv-chart.tsx`, `email.ts` |
 
-```
-Owner:
-Done when:   Each page screenshotted at 1440 and 390, no `/img/*.svg`, `bg-brand-9xx`, `saffron-`/`clay-` or `uppercase tracking` left in the file, e2e public-site suite passes.
-Constraints: Keep every heading and link text the e2e tests assert (see e2e/public-site.spec.ts).
-```
+Also: the old `/img/*.svg` art is deleted; `supabase/seed_demo.sql` now points demo partner covers at `public/img/photos/`.
 
-### 2. Brief wizard
-```
-Task:        Restyle the 10-step request wizard to the new standard: step progress, animated step transitions, photo or icon choice tiles for event type, pill controls.
-Owner:
-Done when:   e2e/request-wizard.spec.ts passes (with a database, so its 8 skipped tests run), screenshots of every step at 1440 and 390.
-Files:       src/features/requests/components/event-wizard.tsx, src/app/(marketing)/plan/page.tsx
-Constraints: Prefill from the homepage search bar must keep working (?eventType, date, guests, city). Draft persistence across reload must keep working.
-```
+Checks: typecheck and lint clean; 64 unit tests pass; 42 e2e pass (8 skipped, need a database); every public page loads at 390 and 1440 with no horizontal scroll, no old art and no native select.
 
-### 3. Date picker
-```
-Task:        Replace native date inputs with a designed, animated date picker (popover calendar), as with Select.
-Owner:
-Done when:   No `type="date"` left in src; keyboard navigation works; value still a YYYY-MM-DD string to callers.
-Files:       new src/components/ui/date-picker.tsx; users: quick-request-form-client.tsx, event-wizard.tsx, data-toolbar.tsx, others found by `grep -rn 'type="date"' src`
-Constraints: Ask the owner before adding a dependency (react-day-picker is the usual choice).
-```
+## Not yet verified
 
-### 4. Auth pages
-```
-Task:        Login, register, forgot/reset password: split layout with a photo, light form panel, new inputs.
-Owner:
-Done when:   Screenshots at 1440 and 390 for all four pages.
-Files:       src/app/(auth)/layout.tsx (uses old art and dark brand panel), src/app/(auth)/*/page.tsx, src/features/auth/components/*
-```
+These need a Supabase project and a demo login ([LOCAL-DEVELOPMENT.md](../LOCAL-DEVELOPMENT.md)); they were checked by typecheck and lint only:
 
-### 5. Dashboard shell
-```
-Task:        Restyle the shared app shell (sidebar, top bar, page header, data toolbar) used by customer, partner and admin dashboards.
-Owner:
-Done when:   One page in each of /dashboard, /partner, /admin screenshotted at 1440 and 390 (needs a database and a demo login, see LOCAL-DEVELOPMENT.md).
-Files:       src/components/app/app-shell.tsx, page-header.tsx, data-toolbar.tsx
-Constraints: Sidebar active state and hover use the same pill language as the marketing nav.
-```
+- Dashboards (`/dashboard`, `/partner`, `/admin`): sidebar hover pill, proposal cards, quote builder, saved partners, Stat tiles, admin GMV chart. Invoice print preview.
+- Brief wizard step 1 tiles (event types come from the database; without one step 1 is empty, as before) and the 8 skipped e2e tests.
+- Partner sign-up form chips on `/become-a-partner` (form only renders with Supabase).
+- Email templates (no preview route).
 
-### 6. Dashboard pages
-65 pages under `src/app/(app)/`. Most inherit the new look from tokens and shared components; fix the outliers. Files still using old accents or uppercase labels (from `grep`):
-
-- Customer: `dashboard/saved/page.tsx` (old art), `dashboard/payments/page.tsx`, `dashboard/requests/[id]`, `dashboard/events/[id]`
-- Partner: `partner/page.tsx`, `quotes/page.tsx`, `quotes/[id]`, `services`, `reviews`, `customers`, `bookings`, `requests/[id]`, `profile`
-- Admin: `admin/page.tsx`, `requests/[id]`, `partners/[id]`, `events/[id]`, `reports`, `reviews`
-- Shared: `invoices/[id]/page.tsx` (print layout: keep it printable)
-- Feature components: `quote-builder.tsx`, `partner-signup-form.tsx`, `payout-run-panel.tsx`, `event-wizard.tsx`, `profile-form.tsx`, `partner-calendar.tsx`, `thread-view.tsx`, `thread-list.tsx`, `notification-list.tsx`, `review-form.tsx`, `badge.tsx` (`saffron`/`clay` tones)
-
-```
-Owner:
-Done when:   `grep -rlnE "(saffron|clay)-[0-9]|uppercase tracking" src/app/(app) src/features` returns only deliberate uses; customer proposal comparison and quote builder screenshotted.
-```
-
-### 7. Brand assets still in old green
-```
-Task:        Update colours in favicon, logo, web manifest, social share image, global error page, admin chart and email templates.
-Owner:
-Done when:   `grep -rn "0e4f3c\|0b3e30\|185c4b\|ecbc66" src public` returns nothing.
-Files:       public/favicon.svg, public/logo.svg, public/site.webmanifest, src/app/opengraph-image.tsx, src/app/global-error.tsx, src/features/admin/components/gmv-chart.tsx, src/features/notifications/email.ts
-```
+Small follow-ups: `OCCASION_ICONS` is duplicated in the homepage and the wizard (move to a shared module if a third copy appears); the proposal list marks the newest version "Latest version" because there is no "recommended" field.
 
 ---
 
 ## Open decisions for the owner
 
-1. **Database-less fallbacks (task 0):** should detail pages show built-in content when no database is connected, or is 404 acceptable locally?
+1. **Database-less fallbacks (task 0):** built (service and event pages show built-in content). Say if you would rather they 404 locally.
 2. **Real photography:** when real event photos exist, drop them into `public/img/photos/` with the same names.
 3. **Brand name:** "Evently BD" is still a placeholder (`src/config/brand.ts` and `brand.*` rows in `system_settings`).
-4. **Date picker dependency (task 3):** approve adding `react-day-picker` or build in-house.
+4. **Date picker (task 3):** built in-house, no new dependency.
 5. **Event-operations product:** the owner asked whether a tool for event-management companies to run their own operations (staff, run-of-show, vendors) was planned. It was **not** in the original plan; event management only exists as a partner category. Treat it as a separate product decision, not part of this redesign.
 
 ## Gotchas

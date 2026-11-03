@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { getCmsPage } from '@/features/content/queries';
 import { buildMetadata, JsonLd, breadcrumbJsonLd } from '@/lib/seo';
 import { brand } from '@/config/brand';
@@ -30,10 +29,10 @@ export default async function AboutPage() {
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }])} />
 
-      <section className="border-b border-ink-200 bg-white">
-        <div className="container-page py-14 lg:py-20">
+      <section className="container-page pt-12 lg:pt-20">
+        <div className="max-w-3xl">
           <p className="eyebrow">About</p>
-          <h1 className="mt-2 max-w-3xl text-display-lg">
+          <h1 className="mt-3 text-display-lg font-extrabold tracking-[-0.035em] text-ink-900">
             {page?.title ?? `Bangladesh's managed marketplace for catering and events`}
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-ink-600">
@@ -41,11 +40,17 @@ export default async function AboutPage() {
               `Arranging an event in ${brand.launchCity} usually means calling five caterers, chasing quotes on WhatsApp, and hoping the price holds. We built the alternative.`}
           </p>
         </div>
+        <div className="relative mt-10 aspect-4/3 overflow-hidden rounded-3xl bg-ink-100 sm:aspect-21/9">
+          <Image
+            src="/img/photos/stage.jpg" alt="" fill priority
+            sizes="(min-width: 1280px) 1200px, 100vw" className="object-cover"
+          />
+        </div>
       </section>
 
-      <section className="container-page py-16">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
-          <div className="space-y-5 text-[0.95rem] leading-relaxed text-ink-700">
+      <section className="reveal container-page pt-20">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:gap-16">
+          <div className="max-w-prose space-y-5 text-lg leading-relaxed text-ink-700">
             {page?.body ? (
               page.body.split(/\n{2,}/).map((paragraph, i) => <p key={i}>{paragraph.trim()}</p>)
             ) : (
@@ -75,52 +80,58 @@ export default async function AboutPage() {
             )}
           </div>
 
-          <div className="space-y-5">
-            <div className="relative aspect-4/3 overflow-hidden rounded-xl">
-              <Image src="/img/events.svg" alt="" fill sizes="(min-width:1024px) 33vw, 100vw" className="object-cover" />
+          <div className="space-y-5 lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-ink-100">
+              <Image src="/img/photos/dining.jpg" alt="" fill sizes="(min-width:1024px) 33vw, 100vw" className="object-cover" />
             </div>
-            <Card className="p-6">
-              <h2 className="font-sans text-base font-semibold text-ink-950">Where we operate</h2>
+            <div className="rounded-2xl bg-ink-50 p-6 sm:p-7">
+              <h2 className="font-sans text-base font-semibold text-ink-900">Where we operate</h2>
               <p className="mt-2 text-sm text-ink-600">
                 Live in {brand.launchCity}. Expanding across {brand.country} as partner supply
                 reaches the depth we need in each district.
               </p>
-              <h2 className="mt-5 font-sans text-base font-semibold text-ink-950">How we make money</h2>
+              <h2 className="mt-5 font-sans text-base font-semibold text-ink-900">How we make money</h2>
               <p className="mt-2 text-sm text-ink-600">
                 A commission on completed bookings and a platform service fee, both disclosed before
                 anyone commits. No joining fee for partners, no charge for submitting a requirement.
               </p>
-            </Card>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="border-y border-ink-200 bg-white py-16">
-        <div className="container-page">
-          <h2 className="text-display-sm">How we work</h2>
-          <div className="mt-8 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-            {PRINCIPLES.map(([title, body]) => (
-              <div key={title} className="border-t-2 border-brand-700 pt-5">
-                <h3 className="font-sans text-base font-semibold text-ink-950">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-600">{body}</p>
-              </div>
-            ))}
-          </div>
+      <section className="reveal container-page pt-24" aria-labelledby="principles-heading">
+        <h2 id="principles-heading" className="text-display-md font-extrabold">How we work</h2>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {PRINCIPLES.map(([title, body], i) => (
+            <div key={title} className="rounded-2xl bg-ink-50 p-6 transition-[background-color,translate] duration-300 ease-(--ease-out-expo) hover:-translate-y-0.5 hover:bg-ink-100">
+              <span className="text-sm font-bold text-brand-700">{String(i + 1).padStart(2, '0')}</span>
+              <h3 className="mt-2 font-sans text-base font-semibold text-ink-900">{title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-ink-600">{body}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      <section className="container-page py-16">
-        <div className="flex flex-wrap items-center justify-between gap-6">
-          <div className="max-w-xl">
-            <h2 className="text-display-sm">Work with us</h2>
-            <p className="mt-3 text-ink-600">
-              Whether you are planning an event or run a catering or event business, the next step
-              is the same: tell us what you need.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Button asChild size="lg"><Link href="/plan">Plan an Event <ArrowRight aria-hidden /></Link></Button>
-            <Button asChild size="lg" variant="secondary"><Link href="/become-a-partner">Become a partner</Link></Button>
+      <section className="reveal container-page pt-24">
+        <div className="relative isolate overflow-hidden rounded-3xl px-8 py-20 text-center sm:px-14">
+          <Image src="/img/photos/terrace.jpg" alt="" fill sizes="100vw" className="-z-10 object-cover" />
+          <div aria-hidden className="absolute inset-0 -z-10 bg-ink-950/60" />
+          <h2 className="mx-auto max-w-2xl text-display-md font-extrabold text-white">Work with us</h2>
+          <p className="mx-auto mt-4 max-w-xl text-white/80">
+            Whether you are planning an event or run a catering or event business, the next step
+            is the same: tell us what you need.
+          </p>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Button asChild size="lg" variant="accent" className="rounded-full px-7">
+              <Link href="/plan">Plan an Event <ArrowRight aria-hidden className="icon-nudge" /></Link>
+            </Button>
+            <Button
+              asChild size="lg" variant="secondary"
+              className="rounded-full border-white/40 bg-transparent px-7 text-white hover:border-white hover:bg-white/10"
+            >
+              <Link href="/become-a-partner">Become a partner</Link>
+            </Button>
           </div>
         </div>
       </section>

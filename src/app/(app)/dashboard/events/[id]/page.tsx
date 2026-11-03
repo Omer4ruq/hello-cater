@@ -268,7 +268,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                 <ol className="space-y-4">
                   {timeline.map((entry) => (
                     <li key={entry.id} className="flex gap-3">
-                      <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-brand-600" />
+                      <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-brand-700" />
                       <div>
                         <p className="text-sm font-medium text-ink-900">{entry.title}</p>
                         {entry.detail ? <p className="mt-0.5 text-sm text-ink-600">{entry.detail}</p> : null}
@@ -294,12 +294,12 @@ function SummaryTile({
   children: React.ReactNode;
 }) {
   return (
-    <Card className="p-4">
-      <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-ink-500">
+    <Card className="p-5">
+      <p className="flex items-center gap-1.5 text-sm font-medium text-ink-500">
         <Icon aria-hidden className="size-3.5" />
         {label}
       </p>
-      <div className="mt-1.5 text-sm font-medium text-ink-950">{children}</div>
+      <div className="mt-1.5 text-base font-semibold text-ink-900">{children}</div>
     </Card>
   );
 }

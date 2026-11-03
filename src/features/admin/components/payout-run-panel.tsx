@@ -83,7 +83,7 @@ export function PayoutRunPanel({ groups }: { groups: Group[] }) {
         const isOpen = expanded === group.partnerId;
 
         return (
-          <li key={group.partnerId} className="rounded-lg border border-ink-200">
+          <li key={group.partnerId} className="rounded-2xl border border-ink-200">
             <button
               type="button"
               className="flex w-full items-center justify-between gap-4 p-4 text-left"
@@ -103,7 +103,7 @@ export function PayoutRunPanel({ groups }: { groups: Group[] }) {
                   <span className="block font-sans text-base font-semibold text-ink-950">
                     <Money minor={net} />
                   </span>
-                  <span className="block text-[0.65rem] uppercase tracking-wide text-ink-500">net payable</span>
+                  <span className="block text-xs text-ink-500">Net payable</span>
                 </span>
                 <ChevronDown aria-hidden className={cn('size-4 text-ink-400 transition-transform', isOpen && 'rotate-180')} />
               </span>

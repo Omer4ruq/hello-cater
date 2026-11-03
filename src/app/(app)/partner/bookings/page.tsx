@@ -109,15 +109,15 @@ export default async function PartnerBookingsPage({
                     <div className="mt-4 flex flex-wrap items-center justify-between gap-4 border-t border-ink-100 pt-4">
                       <dl className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
                         <div>
-                          <dt className="text-xs uppercase tracking-wide text-ink-500">Your quote</dt>
+                          <dt className="text-sm font-medium text-ink-500">Your quote</dt>
                           <dd className="font-medium text-ink-900"><Money minor={booking.gross_minor} /></dd>
                         </div>
                         <div>
-                          <dt className="text-xs uppercase tracking-wide text-ink-500">Commission</dt>
+                          <dt className="text-sm font-medium text-ink-500">Commission</dt>
                           <dd className="text-ink-700">−<Money minor={booking.commission_minor} /></dd>
                         </div>
                         <div>
-                          <dt className="text-xs uppercase tracking-wide text-ink-500">You receive</dt>
+                          <dt className="text-sm font-medium text-ink-500">You receive</dt>
                           <dd className="font-semibold text-success-700"><Money minor={booking.partner_payable_minor} /></dd>
                         </div>
                       </dl>
@@ -151,7 +151,7 @@ export default async function PartnerBookingsPage({
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="text-xs font-medium uppercase tracking-wide text-ink-500">{label}</dt>
+      <dt className="text-sm font-medium text-ink-500">{label}</dt>
       <dd className="mt-0.5 text-sm text-ink-900">{children}</dd>
     </div>
   );
